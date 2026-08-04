@@ -13,7 +13,7 @@ export default async function MaterialTiers() {
   const draft = await hasUnconfirmedPricing();
 
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="tiers-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="tiers-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Shop by material"
@@ -23,7 +23,7 @@ export default async function MaterialTiers() {
           action={
             <Link
               href="/pricing"
-              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-hi"
+              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
             >
               Compare all tiers →
             </Link>
@@ -35,25 +35,25 @@ export default async function MaterialTiers() {
             <li key={tier.id}>
               <Link
                 href={`/collections/${tier.slug}`}
-                className="border-plate plate-sheen group flex h-full flex-col rounded-[--radius-plate] bg-ink-raised p-6 transition-colors duration-300 hover:border-gold/40"
+                className="border-plate plate-sheen group flex h-full flex-col rounded-[--radius-plate] bg-surface p-6 transition-colors duration-300 hover:border-primary/40"
               >
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-xl text-bone transition-colors group-hover:text-gold-hi">
+                  <h3 className="text-xl text-ink transition-colors group-hover:text-link-hover">
                     {tier.name}
                   </h3>
                   <span
                     aria-hidden="true"
-                    className="mt-1 font-body text-2xs uppercase tracking-[0.18em] text-nickel"
+                    className="mt-1 font-body text-2xs uppercase tracking-[0.18em] text-subtle"
                   >
                     0{tier.order}
                   </span>
                 </div>
 
-                <p className="mt-3 text-sm leading-relaxed text-bone-dim">{tier.blurb}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{tier.blurb}</p>
 
                 <ul className="mt-5 flex flex-col gap-2">
                   {tier.specBullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-2.5 text-sm text-bone-dim">
+                    <li key={bullet} className="flex gap-2.5 text-sm text-muted">
                       <span
                         aria-hidden="true"
                         className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold"
@@ -63,8 +63,8 @@ export default async function MaterialTiers() {
                   ))}
                 </ul>
 
-                <div className="mt-6 flex items-baseline gap-2 border-t border-ink-line pt-5">
-                  <span className="font-body text-2xs uppercase tracking-[0.16em] text-nickel">
+                <div className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
+                  <span className="font-body text-2xs uppercase tracking-[0.16em] text-subtle">
                     From
                   </span>
                   <span className="font-display text-2xl text-plated">
@@ -77,7 +77,7 @@ export default async function MaterialTiers() {
         </ul>
 
         {draft && (
-          <p className="mt-6 text-2xs leading-relaxed text-nickel">
+          <p className="mt-6 text-2xs leading-relaxed text-subtle">
             {/* Visible, deliberate. Remove once data/tiers.json is confirmed. */}
             Indicative starting prices — final pricing is confirmed on your quote.
           </p>

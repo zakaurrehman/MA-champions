@@ -44,15 +44,15 @@ export default function MobileNav({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
-        className="absolute right-0 top-0 flex h-full w-[min(22rem,88vw)] flex-col border-l border-ink-line bg-ink"
+        className="absolute right-0 top-0 flex h-full w-[min(22rem,88vw)] flex-col border-l border-line bg-canvas"
       >
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink-line px-5">
-          <span className="font-display text-sm uppercase tracking-wide text-bone">Menu</span>
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5">
+          <span className="font-display text-sm uppercase tracking-wide text-ink">Menu</span>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close menu"
-            className="grid h-10 w-10 place-items-center text-bone hover:text-gold"
+            className="grid h-10 w-10 place-items-center text-ink hover:text-link"
           >
             <CloseIcon className="h-5 w-5" />
           </button>
@@ -61,7 +61,7 @@ export default function MobileNav({ open, onClose }: Props) {
         <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-6">
           {MAIN_NAV.map((group) => (
             <div key={group.label} className="mb-7">
-              <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+              <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
                 {group.label}
               </p>
               <ul className="flex flex-col gap-0.5">
@@ -70,7 +70,7 @@ export default function MobileNav({ open, onClose }: Props) {
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="block py-2 font-body text-base text-bone transition-colors hover:text-gold"
+                      className="block py-2 font-body text-base text-ink transition-colors hover:text-link"
                     >
                       {link.label}
                     </Link>
@@ -81,11 +81,11 @@ export default function MobileNav({ open, onClose }: Props) {
           ))}
         </nav>
 
-        <div className="shrink-0 border-t border-ink-line p-5">
+        <div className="shrink-0 border-t border-line p-5">
           <Link
             href="/build"
             onClick={onClose}
-            className="bg-plated block w-full px-5 py-3.5 text-center font-display text-sm uppercase tracking-wide text-ink"
+            className="bg-primary block w-full rounded-[--radius-plate] px-5 py-3.5 text-center font-display text-sm uppercase tracking-wide text-on-primary"
           >
             Build Your Belt
           </Link>

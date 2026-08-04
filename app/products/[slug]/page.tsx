@@ -60,20 +60,20 @@ export default async function ProductPage({ params }: Params) {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
       <nav aria-label="Breadcrumb" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-2 text-2xs uppercase tracking-[0.14em] text-nickel">
+        <ol className="flex flex-wrap items-center gap-2 text-2xs uppercase tracking-[0.14em] text-subtle">
           <li>
-            <Link href="/" className="hover:text-gold">
+            <Link href="/" className="hover:text-link">
               Home
             </Link>
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href="/collections" className="hover:text-gold">
+            <Link href="/collections" className="hover:text-link">
               Collections
             </Link>
           </li>
           <li aria-hidden="true">/</li>
-          <li className="text-bone-dim">{product.name}</li>
+          <li className="text-muted">{product.name}</li>
         </ol>
       </nav>
 
@@ -81,8 +81,8 @@ export default async function ProductPage({ params }: Params) {
         <ProductGallery images={product.images} productName={product.name} />
 
         <div>
-          <h1 className="text-3xl text-bone sm:text-4xl">{product.name}</h1>
-          <p className="mt-4 max-w-lg text-base leading-relaxed text-bone-dim">
+          <h1 className="text-3xl text-ink sm:text-4xl">{product.name}</h1>
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-muted">
             {product.shortDescription}
           </p>
 
@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: Params) {
       </div>
 
       {related.length > 0 && (
-        <section aria-labelledby="related-title" className="mt-16 border-t border-ink-line pt-14">
+        <section aria-labelledby="related-title" className="mt-16 border-t border-line pt-14">
           <SectionHeading eyebrow="More belts" title="You might also like" titleId="related-title" />
           <div className="mt-10 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p) => (

@@ -32,18 +32,18 @@ function CheckGroup({
   onToggle: (id: string) => void;
 }) {
   return (
-    <fieldset className="border-b border-ink-line pb-6">
-      <legend className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+    <fieldset className="border-b border-line pb-6">
+      <legend className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
         {legend}
       </legend>
       <div className="flex flex-col gap-2.5">
         {options.map((opt) => (
-          <label key={opt.id} className="flex cursor-pointer items-center gap-3 text-sm text-bone">
+          <label key={opt.id} className="flex cursor-pointer items-center gap-3 text-sm text-ink">
             <input
               type="checkbox"
               checked={selected.includes(opt.id)}
               onChange={() => onToggle(opt.id)}
-              className="h-4 w-4 shrink-0 accent-[--color-gold]"
+              className="h-4 w-4 shrink-0 accent-[--color-primary]"
             />
             {opt.label}
           </label>
@@ -68,14 +68,14 @@ export default function FilterSidebar({ filters, onChange, onClear }: Props) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+        <h2 className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
           Filter
         </h2>
         {active > 0 && (
           <button
             type="button"
             onClick={onClear}
-            className="font-body text-2xs font-semibold uppercase tracking-[0.14em] text-gold hover:text-gold-hi"
+            className="font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link hover:text-link-hover"
           >
             Clear ({active})
           </button>
@@ -112,12 +112,12 @@ export default function FilterSidebar({ filters, onChange, onClear }: Props) {
         />
       )}
 
-      <label className="flex cursor-pointer items-center gap-3 text-sm text-bone">
+      <label className="flex cursor-pointer items-center gap-3 text-sm text-ink">
         <input
           type="checkbox"
           checked={filters.inStockOnly}
           onChange={() => onChange({ ...filters, inStockOnly: !filters.inStockOnly })}
-          className="h-4 w-4 shrink-0 accent-[--color-gold]"
+          className="h-4 w-4 shrink-0 accent-[--color-primary]"
         />
         In stock only
       </label>

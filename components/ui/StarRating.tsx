@@ -21,12 +21,12 @@ export default function StarRating({ rating, count, size = 'sm' }: Props) {
         {[1, 2, 3, 4, 5].map((i) => (
           <StarIcon
             key={i}
-            className={`${dim} ${i <= Math.round(rating) ? 'text-gold' : 'text-nickel-dim'}`}
+            className={`${dim} ${i <= Math.round(rating) ? 'text-link' : 'text-subtle'}`}
           />
         ))}
       </div>
       {count !== undefined && (
-        <span className="text-2xs text-bone-dim">
+        <span className="text-2xs text-muted">
           {rounded} ({count})
         </span>
       )}

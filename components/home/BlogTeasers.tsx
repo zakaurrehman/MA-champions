@@ -12,7 +12,7 @@ export default async function BlogTeasers() {
   if (posts.length === 0) return null;
 
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="blog-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="blog-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Journal"
@@ -21,7 +21,7 @@ export default async function BlogTeasers() {
           action={
             <Link
               href="/blog"
-              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-hi"
+              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
             >
               All posts →
             </Link>
@@ -33,7 +33,7 @@ export default async function BlogTeasers() {
             <li key={post.slug}>
               <Link href={`/blog/${post.slug}`} className="group block">
                 {post.cover && (
-                  <div className="border-plate relative aspect-[16/10] overflow-hidden rounded-[--radius-plate] bg-ink-raised">
+                  <div className="border-plate relative aspect-[16/10] overflow-hidden rounded-[--radius-plate] bg-surface">
                     <Image
                       src={post.cover.src}
                       alt={post.cover.alt}
@@ -43,7 +43,7 @@ export default async function BlogTeasers() {
                     />
                   </div>
                 )}
-                <p className="mt-4 text-2xs uppercase tracking-[0.16em] text-nickel">
+                <p className="mt-4 text-2xs uppercase tracking-[0.16em] text-subtle">
                   <time dateTime={post.date}>
                     {new Date(post.date).toLocaleDateString('en-GB', {
                       day: 'numeric',
@@ -54,10 +54,10 @@ export default async function BlogTeasers() {
                   {' · '}
                   {post.readingMinutes} min read
                 </p>
-                <h3 className="mt-2 font-body text-base font-semibold leading-snug text-bone transition-colors group-hover:text-gold-hi">
+                <h3 className="mt-2 font-body text-base font-semibold leading-snug text-ink transition-colors group-hover:text-link-hover">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-bone-dim">{post.excerpt}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{post.excerpt}</p>
               </Link>
             </li>
           ))}

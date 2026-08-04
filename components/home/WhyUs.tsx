@@ -26,18 +26,18 @@ const POINTS = [
 
 export default function WhyUs() {
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="why-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="why-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="Why us" title="What you actually get" titleId="why-title" />
 
         <ul className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {POINTS.map(({ Icon, title, body }) => (
             <li key={title}>
-              <Icon className="h-7 w-7 text-gold" />
-              <h3 className="mt-4 font-body text-base font-semibold uppercase tracking-wide text-bone">
+              <Icon className="h-7 w-7 text-link" />
+              <h3 className="mt-4 font-body text-base font-semibold uppercase tracking-wide text-ink">
                 {title}
               </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-bone-dim">{body}</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-muted">{body}</p>
             </li>
           ))}
         </ul>

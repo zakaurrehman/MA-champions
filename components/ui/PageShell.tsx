@@ -16,12 +16,12 @@ export default function PageShell({ eyebrow, title, intro, children }: Props) {
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
       <header className="max-w-2xl">
         {eyebrow && (
-          <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+          <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
             {eyebrow}
           </p>
         )}
-        <h1 className="text-4xl text-bone sm:text-5xl">{title}</h1>
-        {intro && <p className="mt-5 text-base leading-relaxed text-bone-dim">{intro}</p>}
+        <h1 className="text-4xl text-ink sm:text-5xl">{title}</h1>
+        {intro && <p className="mt-5 text-base leading-relaxed text-muted">{intro}</p>}
       </header>
       {children && <div className="mt-12">{children}</div>}
     </div>

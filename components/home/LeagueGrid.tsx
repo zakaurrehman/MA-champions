@@ -10,7 +10,7 @@ import { LEAGUE_COLLECTIONS } from '@/lib/tiers';
  */
 export default function LeagueGrid() {
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="leagues-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="leagues-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Shop by sport"
@@ -24,17 +24,17 @@ export default function LeagueGrid() {
             <li key={league.id}>
               <Link
                 href={`/collections/${league.slug}`}
-                className="border-plate group flex h-full flex-col justify-between gap-6 rounded-[--radius-plate] bg-ink-raised p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/40"
+                className="border-plate group flex h-full flex-col justify-between gap-6 rounded-[--radius-plate] bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
               >
                 <span
                   aria-hidden="true"
                   className="block h-px w-8 bg-plated transition-all duration-300 group-hover:w-14"
                 />
                 <span>
-                  <span className="block font-display text-lg uppercase leading-none text-bone transition-colors group-hover:text-gold-hi">
+                  <span className="block font-display text-lg uppercase leading-none text-ink transition-colors group-hover:text-link-hover">
                     {league.name}
                   </span>
-                  <span className="mt-2 block text-2xs leading-snug text-bone-dim">
+                  <span className="mt-2 block text-2xs leading-snug text-muted">
                     {league.blurb}
                   </span>
                 </span>

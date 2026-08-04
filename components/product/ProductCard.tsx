@@ -24,7 +24,7 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
   return (
     <article className={fixedWidth ? 'w-[78vw] max-w-[20rem] shrink-0 sm:w-72' : ''}>
       <Link href={`/products/${product.slug}`} className="group block">
-        <div className="border-plate relative aspect-[4/3] overflow-hidden rounded-[--radius-plate] bg-ink-raised">
+        <div className="border-plate relative aspect-[4/3] overflow-hidden rounded-[--radius-plate] bg-surface">
           {primary && (
             <Image
               src={primary.src}
@@ -51,14 +51,14 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
           )}
 
           {onSale && (
-            <span className="bg-plated absolute left-3 top-3 px-2 py-1 font-body text-2xs font-bold uppercase tracking-wider text-ink">
+            <span className="bg-plated absolute left-3 top-3 px-2 py-1 font-body text-2xs font-bold uppercase tracking-wider text-on-accent">
               Sale
             </span>
           )}
         </div>
 
         <div className="pt-4">
-          <h3 className="font-body text-sm font-semibold leading-snug text-bone transition-colors group-hover:text-gold-hi">
+          <h3 className="font-body text-sm font-semibold leading-snug text-ink transition-colors group-hover:text-link-hover">
             {product.name}
           </h3>
 
@@ -70,7 +70,7 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
 
           <p className="mt-2.5 flex items-baseline gap-2">
             {onSale && (
-              <span className="text-sm text-nickel line-through">
+              <span className="text-sm text-subtle line-through">
                 {formatPrice(product.price, product.currency)}
               </span>
             )}

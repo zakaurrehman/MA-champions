@@ -15,7 +15,7 @@ export default async function FeaturedBelts() {
   const products = await getFeaturedProducts(8);
 
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="featured-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="featured-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Featured"
@@ -26,7 +26,7 @@ export default async function FeaturedBelts() {
             products.length > 0 ? (
               <Link
                 href="/collections"
-                className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-hi"
+                className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
               >
                 Shop all belts →
               </Link>

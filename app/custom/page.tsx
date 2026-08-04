@@ -38,12 +38,12 @@ export default async function CustomPage() {
         </h2>
         <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p) => (
-            <li key={p.step} className="border-plate rounded-[--radius-plate] bg-ink-raised p-6">
+            <li key={p.step} className="border-plate rounded-[--radius-plate] bg-surface p-6">
               <span className="font-display text-2xl text-plated">{p.step}</span>
-              <h3 className="mt-3 font-body text-base font-semibold uppercase tracking-wide text-bone">
+              <h3 className="mt-3 font-body text-base font-semibold uppercase tracking-wide text-ink">
                 {p.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-bone-dim">{p.body}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
             </li>
           ))}
         </ol>
@@ -51,7 +51,7 @@ export default async function CustomPage() {
 
       {builds.length > 0 && (
         <section aria-labelledby="gallery" className="mt-16">
-          <h2 id="gallery" className="text-2xl text-bone">
+          <h2 id="gallery" className="text-2xl text-ink">
             Belts we have built
           </h2>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -59,7 +59,7 @@ export default async function CustomPage() {
               const img = build.images[0];
               return (
                 <li key={build.id}>
-                  <figure className="border-plate h-full overflow-hidden rounded-[--radius-plate] bg-ink-raised">
+                  <figure className="border-plate h-full overflow-hidden rounded-[--radius-plate] bg-surface">
                     <div className="relative aspect-[4/3]">
                       {img && (
                         <Image
@@ -74,10 +74,10 @@ export default async function CustomPage() {
                       )}
                     </div>
                     <figcaption className="p-5">
-                      <h3 className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+                      <h3 className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
                         {build.name}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                      <p className="mt-2 text-sm leading-relaxed text-muted">
                         {build.shortDescription}
                       </p>
                     </figcaption>
@@ -86,7 +86,7 @@ export default async function CustomPage() {
               );
             })}
           </ul>
-          <p className="mt-6 text-2xs leading-relaxed text-nickel">
+          <p className="mt-6 text-2xs leading-relaxed text-subtle">
             Commissioned pieces built to customer-supplied artwork. Shown as examples of our
             work — not for sale.
           </p>

@@ -8,10 +8,11 @@ const base =
   'inline-flex items-center justify-center gap-2 font-display uppercase tracking-wide transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none';
 
 const variants: Record<Variant, string> = {
-  // The one gold-filled element on any given view. Used sparingly.
-  primary: 'bg-plated text-ink hover:brightness-110 plate-sheen',
-  secondary: 'border border-nickel/40 text-bone hover:border-gold hover:text-gold-hi',
-  ghost: 'text-bone-dim hover:text-gold-hi',
+  // Oxblood carries the action. The gold sheen still travels across it on
+  // hover, so the material cue survives without gold doing the shouting.
+  primary: 'bg-primary text-on-primary hover:bg-primary-hover plate-sheen',
+  secondary: 'border border-subtle/40 text-ink hover:border-primary hover:text-link',
+  ghost: 'text-muted hover:text-link',
 };
 
 const sizes: Record<Size, string> = {

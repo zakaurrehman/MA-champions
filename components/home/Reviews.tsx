@@ -17,7 +17,7 @@ export default async function Reviews() {
   const aggregate = await getAggregateRating();
 
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="reviews-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="reviews-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Reviews"
@@ -33,7 +33,7 @@ export default async function Reviews() {
           action={
             <Link
               href="/reviews"
-              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-gold transition-colors hover:text-gold-hi"
+              className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
             >
               Read all reviews →
             </Link>
@@ -43,15 +43,15 @@ export default async function Reviews() {
         <ul className="mt-12 grid gap-5 md:grid-cols-3">
           {reviews.map((review) => (
             <li key={review.id}>
-              <figure className="border-plate flex h-full flex-col rounded-[--radius-plate] bg-ink-raised p-6">
+              <figure className="border-plate flex h-full flex-col rounded-[--radius-plate] bg-surface p-6">
                 <StarRating rating={review.rating} size="md" />
                 <blockquote className="mt-4 flex-1">
-                  <p className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+                  <p className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
                     {review.title}
                   </p>
-                  <p className="mt-2.5 text-sm leading-relaxed text-bone-dim">{review.body}</p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-muted">{review.body}</p>
                 </blockquote>
-                <figcaption className="mt-5 border-t border-ink-line pt-4 text-2xs uppercase tracking-[0.14em] text-nickel">
+                <figcaption className="mt-5 border-t border-line pt-4 text-2xs uppercase tracking-[0.14em] text-subtle">
                   {review.name}
                   {review.location && ` · ${review.location}`}
                   {review.verified && ' · Verified buyer'}

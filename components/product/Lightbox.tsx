@@ -50,14 +50,14 @@ export default function Lightbox({ images, index, onClose, onIndexChange }: Prop
       className="fixed inset-0 z-[80] flex flex-col bg-black/95"
     >
       <div className="flex h-14 shrink-0 items-center justify-between px-4">
-        <span className="font-body text-xs uppercase tracking-[0.16em] text-nickel">
+        <span className="font-body text-xs uppercase tracking-[0.16em] text-subtle">
           {index + 1} / {images.length}
         </span>
         <button
           type="button"
           onClick={onClose}
           aria-label="Close image viewer"
-          className="grid h-10 w-10 place-items-center text-bone hover:text-gold"
+          className="grid h-10 w-10 place-items-center text-ink hover:text-link"
         >
           <CloseIcon className="h-6 w-6" />
         </button>
@@ -81,14 +81,14 @@ export default function Lightbox({ images, index, onClose, onIndexChange }: Prop
           <button
             type="button"
             onClick={() => go(-1)}
-            className="border-plate rounded-[--radius-plate] px-5 py-2.5 font-body text-xs uppercase tracking-[0.14em] text-bone hover:border-gold hover:text-gold"
+            className="border-plate rounded-[--radius-plate] px-5 py-2.5 font-body text-xs uppercase tracking-[0.14em] text-ink hover:border-primary hover:text-link"
           >
             Previous
           </button>
           <button
             type="button"
             onClick={() => go(1)}
-            className="border-plate rounded-[--radius-plate] px-5 py-2.5 font-body text-xs uppercase tracking-[0.14em] text-bone hover:border-gold hover:text-gold"
+            className="border-plate rounded-[--radius-plate] px-5 py-2.5 font-body text-xs uppercase tracking-[0.14em] text-ink hover:border-primary hover:text-link"
           >
             Next
           </button>

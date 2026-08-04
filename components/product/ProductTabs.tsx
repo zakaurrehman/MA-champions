@@ -44,11 +44,11 @@ export default function ProductTabs({ product, reviews }: Props) {
   const stockLead = leadTimeLabel('stock');
 
   return (
-    <div className="border-t border-ink-line pt-10">
+    <div className="border-t border-line pt-10">
       <div
         role="tablist"
         aria-label="Product details"
-        className="rail flex gap-1 border-b border-ink-line"
+        className="rail flex gap-1 border-b border-line"
       >
         {TABS.map((t) => (
           <button
@@ -60,8 +60,8 @@ export default function ProductTabs({ product, reviews }: Props) {
             onClick={() => setTab(t.id)}
             className={`shrink-0 whitespace-nowrap border-b-2 px-4 py-3 font-body text-xs font-semibold uppercase tracking-[0.14em] transition-colors ${
               tab === t.id
-                ? 'border-gold text-gold-hi'
-                : 'border-transparent text-bone-dim hover:text-bone'
+                ? 'border-primary text-link'
+                : 'border-transparent text-muted hover:text-ink'
             }`}
           >
             {t.label}
@@ -78,7 +78,7 @@ export default function ProductTabs({ product, reviews }: Props) {
       */}
 
       <div role="tabpanel" id="panel-description" aria-labelledby="tab-description" hidden={tab !== 'description'} className="py-8">
-        <p className="max-w-2xl text-base leading-relaxed text-bone-dim">{product.description}</p>
+        <p className="max-w-2xl text-base leading-relaxed text-muted">{product.description}</p>
       </div>
 
       <div role="tabpanel" id="panel-specifications" aria-labelledby="tab-specifications" hidden={tab !== 'specifications'} className="py-8">
@@ -86,11 +86,11 @@ export default function ProductTabs({ product, reviews }: Props) {
           <caption className="sr-only">Specifications for {product.name}</caption>
           <tbody>
             {rows.map(([label, value]) => (
-              <tr key={label} className="border-b border-ink-line/60">
-                <th scope="row" className="w-44 py-3 pr-4 align-top font-body font-semibold text-bone">
+              <tr key={label} className="border-b border-line/60">
+                <th scope="row" className="w-44 py-3 pr-4 align-top font-body font-semibold text-ink">
                   {label}
                 </th>
-                <td className="py-3 text-bone-dim">{value}</td>
+                <td className="py-3 text-muted">{value}</td>
               </tr>
             ))}
           </tbody>
@@ -100,10 +100,10 @@ export default function ProductTabs({ product, reviews }: Props) {
       <div role="tabpanel" id="panel-shipping" aria-labelledby="tab-shipping" hidden={tab !== 'shipping'} className="py-8">
         <dl className="flex max-w-2xl flex-col gap-5">
           <div>
-            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
               Build time
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-bone-dim">
+            <dd className="mt-1.5 text-sm leading-relaxed text-muted">
               {stockLead
                 ? `${stockLead}, before shipping.`
                 : /* No confirmed lead time — say so plainly rather than guess one. */
@@ -112,10 +112,10 @@ export default function ProductTabs({ product, reviews }: Props) {
           </div>
 
           <div>
-            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
               Shipping
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-bone-dim">
+            <dd className="mt-1.5 text-sm leading-relaxed text-muted">
               Free to {site.shipping.freeTo.join(', ')}.
               {site.shipping.worldwide && ' We ship worldwide.'}
               {site.leadTimes.shippingDays && ` Transit is typically ${site.leadTimes.shippingDays}.`}
@@ -123,12 +123,12 @@ export default function ProductTabs({ product, reviews }: Props) {
           </div>
 
           <div>
-            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
               Returns
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-bone-dim">
+            <dd className="mt-1.5 text-sm leading-relaxed text-muted">
               See our{' '}
-              <Link href="/policies/refund" className="text-gold underline-offset-4 hover:underline">
+              <Link href="/policies/refund" className="text-link underline-offset-4 hover:underline">
                 refund policy
               </Link>
               . Engraved and made-to-order belts are treated differently from stock items.
@@ -139,20 +139,20 @@ export default function ProductTabs({ product, reviews }: Props) {
 
       <div role="tabpanel" id="panel-reviews" aria-labelledby="tab-reviews" hidden={tab !== 'reviews'} className="py-8">
         {reviews.length === 0 ? (
-          <p className="max-w-2xl text-sm leading-relaxed text-bone-dim">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted">
             No reviews for this belt yet. We publish reviews only from verified customers, so
             this stays empty until someone who bought it writes one.
           </p>
         ) : (
           <ul className="flex max-w-2xl flex-col gap-6">
             {reviews.map((review) => (
-              <li key={review.id} className="border-b border-ink-line/60 pb-6 last:border-0">
+              <li key={review.id} className="border-b border-line/60 pb-6 last:border-0">
                 <StarRating rating={review.rating} size="md" />
-                <p className="mt-3 font-body text-sm font-semibold uppercase tracking-wide text-bone">
+                <p className="mt-3 font-body text-sm font-semibold uppercase tracking-wide text-ink">
                   {review.title}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-bone-dim">{review.body}</p>
-                <p className="mt-3 text-2xs uppercase tracking-[0.14em] text-nickel">
+                <p className="mt-2 text-sm leading-relaxed text-muted">{review.body}</p>
+                <p className="mt-3 text-2xs uppercase tracking-[0.14em] text-subtle">
                   {review.name}
                   {review.verified && ' · Verified buyer'}
                 </p>

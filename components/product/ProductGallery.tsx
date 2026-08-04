@@ -44,7 +44,7 @@ export default function ProductGallery({ images, productName }: Props) {
         onMouseEnter={() => setZooming(true)}
         onMouseLeave={() => setZooming(false)}
         onMouseMove={onMove}
-        className="border-plate relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-[--radius-plate] bg-ink-raised"
+        className="border-plate relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-[--radius-plate] bg-surface"
       >
         <Image
           src={current.src}
@@ -69,7 +69,7 @@ export default function ProductGallery({ images, productName }: Props) {
           aria-label={`Open full-screen view of ${productName}`}
         />
 
-        <span className="pointer-events-none absolute bottom-3 right-3 rounded-[--radius-plate] bg-ink/80 px-2.5 py-1 font-body text-2xs uppercase tracking-[0.14em] text-bone-dim backdrop-blur-sm">
+        <span className="pointer-events-none absolute bottom-3 right-3 rounded-[--radius-plate] bg-canvas/80 px-2.5 py-1 font-body text-2xs uppercase tracking-[0.14em] text-muted backdrop-blur-sm">
           Hover to zoom · click to expand
         </span>
       </div>
@@ -86,8 +86,8 @@ export default function ProductGallery({ images, productName }: Props) {
                 aria-current={i === active}
                 className={`relative block aspect-square w-full overflow-hidden rounded-[--radius-plate] border transition-colors ${
                   i === active
-                    ? 'border-gold'
-                    : 'border-nickel/20 hover:border-nickel/50'
+                    ? 'border-primary'
+                    : 'border-subtle/20 hover:border-subtle/50'
                 }`}
               >
                 <Image

@@ -37,14 +37,14 @@ export default function SectionHeading({
     >
       <div className={`max-w-2xl ${centred ? 'mx-auto' : ''}`}>
         {eyebrow && (
-          <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+          <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
             {eyebrow}
           </p>
         )}
-        <Tag id={titleId} className="text-3xl text-bone sm:text-4xl">
+        <Tag id={titleId} className="text-3xl text-ink sm:text-4xl">
           {title}
         </Tag>
-        {intro && <p className="mt-4 text-base leading-relaxed text-bone-dim">{intro}</p>}
+        {intro && <p className="mt-4 text-base leading-relaxed text-muted">{intro}</p>}
       </div>
       {action && <div className="shrink-0">{action}</div>}
     </div>

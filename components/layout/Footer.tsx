@@ -13,13 +13,13 @@ export default function Footer() {
   const hasAddress = Boolean(site.address.city && site.address.country);
 
   return (
-    <footer className="border-t border-ink-line bg-ink-raised">
+    <footer className="border-t border-line bg-surface">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_2fr]">
           {/* Brand + contact */}
           <div>
             <Logo />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-bone-dim">
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">
               {site.description}
             </p>
 
@@ -27,7 +27,7 @@ export default function Footer() {
               {hasEmail() && (
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-bone transition-colors hover:text-gold"
+                  className="text-ink transition-colors hover:text-link"
                 >
                   {site.email}
                 </a>
@@ -37,21 +37,21 @@ export default function Footer() {
                   href={`https://wa.me/${site.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-bone transition-colors hover:text-gold"
+                  className="inline-flex items-center gap-2 text-ink transition-colors hover:text-link"
                 >
                   <WhatsAppIcon className="h-4 w-4" />
                   WhatsApp us
                 </a>
               )}
               {hasAddress && (
-                <address className="not-italic text-bone-dim">
+                <address className="not-italic text-muted">
                   {[site.address.street, site.address.city, site.address.region, site.address.country]
                     .filter(Boolean)
                     .join(', ')}
                 </address>
               )}
               {!hasEmail() && !hasWhatsApp() && (
-                <Link href="/contact" className="text-bone transition-colors hover:text-gold">
+                <Link href="/contact" className="text-ink transition-colors hover:text-link">
                   Contact us →
                 </Link>
               )}
@@ -62,7 +62,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {MAIN_NAV.map((group) => (
               <div key={group.label}>
-                <h4 className="mb-4 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+                <h4 className="mb-4 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
                   {group.label}
                 </h4>
                 <ul className="flex flex-col gap-2.5">
@@ -70,7 +70,7 @@ export default function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-bone-dim transition-colors hover:text-gold"
+                        className="text-sm text-muted transition-colors hover:text-link"
                       >
                         {link.label}
                       </Link>
@@ -83,8 +83,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-5 border-t border-ink-line pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-2xs text-bone-dim">
+        <div className="mt-12 flex flex-col gap-5 border-t border-line pt-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-2xs text-muted">
             © {year} {site.legalName}. All rights reserved.
           </p>
 
@@ -93,7 +93,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-2xs text-bone-dim transition-colors hover:text-gold"
+                  className="text-2xs text-muted transition-colors hover:text-link"
                 >
                   {link.label}
                 </Link>

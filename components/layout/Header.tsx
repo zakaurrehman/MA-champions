@@ -7,6 +7,7 @@ import Logo from './Logo';
 import MegaMenu from './MegaMenu';
 import MobileNav from './MobileNav';
 import AnnouncementBar from './AnnouncementBar';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import { CartIcon, ChevronDownIcon, HeartIcon, MenuIcon, SearchIcon } from '@/components/ui/Icons';
 
 export default function Header() {
@@ -59,8 +60,8 @@ export default function Header() {
       <header
         className={`sticky top-0 z-40 border-b transition-all duration-300 ${
           condensed
-            ? 'border-ink-line bg-ink/95 backdrop-blur-md'
-            : 'border-transparent bg-ink'
+            ? 'border-line bg-canvas/95 backdrop-blur-md'
+            : 'border-transparent bg-canvas'
         }`}
       >
         <div
@@ -83,7 +84,7 @@ export default function Header() {
                       aria-haspopup="true"
                       onClick={() => setOpenGroup(isOpen ? null : group.label)}
                       className={`flex items-center gap-1 px-3 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] transition-colors ${
-                        isOpen ? 'text-gold-hi' : 'text-bone hover:text-gold'
+                        isOpen ? 'text-link' : 'text-ink hover:text-link'
                       }`}
                     >
                       {group.label}
@@ -104,31 +105,32 @@ export default function Header() {
 
           {/* Actions */}
           <div className="ml-auto flex items-center gap-1 lg:ml-2">
+            <ThemeToggle />
             <Link
               href="/search"
               aria-label="Search belts"
-              className="grid h-10 w-10 place-items-center text-bone transition-colors hover:text-gold"
+              className="grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link"
             >
               <SearchIcon className="h-5 w-5" />
             </Link>
             <Link
               href="/wishlist"
               aria-label="Wishlist"
-              className="hidden h-10 w-10 place-items-center text-bone transition-colors hover:text-gold sm:grid"
+              className="hidden h-10 w-10 place-items-center text-ink transition-colors hover:text-link sm:grid"
             >
               <HeartIcon className="h-5 w-5" />
             </Link>
             <Link
               href="/cart"
               aria-label="Cart"
-              className="grid h-10 w-10 place-items-center text-bone transition-colors hover:text-gold"
+              className="grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link"
             >
               <CartIcon className="h-5 w-5" />
             </Link>
 
             <Link
               href="/build"
-              className="bg-plated plate-sheen ml-2 hidden shrink-0 px-4 py-2.5 font-display text-xs uppercase tracking-wide text-ink transition-[filter] hover:brightness-110 xl:inline-flex"
+              className="bg-primary plate-sheen ml-2 hidden shrink-0 rounded-[--radius-plate] px-4 py-2.5 font-display text-xs uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover xl:inline-flex"
             >
               Build Your Belt
             </Link>
@@ -137,7 +139,7 @@ export default function Header() {
               type="button"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
-              className="grid h-10 w-10 place-items-center text-bone transition-colors hover:text-gold lg:hidden"
+              className="grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link lg:hidden"
             >
               <MenuIcon className="h-6 w-6" />
             </button>

@@ -2,42 +2,57 @@
 
 /* ==========================================================================
    M.A CHAMPIONS BELTS — DESIGN TOKENS
-   Grounded in the real materials of a belt: black-grain cowhide, 24k plating
-   over nickel, oxblood strap dye, deep-etched zinc.
+
+   Light is the default. Dark is available via the header toggle, and is used
+   automatically when the visitor's OS asks for it and they have not chosen.
+
+   Tokens are named for their ROLE, not their colour, so the same class works
+   in both themes: `text-ink` is body text (near-black on light, bone on dark),
+   `bg-canvas` is the page, `bg-surface` is a raised card.
+
+   Primary is oxblood — the cordovan strap dye. It carries buttons and links.
+   Gold is reserved for metal: rules, plate edges, prices and the hover sheen.
    ========================================================================== */
 
 @theme {
-  /* -- Palette: 6 tokens ------------------------------------------------ */
+  /* -- LIGHT (default) -------------------------------------------------- */
 
-  /* 1. Base — warm near-black. Reads as leather grain, never pure #000. */
-  --color-ink: #0c0a08;
-  /* Raised surfaces (cards, header on scroll) sit one step off the base. */
-  --color-ink-raised: #17130f;
-  --color-ink-line: #292117;
+  /* Surfaces — warm paper, never pure white. */
+  --color-canvas: #f7f4ef;
+  --color-surface: #fffdfa;
+  --color-line: #e3dbcf;
 
-  /* 2. Gold — a 3-stop ramp, because plated metal shifts across its face.
-        Never use --color-gold flat on a large area; use the ramp. */
-  --color-gold-lo: #7e5512;
-  --color-gold: #c9962e;
-  --color-gold-hi: #f2d98b;
+  /* Text — warm near-black, never pure #000. */
+  --color-ink: #1a1714;
+  --color-muted: #6b6259;
+  --color-subtle: #736a60; /* 4.83:1 — small-caps eyebrows must still pass */
 
-  /* 3. Oxblood — the cordovan strap dye. Accent only. */
-  --color-oxblood: #5e141c;
-  --color-oxblood-hi: #8c2029;
+  /* Primary — oxblood. Button and control fills. */
+  --color-primary: #5e141c;
+  --color-primary-hover: #450e14;
+  --color-on-primary: #fbf7f0;
 
-  /* 4. Nickel — secondary metal, borders, muted UI. */
-  --color-nickel: #9aa0a6;
-  --color-nickel-dim: #5d6166;
+  /*
+   * Link colour is separate from the button fill on purpose. A colour that
+   * works as a button background and one that works as text on the canvas
+   * pull in opposite directions — sharing one token fails contrast in dark
+   * mode. Here in light mode they happen to coincide.
+   */
+  --color-link: #5e141c; /* 12.0:1 on canvas */
+  --color-link-hover: #450e14;
 
-  /* 5. Bone — body copy. Never pure white on black; it vibrates. */
-  --color-bone: #ebe4d8;
-  --color-bone-dim: #a89f90;
+  /* Gold — metal detail only. A 3-stop ramp, deepened to hold up on light. */
+  --color-gold-lo: #5e430f;
+  --color-gold: #8a6420;
+  --color-gold-hi: #b98f3c;
+  --color-on-accent: #fbf7f0; /* light-mode gold is dark, so text on it is light */
+
+  --color-focus: #5e141c;
 
   /* -- Typography ------------------------------------------------------- */
   --font-display: var(--font-anton), 'Arial Narrow', sans-serif;
   --font-body: var(--font-archivo), system-ui, sans-serif;
 
-  /* A real scale — 1.25 minor third, tightened at the bottom. */
   --text-2xs: 0.6875rem;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -52,9 +67,63 @@
   --text-7xl: 6.75rem;
 
   --radius-plate: 3px;
-
-  /* -- Motion ----------------------------------------------------------- */
   --ease-plate: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* -- DARK ------------------------------------------------------------------
+   Applied when the visitor picks dark, or when their OS prefers dark and they
+   have not explicitly picked light. Values are re-tuned, not just inverted:
+   oxblood is lifted so it reads against black, gold is brightened.
+   -------------------------------------------------------------------------- */
+
+@layer theme {
+  :root[data-theme='dark'] {
+    --color-canvas: #0c0a08;
+    --color-surface: #17130f;
+    --color-line: #2b241b;
+
+    --color-ink: #ebe4d8;
+    --color-muted: #a89f90;
+    --color-subtle: #8b8377;
+
+    --color-primary: #a8323c;
+    --color-primary-hover: #c4404b;
+    --color-on-primary: #fbf7f0; /* 6.2:1 on the button fill */
+
+    /* Lifted well clear of the button fill: oxblood on black is only 3.0:1. */
+    --color-link: #e0757e; /* 6.6:1 on canvas, 6.2:1 on surface */
+    --color-link-hover: #f0a1a8;
+
+    --color-gold-lo: #7e5512;
+    --color-gold: #c9962e;
+    --color-gold-hi: #f2d98b;
+    --color-on-accent: #0c0a08; /* dark-mode gold is bright, so text on it is dark */
+
+    --color-focus: #f2d98b;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --color-canvas: #0c0a08;
+      --color-surface: #17130f;
+      --color-line: #2b241b;
+
+      --color-ink: #ebe4d8;
+      --color-muted: #a89f90;
+      --color-subtle: #8b8377;
+
+      --color-primary: #a8323c;
+      --color-primary-hover: #c4404b;
+      --color-on-primary: #fbf7f0;
+
+      --color-gold-lo: #7e5512;
+      --color-gold: #c9962e;
+      --color-gold-hi: #f2d98b;
+      --color-on-accent: #0c0a08;
+
+      --color-focus: #f2d98b;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -65,14 +134,26 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+    }
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-bone);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: 1.65;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -97,22 +178,15 @@
     line-height: 1.25;
   }
 
-  /* Visible keyboard focus everywhere. Gold ring reads on every surface. */
   :focus-visible {
-    outline: 2px solid var(--color-gold-hi);
+    outline: 2px solid var(--color-focus);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
   ::selection {
-    background: var(--color-gold);
-    color: var(--color-ink);
-  }
-
-  /* Anything that scrolls horizontally does so inside its own container —
-     the page body must never scroll sideways. */
-  body {
-    overflow-x: hidden;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
   }
 }
 
@@ -147,12 +221,12 @@
     );
   }
 
-  /* Hairline in nickel — the border of a plate against leather. */
+  /* Hairline — the edge of a plate against leather. */
   .border-plate {
-    border: 1px solid color-mix(in srgb, var(--color-nickel) 22%, transparent);
+    border: 1px solid var(--color-line);
   }
 
-  /* Subtle grain so large black fields read as hide, not as void. */
+  /* Subtle grain so large flat fields read as material, not as void. */
   .leather-grain {
     position: relative;
     isolation: isolate;
@@ -164,16 +238,16 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.55;
     background-image:
       radial-gradient(
         circle at 18% 22%,
-        color-mix(in srgb, var(--color-gold) 5%, transparent) 0%,
+        color-mix(in srgb, var(--color-gold) 8%, transparent) 0%,
         transparent 42%
       ),
       radial-gradient(
         circle at 82% 78%,
-        color-mix(in srgb, var(--color-oxblood) 16%, transparent) 0%,
+        color-mix(in srgb, var(--color-primary) 10%, transparent) 0%,
         transparent 46%
       );
   }
@@ -196,7 +270,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      color-mix(in srgb, var(--color-gold-hi) 26%, transparent) 50%,
+      color-mix(in srgb, var(--color-gold-hi) 34%, transparent) 50%,
       transparent 100%
     );
     opacity: 0;

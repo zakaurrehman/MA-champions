@@ -3,6 +3,7 @@ import { Anton, Archivo } from 'next/font/google';
 import { site } from '@/lib/site';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { themeInitScript } from '@/components/ui/ThemeToggle';
 import './globals.css';
 
 /* Display: heavy condensed — the weight of an arena banner / fight poster. */
@@ -37,18 +38,27 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0c0a08',
+  // Matches each theme's canvas so the browser chrome follows the site.
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f7f4ef' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c0a08' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${anton.variable} ${archivo.variable}`}>
-      <body className="min-h-screen bg-ink text-bone antialiased">
+    <html lang="en" className={`${anton.variable} ${archivo.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Applies the stored theme before first paint — without this, a
+            dark-mode visitor gets a white flash on every navigation. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-screen bg-canvas text-ink antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:font-semibold focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-primary focus:px-4 focus:py-2 focus:font-semibold focus:text-on-primary"
         >
           Skip to content
         </a>

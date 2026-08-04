@@ -44,7 +44,7 @@ export default function AnnouncementBar() {
   }, [messages.length]);
 
   return (
-    <div className="relative z-50 bg-oxblood text-bone">
+    <div className="relative z-50 bg-primary text-on-primary">
       <div className="mx-auto flex h-9 max-w-7xl items-center justify-center px-4">
         <p
           key={index}

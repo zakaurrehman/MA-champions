@@ -15,7 +15,7 @@ export default async function CustomShowcase() {
 
   return (
     <section
-      className="leather-grain border-t border-ink-line py-16 sm:py-20"
+      className="leather-grain border-t border-line py-16 sm:py-20"
       aria-labelledby="custom-title"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -32,7 +32,7 @@ export default async function CustomShowcase() {
             const img = build.images[0];
             return (
               <li key={build.id}>
-                <figure className="border-plate plate-sheen group h-full overflow-hidden rounded-[--radius-plate] bg-ink-raised">
+                <figure className="border-plate plate-sheen group h-full overflow-hidden rounded-[--radius-plate] bg-surface">
                   <div className="relative aspect-[4/3] overflow-hidden">
                     {img && (
                       <Image
@@ -48,10 +48,10 @@ export default async function CustomShowcase() {
                     )}
                   </div>
                   <figcaption className="p-5">
-                    <h3 className="font-body text-sm font-semibold uppercase tracking-wide text-bone">
+                    <h3 className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
                       {build.name}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
                       {build.specs.plateThickness} CNC · {build.specs.plateCount} plates ·{' '}
                       {build.specs.stones === 'None' ? 'No stones' : 'Stone set'}
                     </p>
@@ -62,7 +62,7 @@ export default async function CustomShowcase() {
           })}
         </ul>
 
-        <p className="mt-8 text-2xs leading-relaxed text-nickel">
+        <p className="mt-8 text-2xs leading-relaxed text-subtle">
           Commissioned pieces built to customer-supplied artwork. Shown as examples of our
           work — not for sale.
         </p>

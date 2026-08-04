@@ -76,7 +76,7 @@ export default function BuyBox({ product }: { product: Product }) {
       {/* Live price */}
       <div className="flex flex-wrap items-baseline gap-3">
         {onSale && (
-          <span className="text-lg text-nickel line-through">
+          <span className="text-lg text-subtle line-through">
             {formatPrice(product.price, product.currency)}
           </span>
         )}
@@ -87,14 +87,14 @@ export default function BuyBox({ product }: { product: Product }) {
           {formatPrice(unitPrice, product.currency)}
         </span>
         {product.priceIncludesShipping && (
-          <span className="font-body text-2xs uppercase tracking-[0.14em] text-nickel">
+          <span className="font-body text-2xs uppercase tracking-[0.14em] text-subtle">
             Shipping included
           </span>
         )}
       </div>
 
       {indicative && (
-        <p className="mt-2 text-2xs leading-relaxed text-nickel">
+        <p className="mt-2 text-2xs leading-relaxed text-subtle">
           Options shown do not change this price yet — your final total is confirmed on your
           written quote.
         </p>
@@ -108,7 +108,7 @@ export default function BuyBox({ product }: { product: Product }) {
               <button
                 type="button"
                 onClick={() => setSizeGuideOpen(true)}
-                className="float-right font-body text-2xs font-semibold uppercase tracking-[0.14em] text-gold underline-offset-4 hover:text-gold-hi hover:underline"
+                className="float-right font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link underline-offset-4 hover:text-link-hover hover:underline"
               >
                 Size guide
               </button>
@@ -127,7 +127,7 @@ export default function BuyBox({ product }: { product: Product }) {
         <div>
           <label
             htmlFor="engraving"
-            className="mb-3 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel"
+            className="mb-3 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle"
           >
             {engravingCfg.label}
           </label>
@@ -138,11 +138,11 @@ export default function BuyBox({ product }: { product: Product }) {
             maxLength={engravingCfg.maxLength}
             onChange={(e) => setEngraving(e.target.value)}
             placeholder="Name or text"
-            className="w-full rounded-[--radius-plate] border border-nickel/25 bg-ink px-4 py-3 font-body text-sm text-bone placeholder:text-nickel/60 focus:border-gold focus:outline-none"
+            className="w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-4 py-3 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none"
           />
           <div className="mt-2 flex justify-between gap-4">
-            <span className="text-2xs text-bone-dim">{engravingCfg.hint}</span>
-            <span aria-live="polite" className="shrink-0 text-2xs tabular-nums text-nickel">
+            <span className="text-2xs text-muted">{engravingCfg.hint}</span>
+            <span aria-live="polite" className="shrink-0 text-2xs tabular-nums text-subtle">
               {engraving.length}/{engravingCfg.maxLength}
             </span>
           </div>
@@ -152,16 +152,16 @@ export default function BuyBox({ product }: { product: Product }) {
         <div>
           <label
             htmlFor="quantity"
-            className="mb-3 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel"
+            className="mb-3 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle"
           >
             Quantity
           </label>
-          <div className="inline-flex items-center rounded-[--radius-plate] border border-nickel/25">
+          <div className="inline-flex items-center rounded-[--radius-plate] border border-subtle/25">
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               aria-label="Decrease quantity"
-              className="grid h-11 w-11 place-items-center text-bone hover:text-gold"
+              className="grid h-11 w-11 place-items-center text-ink hover:text-link"
             >
               −
             </button>
@@ -171,13 +171,13 @@ export default function BuyBox({ product }: { product: Product }) {
               min={1}
               value={quantity}
               onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
-              className="h-11 w-14 border-x border-nickel/25 bg-transparent text-center font-body text-sm tabular-nums text-bone focus:outline-none"
+              className="h-11 w-14 border-x border-subtle/25 bg-transparent text-center font-body text-sm tabular-nums text-ink focus:outline-none"
             />
             <button
               type="button"
               onClick={() => setQuantity((q) => q + 1)}
               aria-label="Increase quantity"
-              className="grid h-11 w-11 place-items-center text-bone hover:text-gold"
+              className="grid h-11 w-11 place-items-center text-ink hover:text-link"
             >
               +
             </button>
@@ -190,7 +190,7 @@ export default function BuyBox({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleAdd}
-          className="bg-plated plate-sheen w-full px-7 py-4 font-display text-base uppercase tracking-wide text-ink transition-[filter] hover:brightness-110"
+          className="bg-primary plate-sheen w-full rounded-[--radius-plate] px-7 py-4 font-display text-base uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover"
         >
           {added ? 'Added to cart' : 'Add to cart'}
         </button>
@@ -200,7 +200,7 @@ export default function BuyBox({ product }: { product: Product }) {
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-nickel/40 px-7 py-4 font-display text-base uppercase tracking-wide text-bone transition-colors hover:border-gold hover:text-gold-hi"
+            className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-subtle/40 px-7 py-4 font-display text-base uppercase tracking-wide text-ink transition-colors hover:border-primary hover:text-link-hover"
           >
             <WhatsAppIcon className="h-5 w-5" />
             Buy on WhatsApp
@@ -209,7 +209,7 @@ export default function BuyBox({ product }: { product: Product }) {
           /* No number supplied yet — never render a dead WhatsApp button. */
           <a
             href="/contact"
-            className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-nickel/40 px-7 py-4 font-display text-base uppercase tracking-wide text-bone transition-colors hover:border-gold hover:text-gold-hi"
+            className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-subtle/40 px-7 py-4 font-display text-base uppercase tracking-wide text-ink transition-colors hover:border-primary hover:text-link-hover"
           >
             Enquire about this belt
           </a>
@@ -221,7 +221,7 @@ export default function BuyBox({ product }: { product: Product }) {
       </p>
 
       {site.shipping.freeTo.length > 0 && (
-        <p className="mt-5 text-2xs uppercase tracking-[0.14em] text-nickel">
+        <p className="mt-5 text-2xs uppercase tracking-[0.14em] text-subtle">
           Free shipping to {site.shipping.freeTo.join(', ')}
         </p>
       )}

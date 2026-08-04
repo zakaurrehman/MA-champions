@@ -22,7 +22,7 @@ export default async function CollectionsPage() {
       intro="Shop by the metal it is made from, or by the sport it is for."
     >
       <section aria-labelledby="by-material">
-        <h2 id="by-material" className="text-2xl text-bone">
+        <h2 id="by-material" className="text-2xl text-ink">
           By material
         </h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -30,9 +30,9 @@ export default async function CollectionsPage() {
             <li key={tier.id}>
               <Link
                 href={`/collections/${tier.slug}`}
-                className="border-plate flex items-baseline justify-between gap-4 rounded-[--radius-plate] bg-ink-raised px-5 py-4 transition-colors hover:border-gold/40"
+                className="border-plate flex items-baseline justify-between gap-4 rounded-[--radius-plate] bg-surface px-5 py-4 transition-colors hover:border-primary/40"
               >
-                <span className="font-body text-sm font-semibold text-bone">{tier.name}</span>
+                <span className="font-body text-sm font-semibold text-ink">{tier.name}</span>
                 <span className="font-display text-base text-plated">
                   {formatPrice(tier.priceFloor)}+
                 </span>
@@ -43,7 +43,7 @@ export default async function CollectionsPage() {
       </section>
 
       <section aria-labelledby="by-sport" className="mt-14">
-        <h2 id="by-sport" className="text-2xl text-bone">
+        <h2 id="by-sport" className="text-2xl text-ink">
           By sport
         </h2>
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -51,7 +51,7 @@ export default async function CollectionsPage() {
             <li key={league.id}>
               <Link
                 href={`/collections/${league.slug}`}
-                className="border-plate block rounded-[--radius-plate] bg-ink-raised px-5 py-4 font-body text-sm font-semibold text-bone transition-colors hover:border-gold/40 hover:text-gold-hi"
+                className="border-plate block rounded-[--radius-plate] bg-surface px-5 py-4 font-body text-sm font-semibold text-ink transition-colors hover:border-primary/40 hover:text-link-hover"
               >
                 {league.name}
               </Link>

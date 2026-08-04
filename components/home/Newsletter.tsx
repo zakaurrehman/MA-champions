@@ -11,26 +11,26 @@ import Button from '@/components/ui/Button';
  */
 export default function Newsletter() {
   return (
-    <section className="border-t border-ink-line py-16 sm:py-20" aria-labelledby="newsletter-title">
+    <section className="border-t border-line py-16 sm:py-20" aria-labelledby="newsletter-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="border-plate relative overflow-hidden rounded-[--radius-plate] bg-ink-raised px-6 py-14 text-center sm:px-12">
+        <div className="border-plate relative overflow-hidden rounded-[--radius-plate] bg-surface px-6 py-14 text-center sm:px-12">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(90% 60% at 50% 0%, rgba(201,150,46,0.10), transparent 65%)',
+                'radial-gradient(90% 60% at 50% 0%, color-mix(in srgb, var(--color-gold) 14%, transparent), transparent 65%)',
             }}
           />
 
           <div className="relative mx-auto max-w-xl">
-            <p className="mb-4 font-body text-2xs font-semibold uppercase tracking-[0.24em] text-nickel">
+            <p className="mb-4 font-body text-2xs font-semibold uppercase tracking-[0.24em] text-subtle">
               Start a build
             </p>
-            <h2 id="newsletter-title" className="text-3xl text-bone sm:text-4xl">
+            <h2 id="newsletter-title" className="text-3xl text-ink sm:text-4xl">
               Spec your belt in <span className="text-plated">two minutes</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-bone-dim">
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-muted">
               Pick a silhouette, plates, leather and engraving, and we will come back to you
               with a written quote.
             </p>

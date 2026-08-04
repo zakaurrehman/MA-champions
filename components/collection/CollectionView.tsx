@@ -112,8 +112,8 @@ export default function CollectionView({ products }: { products: Product[] }) {
       <aside className="hidden lg:block">{sidebar}</aside>
 
       <div>
-        <div className="mb-8 flex items-center justify-between gap-4 border-b border-ink-line pb-5">
-          <p className="text-sm text-bone-dim">
+        <div className="mb-8 flex items-center justify-between gap-4 border-b border-line pb-5">
+          <p className="text-sm text-muted">
             {result.total} {result.total === 1 ? 'belt' : 'belts'}
           </p>
 
@@ -121,7 +121,7 @@ export default function CollectionView({ products }: { products: Product[] }) {
             <button
               type="button"
               onClick={() => setMobileFiltersOpen(true)}
-              className="border-plate rounded-[--radius-plate] px-4 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] text-bone hover:border-gold hover:text-gold lg:hidden"
+              className="border-plate rounded-[--radius-plate] px-4 py-2 font-body text-xs font-semibold uppercase tracking-[0.14em] text-ink hover:border-primary hover:text-link lg:hidden"
             >
               Filter{activeCount > 0 && ` (${activeCount})`}
             </button>
@@ -131,7 +131,7 @@ export default function CollectionView({ products }: { products: Product[] }) {
               <select
                 value={sort}
                 onChange={(e) => commit(filters, e.target.value as SortId, 1)}
-                className="rounded-[--radius-plate] border border-nickel/25 bg-ink px-3 py-2 font-body text-xs text-bone focus:border-gold focus:outline-none"
+                className="rounded-[--radius-plate] border border-subtle/25 bg-canvas px-3 py-2 font-body text-xs text-ink focus:border-primary focus:outline-none"
               >
                 {SORT_OPTIONS.map((o) => (
                   <option key={o.id} value={o.id}>
@@ -181,17 +181,17 @@ export default function CollectionView({ products }: { products: Product[] }) {
             role="dialog"
             aria-modal="true"
             aria-label="Filters"
-            className="absolute inset-y-0 left-0 flex w-[min(20rem,88vw)] flex-col border-r border-ink-line bg-ink"
+            className="absolute inset-y-0 left-0 flex w-[min(20rem,88vw)] flex-col border-r border-line bg-canvas"
           >
-            <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink-line px-5">
-              <span className="font-display text-sm uppercase tracking-wide text-bone">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b border-line px-5">
+              <span className="font-display text-sm uppercase tracking-wide text-ink">
                 Filters
               </span>
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(false)}
                 aria-label="Close filters"
-                className="grid h-10 w-10 place-items-center text-bone hover:text-gold"
+                className="grid h-10 w-10 place-items-center text-ink hover:text-link"
               >
                 <CloseIcon className="h-5 w-5" />
               </button>

@@ -24,11 +24,11 @@ export default function EmptyState({
 }: Props) {
   return (
     <div
-      className={`border-plate flex flex-col items-center rounded-[--radius-plate] bg-ink-raised px-6 py-14 text-center ${className}`}
+      className={`border-plate flex flex-col items-center rounded-[--radius-plate] bg-surface px-6 py-14 text-center ${className}`}
     >
       <span aria-hidden="true" className="mb-5 block h-px w-16 bg-plated" />
-      <h3 className="text-xl text-bone">{title}</h3>
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-bone-dim">{body}</p>
+      <h3 className="text-xl text-ink">{title}</h3>
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{body}</p>
       <Button href={ctaHref} variant="secondary" className="mt-7">
         {ctaLabel}
       </Button>

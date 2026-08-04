@@ -18,7 +18,7 @@ export default function VariantSelector({ group, value, onChange }: Props) {
 
   return (
     <fieldset>
-      <legend className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-nickel">
+      <legend className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
         {group.label}
       </legend>
 
@@ -40,29 +40,29 @@ export default function VariantSelector({ group, value, onChange }: Props) {
               />
               <label
                 htmlFor={id}
-                className={`flex cursor-pointer items-center gap-3 rounded-[--radius-plate] border px-3.5 py-3 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold-hi ${
+                className={`flex cursor-pointer items-center gap-3 rounded-[--radius-plate] border px-3.5 py-3 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus ${
                   checked
-                    ? 'border-gold bg-gold/5'
-                    : 'border-nickel/25 hover:border-nickel/60'
+                    ? 'border-primary bg-primary/5'
+                    : 'border-subtle/25 hover:border-subtle/60'
                 }`}
               >
                 {option.swatch && (
                   <span
                     aria-hidden="true"
-                    className="h-6 w-6 shrink-0 rounded-full border border-nickel/40"
+                    className="h-6 w-6 shrink-0 rounded-full border border-subtle/40"
                     style={{ backgroundColor: option.swatch }}
                   />
                 )}
                 <span className="min-w-0">
                   <span
                     className={`block font-body text-sm font-semibold leading-tight ${
-                      checked ? 'text-gold-hi' : 'text-bone'
+                      checked ? 'text-link' : 'text-ink'
                     }`}
                   >
                     {option.label}
                   </span>
                   {option.hint && !isSwatch && (
-                    <span className="mt-0.5 block text-2xs leading-snug text-bone-dim">
+                    <span className="mt-0.5 block text-2xs leading-snug text-muted">
                       {option.hint}
                     </span>
                   )}
