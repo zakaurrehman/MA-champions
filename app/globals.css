@@ -1,0 +1,268 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   M.A CHAMPIONS BELTS — DESIGN TOKENS
+   Grounded in the real materials of a belt: black-grain cowhide, 24k plating
+   over nickel, oxblood strap dye, deep-etched zinc.
+   ========================================================================== */
+
+@theme {
+  /* -- Palette: 6 tokens ------------------------------------------------ */
+
+  /* 1. Base — warm near-black. Reads as leather grain, never pure #000. */
+  --color-ink: #0c0a08;
+  /* Raised surfaces (cards, header on scroll) sit one step off the base. */
+  --color-ink-raised: #17130f;
+  --color-ink-line: #292117;
+
+  /* 2. Gold — a 3-stop ramp, because plated metal shifts across its face.
+        Never use --color-gold flat on a large area; use the ramp. */
+  --color-gold-lo: #7e5512;
+  --color-gold: #c9962e;
+  --color-gold-hi: #f2d98b;
+
+  /* 3. Oxblood — the cordovan strap dye. Accent only. */
+  --color-oxblood: #5e141c;
+  --color-oxblood-hi: #8c2029;
+
+  /* 4. Nickel — secondary metal, borders, muted UI. */
+  --color-nickel: #9aa0a6;
+  --color-nickel-dim: #5d6166;
+
+  /* 5. Bone — body copy. Never pure white on black; it vibrates. */
+  --color-bone: #ebe4d8;
+  --color-bone-dim: #a89f90;
+
+  /* -- Typography ------------------------------------------------------- */
+  --font-display: var(--font-anton), 'Arial Narrow', sans-serif;
+  --font-body: var(--font-archivo), system-ui, sans-serif;
+
+  /* A real scale — 1.25 minor third, tightened at the bottom. */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 4rem;
+  --text-6xl: 5.25rem;
+  --text-7xl: 6.75rem;
+
+  --radius-plate: 3px;
+
+  /* -- Motion ----------------------------------------------------------- */
+  --ease-plate: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Display face: condensed, heavy, arena-banner weight. Never for body. */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  /* Visible keyboard focus everywhere. Gold ring reads on every surface. */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-hi);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  /* Anything that scrolls horizontally does so inside its own container —
+     the page body must never scroll sideways. */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* ==========================================================================
+   MATERIAL UTILITIES
+   ========================================================================== */
+
+@layer utilities {
+  /* Gold that shifts across its face, like plating catching light. */
+  .text-plated {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-gold-lo) 0%,
+      var(--color-gold) 26%,
+      var(--color-gold-hi) 47%,
+      var(--color-gold) 68%,
+      var(--color-gold-lo) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-plated {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-gold-lo) 0%,
+      var(--color-gold) 26%,
+      var(--color-gold-hi) 47%,
+      var(--color-gold) 68%,
+      var(--color-gold-lo) 100%
+    );
+  }
+
+  /* Hairline in nickel — the border of a plate against leather. */
+  .border-plate {
+    border: 1px solid color-mix(in srgb, var(--color-nickel) 22%, transparent);
+  }
+
+  /* Subtle grain so large black fields read as hide, not as void. */
+  .leather-grain {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .leather-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      radial-gradient(
+        circle at 18% 22%,
+        color-mix(in srgb, var(--color-gold) 5%, transparent) 0%,
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 82% 78%,
+        color-mix(in srgb, var(--color-oxblood) 16%, transparent) 0%,
+        transparent 46%
+      );
+  }
+
+  /* A sheen that travels across a plate on hover. One effect, used sparingly. */
+  .plate-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .plate-sheen::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -75%;
+    width: 45%;
+    height: 220%;
+    pointer-events: none;
+    transform: rotate(18deg) translateX(0);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-gold-hi) 26%, transparent) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition:
+      transform 0.85s var(--ease-plate),
+      opacity 0.3s ease;
+  }
+
+  .plate-sheen:hover::after,
+  .plate-sheen:focus-visible::after {
+    opacity: 1;
+    transform: rotate(18deg) translateX(420%);
+  }
+
+  /* Horizontal rails: scroll inside the container, hide the bar. */
+  .rail {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* ==========================================================================
+   MOTION — restrained by default, off entirely on request
+   ========================================================================== */
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .reveal {
+    animation: reveal-up 0.7s var(--ease-plate) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .plate-sheen::after {
+    display: none;
+  }
+}

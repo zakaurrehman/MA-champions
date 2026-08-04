@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "source": "images with prices.docx",
+    "extractedOn": "2026-08-05",
+    "currency": "USD",
+    "productCount": 3,
+    "imageCount": 24,
+    "notes": [
+      "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
+      "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
+      "Fields marked TODO were NOT present in the source document and must be confirmed before launch. Nothing has been invented.",
+      "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text."
+    ]
+  },
+  "products": [
+    {
+      "id": "ma-001",
+      "visibility": {
+        "shop": false,
+        "customGallery": true,
+        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Continental Crown Championship Belt",
+      "slug": "continental-crown-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "cnc-premium",
+        "24k-gold",
+        "replica-style"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 430,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A deep-etched CNC championship belt built around a crowned oval centre plate, finished in 24k gold plating over polished silver and mounted on a sealed-edge cowhide strap.",
+      "description": "Our Continental Crown is a six-millimetre CNC-machined championship belt. The centre plate carries a raised crown above a mirror-polished oval, framed by scrollwork banners and deep-etched pillars. Four matching side plates carry globe and grappler motifs. Every plate is 24k gold plated over a polished silver base, and the strap is a full-grain cowhide with a sealed, painted edge and tooled border.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating over polished silver/nickel base",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/continental-crown-championship-belt-01-hero.png",
+          "alt": "Continental Crown championship belt laid flat, showing the gold-plated crown centre plate and four side plates on a black leather strap",
+          "width": 2048,
+          "height": 1536,
+          "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoMAAkAAwBSJbACdADz4PwAAP5BGt+/VOXrbLPXLlHul/xWILJDdfEZdN+suy0jWBP6jocXUl5g19EH/0qDOwAA"
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-02-front.jpg",
+          "alt": "Front view of the Continental Crown championship belt with all five plates visible",
+          "width": 1600,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoMAAcAAwBSJbACdAD0F/D2QAD+Jzo1gXGZuW+vx6+yXotZMA1JEYooF/YyXNVY2/oRM8axt/rb4cAA"
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-03-angle.jpg",
+          "alt": "Continental Crown championship belt photographed at an angle to show plate relief",
+          "width": 1600,
+          "height": 870,
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoMAAYAAwBSJbACdAEUkWQjAAD9kD8ST6DeXmeD13q68OLkIbzfBcW5QGr9/wS1u0h+hDAej/KLl4AA"
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-04-spread.jpg",
+          "alt": "Continental Crown championship belt spread out across its full width",
+          "width": 1600,
+          "height": 892,
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoMAAcAAwBSJbACdADyfEiAAP5JdqU9FkGDo0znlSuXBfzzpoRLGFGPTaRD6v6D+Oytxt/QiZ41jb/gVy8AAA=="
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-05-side-plates.jpg",
+          "alt": "Close view of the Continental Crown belt side plates showing globe and grappler etching",
+          "width": 1600,
+          "height": 889,
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAcAAwBSJbACdAEWT3vxrqAA/b9D/59q3oqM4I4GqVUx8waz8V9vBFaB6275mFeLl/uTsKqBrO72aKDGqP+lbOwAAA=="
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-06-detail.jpg",
+          "alt": "Detail of the deep-etched scrollwork on the Continental Crown centre plate",
+          "width": 1600,
+          "height": 815,
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAQCdASoMAAYAAwBSJbACdADx9MAAAP2QPm81cXDkA7xNhCjcujMYDqoexWKsoDV+/sZZOH+/GcaUl/StnYAA"
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-07-perspective.jpg",
+          "alt": "Continental Crown championship belt seen in perspective with the strap tail and snap studs visible",
+          "width": 1600,
+          "height": 884,
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoMAAcAAwBSJbACdAEQXdPyAADiXzXMKZHvuT0VoaY0fCG3Yv677nlh+NrHlWxBqF0OAoTK79VXJQN3IP8xA5o1jb/gVy8AAAA="
+        },
+        {
+          "src": "/products/continental-crown-championship-belt-08-closeup.jpg",
+          "alt": "Close-up of the crown motif and mirror-polished oval on the Continental Crown centre plate",
+          "width": 1600,
+          "height": 1019,
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoMAAgAAwBSJbACdAD0SSr8AAD9U+Ak8DaqVd/9YU6722BWJj187RQqATbY9Bzb9npZ1028KvFy/x5/+vZRndafib/W3n0AAAA="
+        }
+      ],
+      "_source": {
+        "sourceCaption": "AEW CONTINENTAL 6MM CNC 24K GOLD UPGRADE LEATHER SEALED EDGE",
+        "sourcePrice": "Price $430",
+        "sourceImages": 8,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal (brass vs zinc)",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Confirm whether $430 is the list price or already discounted",
+        "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
+      ]
+    },
+    {
+      "id": "ma-002",
+      "visibility": {
+        "shop": false,
+        "customGallery": true,
+        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Stacked Gold Heavyweight Championship Belt",
+      "slug": "stacked-gold-heavyweight-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "cnc-premium",
+        "24k-gold",
+        "replica-style"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 470,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": true,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A stacked, multi-layer CNC heavyweight belt in 24k gold with cubic zirconia stone settings, silver globe inlays and a sealed-edge cowhide strap.",
+      "description": "The Stacked Gold Heavyweight is built from layered 4mm CNC plates, giving the centrepiece genuine depth rather than a single flat casting. The face is 24k gold plated with contrasting silver lettering, set with cubic zirconia stones around the border. Six side plates — four globe medallions and two slim accent ovals — run down a sealed-edge cowhide strap with a tooled scalloped border.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined, stacked/layered construction",
+        "plateThickness": "4mm",
+        "plating": "24k gold plating with polished silver inlay detail",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 7,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Cubic zirconia stone settings"
+      },
+      "images": [
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-01-hero.jpg",
+          "alt": "Stacked Gold heavyweight championship belt laid flat, showing the layered gold centre plate set with clear stones",
+          "width": 1280,
+          "height": 736,
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAcAAwBSJbACdAD0RezmfwAA/SwmianqTsBXhprg4mfhG8799j8mf7dh2PXfzDPlsW1R/chlJ6P9lvCAAA=="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-02-full.png",
+          "alt": "Full view of the Stacked Gold heavyweight championship belt with all seven plates visible",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoMAAkAAwBSJbACsAEekQVL2AAA9G4liDAke49zGOdri0UjYD66h1f+fK3DHUG7aJ2Ju3fjIsflyV+aEf1zq0SBYxdXA7HRr/U3/4FcvAAAAA=="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-03-front.jpg",
+          "alt": "Front view of the Stacked Gold heavyweight belt centre plate",
+          "width": 1280,
+          "height": 784,
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoMAAcAAwBSJbACdAELG4RNgAD7HX45UlqE7P9PRyxAGOrmtPU19/LwonP1eGyaXXNTHmj9OLFXr2aBBU6eYPa2NY2/4FcvAAA="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-04-angle.jpg",
+          "alt": "Stacked Gold heavyweight championship belt photographed at an angle showing the layered plate depth",
+          "width": 1280,
+          "height": 709,
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAcAAwBSJbACdADcoU0HAAD9ay1MPHlFE7CtQswj5mlZWzpcWPBkzbsTg7c8wilt349OqETX7994pr/vK4cAAAA="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-05-spread.jpg",
+          "alt": "Stacked Gold heavyweight championship belt spread across its full width",
+          "width": 1280,
+          "height": 764,
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAQCdASoMAAcAAwBSJbACdADygGoAAPuYOMEac1VdZR+VpwnZtkuTgO/JRkO1y9eZ2VecpJsMvWh8nrCCORns952iKqP+lbZgAA=="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-06-center-plate.jpg",
+          "alt": "Close-up of the Stacked Gold centre plate showing raised lettering and cubic zirconia settings",
+          "width": 1280,
+          "height": 729,
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoMAAcAAwBSJbACsADdYn5TKIAA+x5/xqggn0UNr3n2uYXRRaxGv3vivjPlOQYsKbZmWwXVyLkdaOjCiMLKjKyDJriD0Y29MMcuSAAA"
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-07-side-plates.jpg",
+          "alt": "Side plates of the Stacked Gold belt with silver globe inlays and a slim accent oval",
+          "width": 1280,
+          "height": 745,
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACwAQCdASoMAAcAAwBSJbACdACkjLgAAM4OH2O7PDsShisIjlyDHuiH/PTlcXqF0bQXCd+LHIcTBidzgFeUmT+QDQjb72e0/g5MVH/n92AAAA=="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-08-side-detail.jpg",
+          "alt": "Detail of the Stacked Gold belt side plate etching and stone settings",
+          "width": 1280,
+          "height": 742,
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAcAAwBSJbACdAEDfJd2yKAA/sIq7v6Taju42/rsiD4CNIJIrcD9socIVypnlKYhQHzfWBP6aeCqdY26LdjoUP/eVsoAAAA="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-09-strap.jpg",
+          "alt": "Sealed-edge cowhide strap and snap studs on the Stacked Gold heavyweight belt",
+          "width": 1280,
+          "height": 734,
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoMAAcAAwBSJbACdAEVvGQpyAAA/k5w5as8cNNtklP2kAeAy1Svsd6raQdMIsU/PYecCDiSfFaMqGM0rB+M2FxQfBDBVH/eVkHAAA=="
+        },
+        {
+          "src": "/products/stacked-gold-heavyweight-championship-belt-10-tail.jpg",
+          "alt": "Tail end of the Stacked Gold heavyweight belt showing the adjustment snaps",
+          "width": 1280,
+          "height": 787,
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAcAAwBSJbACdAEQXLuxKAAA4jQpSptQ1w3Q9yKxdIq67o+WNCJx/1Tkyp+TUOseQHRfIsVesjaKma/fvXVOv9Df/gVy8AA="
+        }
+      ],
+      "_source": {
+        "sourceCaption": "4MM CNC TNA STACKED 24K GOLD UPGRADE LEATHER ZIRCONIA STONES SEALED EDGE LEATHER",
+        "sourcePrice": "Price 470$",
+        "sourceImages": 10,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Confirm plate count — counted 7 from photos (4 globe medallions + 2 accent ovals + centre)",
+        "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
+      ]
+    },
+    {
+      "id": "ma-003",
+      "visibility": {
+        "shop": false,
+        "customGallery": true,
+        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Stone-Set World Championship Belt",
+      "slug": "stone-set-world-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "cnc-premium",
+        "24k-gold",
+        "replica-style"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 450,
+      "salePrice": null,
+      "currency": "USD",
+      "priceIncludesShipping": true,
+      "inStock": true,
+      "featured": true,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "Our most heavily stone-set build: a 6mm CNC world title with fully jewelled borders, extra side plates and a sealed-edge cowhide strap.",
+      "description": "The Stone-Set World is the most ornate belt in the range. Every plate edge is lined with cubic zirconia, and the centre plate layers a diamond-cut field behind raised lettering with an engravable nameplate at the base. Four extra side plates — two carrying roundel medallions, two carrying rosette scrollwork — extend the jewelled run further down the strap than a standard build. Plates are 24k gold plated with silver inlay, on sealed-edge cowhide.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating with polished silver inlay",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Full cubic zirconia border settings on all plates"
+      },
+      "images": [
+        {
+          "src": "/products/stone-set-world-championship-belt-01-hero.jpg",
+          "alt": "Stone-Set World championship belt laid flat, showing the fully jewelled gold centre plate and four side plates",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoMAAkAAwBSJbACdAYuHwK3mQpwAP7AfOHKTC7Fs1txQ/18SOXRKc7sl1wpxr1lsfVcxPsHCp6MJ0wWBd/sR7/o3/ndf+xv/8kemgAA"
+        },
+        {
+          "src": "/products/stone-set-world-championship-belt-02-full.jpg",
+          "alt": "Full view of the Stone-Set World championship belt across the complete strap",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAADQAQCdASoMAAkAAwBSJbACdADp6KqQQAD+aKFUeHMBWC2gOBzC1wVREbVsnWmuuqzgsypFK9rhYF/ejx/Rt1FMnsFWUgOXk4LGqVYTsjDf0dGnV3k5FtNAAAA="
+        },
+        {
+          "src": "/products/stone-set-world-championship-belt-03-angle.jpg",
+          "alt": "Stone-Set World championship belt at an angle, showing stone depth and plate layering",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoMAAkAAwBSJbACdAEQLEq9O4AA/trT/vfQcdHt1PUECQF/f3oAJ2+otUwcIpo3ZmZYa5n9+g1wyk0lf6D/Kqlrf7Yjt5U65n/myu7W0YAAAA=="
+        },
+        {
+          "src": "/products/stone-set-world-championship-belt-04-vertical.jpg",
+          "alt": "Stone-Set World championship belt photographed vertically with all five plates in frame",
+          "width": 960,
+          "height": 1280,
+          "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAwAgCdASoMABAAAwBSJbACdDiAAQz0In5VwAD+6/7b589hbNzQ93p7bMhEg24jN5BmO5iaJ0pR+BSgNkxxLXEXn4ldpaJP8PcDBw4KMWG7bv7wpeQdWy/+d1J1XqKthRrZ4PtoUAA="
+        },
+        {
+          "src": "/products/stone-set-world-championship-belt-05-side-plate-detail.jpg",
+          "alt": "Detail of the Stone-Set World belt side plates with roundel medallion and rosette scrollwork",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoMAAkAAwBSJbACdAD7FPMfJIAA/tDW2ERLNHcVtO7cuEcOzMia7Mu/+KBTpW/Ow4i765VN/CZ1q31UeW5TnL/8czt/sdGP+9Af+Df/9E/AAAAA"
+        },
+        {
+          "src": "/products/stone-set-world-championship-belt-06-closeup.jpg",
+          "alt": "Close-up of the cubic zirconia border settings on the Stone-Set World centre plate",
+          "width": 1280,
+          "height": 960,
+          "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoMAAkAAwBSJbACdAYstvvP67iogAD+3gOdSDI3bT7sNTHb1hYTfDlHppGj4lYcimEdnNMdu8ss5b/0MNhzScrDCYKqHk8kOMEn/av9iHLAAAAA"
+        }
+      ],
+      "_source": {
+        "sourceCaption": "AEW 6MM CNC 24K GOLD UPGRADED LEATHER SEALED EDGE EXTRA SIDES PLATES ZIRCONIA STONES",
+        "sourcePrice": "Price $450 with shipping",
+        "sourceImages": 6,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Source says '$450 with shipping' — confirm whether shipping is bundled for this product only or all products",
+        "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
+      ]
+    }
+  ]
+}

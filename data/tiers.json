@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "status": "DRAFT — needs your confirmation before launch",
+    "currency": "USD",
+    "basis": "Floors drafted at roughly 10-15% under the competitor's published floors, per your instruction. One exception is noted below.",
+    "competitorReference": {
+      "source": "https://zeesbelts.com/pages/pricing",
+      "checkedOn": "2026-08-05",
+      "floors": {
+        "brass": 139.99,
+        "boxing": 149.99,
+        "zinc": 249.99,
+        "24k-gold": 249.99,
+        "hd-cnc-premium": 699.99,
+        "fully-custom": 179.99
+      }
+    },
+    "importantException": "HD & CNC Premium is NOT set by undercutting. The competitor's floor is $699.99, but your own CNC belts in the .docx are $430-470. Setting that floor to ~$610 would contradict your real inventory, so it is anchored to your actual cheapest CNC build ($430). That lands ~39% under the competitor — a much stronger position than the 10-15% rule would have produced, and it is real rather than invented."
+  },
+  "tiers": [
+    {
+      "id": "brass",
+      "name": "Brass",
+      "slug": "brass-championship-belts",
+      "order": 1,
+      "priceFloor": 119.99,
+      "competitorFloor": 139.99,
+      "undercutPct": 14,
+      "blurb": "Our entry tier. Light, affordable, and still a real metal plate on a real leather strap.",
+      "specBullets": [
+        "Solid brass plates, etched detail",
+        "Lightweight — comfortable over the shoulder",
+        "Genuine leather strap"
+      ],
+      "confirmed": false
+    },
+    {
+      "id": "boxing",
+      "name": "Boxing",
+      "slug": "boxing-championship-belts",
+      "order": 2,
+      "priceFloor": 129.99,
+      "competitorFloor": 149.99,
+      "undercutPct": 13,
+      "blurb": "Round-plate boxing silhouettes built to the proportions the sport actually uses.",
+      "specBullets": [
+        "Round or shield boxing plate profiles",
+        "Full-length adult strap",
+        "Custom centre artwork available"
+      ],
+      "confirmed": false
+    },
+    {
+      "id": "zinc",
+      "name": "Zinc",
+      "slug": "zinc-championship-belts",
+      "order": 3,
+      "priceFloor": 219.99,
+      "competitorFloor": 249.99,
+      "undercutPct": 12,
+      "blurb": "Deep-etched zinc holds far sharper relief than brass. This is where the detail starts to show.",
+      "specBullets": [
+        "Deep-etched zinc plates",
+        "Sharper relief and shadow detail",
+        "Real cowhide leather strap"
+      ],
+      "confirmed": false
+    },
+    {
+      "id": "24k-gold",
+      "name": "24K Gold",
+      "slug": "24k-gold-championship-belts",
+      "order": 4,
+      "priceFloor": 224.99,
+      "competitorFloor": 249.99,
+      "undercutPct": 10,
+      "blurb": "True 24k gold plating over a polished base. Warmer and deeper than the yellow lacquer most sellers use.",
+      "specBullets": [
+        "24k gold plating over polished nickel",
+        "Contrast silver inlay detail",
+        "Real cowhide leather strap"
+      ],
+      "confirmed": false
+    },
+    {
+      "id": "hd-cnc-premium",
+      "name": "HD & CNC Premium",
+      "slug": "hd-cnc-championship-belts",
+      "order": 5,
+      "priceFloor": 429.99,
+      "competitorFloor": 699.99,
+      "undercutPct": 39,
+      "anchoredToRealProduct": "ma-001 (Continental Crown Championship Belt, $430)",
+      "blurb": "Machine-cut from solid stock, not cast. The deepest etching we can produce, in 4mm and 6mm.",
+      "specBullets": [
+        "CNC/HD deep machine etching",
+        "4mm and 6mm plate thickness",
+        "24k gold plating, sealed-edge cowhide"
+      ],
+      "confirmed": false
+    },
+    {
+      "id": "fully-custom",
+      "name": "Fully Custom",
+      "slug": "custom-championship-belts",
+      "order": 6,
+      "priceFloor": 159.99,
+      "competitorFloor": 179.99,
+      "undercutPct": 11,
+      "blurb": "Your artwork, your plates, your leather. Built from scratch and quoted from the Belt Builder.",
+      "specBullets": [
+        "Custom-designed plates from your artwork",
+        "Any leather colour and stitching",
+        "Free digital proof before we cut metal"
+      ],
+      "confirmed": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "status": "EMPTY — awaiting real customer reviews",
+    "warning": "Do not add invented reviews here. Fabricated testimonials with real-sounding names are unlawful in the US (FTC Act §5), the UK (DMCC Act 2024) and the EU (UCPD). Every entry must come from an actual customer.",
+    "howToAdd": "Append objects matching the shape below. The homepage reviews section and /reviews page appear automatically once this array is non-empty.",
+    "shape": {
+      "id": "rev-001",
+      "name": "Customer name as they gave it",
+      "location": "City, Country (optional)",
+      "rating": 5,
+      "date": "2026-01-31",
+      "title": "Short headline",
+      "body": "What they actually wrote.",
+      "productSlug": "slug-of-the-belt-they-bought (optional)",
+      "verified": true,
+      "photo": "/reviews/filename.jpg (optional)"
+    }
+  },
+  "reviews": []
+}
