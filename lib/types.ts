@@ -85,6 +85,12 @@ export interface Product {
   specs: ProductSpecs;
   images: ProductImage[];
   visibility: ProductVisibility;
+  /**
+   * Variant size ids this belt can be built in. Omit to mean "all sizes",
+   * which is the current default — every belt we make is offered in the full
+   * size range until a product says otherwise.
+   */
+  availableSizes?: string[];
 }
 
 export interface MaterialTier {

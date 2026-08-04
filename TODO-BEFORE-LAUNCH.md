@@ -59,6 +59,30 @@ it appears in the announcement bar, hero and custom process automatically.
 
 ---
 
+## 2c. Variant upcharges — `data/variants.json`
+
+The live-price mechanism on product pages is **built and working** — it is
+currently adding zero, because no upcharges have been supplied. Until they are,
+the product page prints "Options shown do not change this price yet."
+
+| Group | What's needed |
+| --- | --- |
+| Plate material | What does each of brass / zinc / 24k gold / CNC add to the base? |
+| Size | Adult 2mm vs 4mm vs Kids vs Mini — Kids/Mini may be negative |
+| Leather colour | Do any colours cost more than black? |
+| Engraving | Flat fee for nameplate engraving, or free? |
+
+Set each `priceModifier`, flip that group's `confirmed` to `true`, and the
+note disappears automatically.
+
+## 2d. Size guide — `components/product/SizeGuideModal.tsx`
+
+The measurement diagram and how-to-measure copy are done. The **strap length
+column renders "TBC"** — send the actual length for each of Adult, Kids and
+Mini.
+
+---
+
 ## 3. Product data — `data/products.json`
 
 Per product, still marked `TODO:` in the file:

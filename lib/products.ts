@@ -61,6 +61,24 @@ export async function getProductsByTier(tier: string): Promise<Product[]> {
 }
 
 /**
+ * Related belts: same tier first, then same category, excluding the product
+ * being viewed. Shop-visible only.
+ */
+export async function getRelatedProducts(product: Product, limit = 4): Promise<Product[]> {
+  const shop = await getShopProducts();
+  const others = shop.filter((p) => p.id !== product.id);
+
+  const sameTier = others.filter((p) => p.materialTier === product.materialTier);
+  const sameCategory = others.filter(
+    (p) => p.materialTier !== product.materialTier && p.category === product.category
+  );
+
+  return [...sameTier, ...sameCategory, ...others]
+    .filter((p, i, arr) => arr.findIndex((x) => x.id === p.id) === i)
+    .slice(0, limit);
+}
+
+/**
  * Past work shown on /custom. These are real belts we built, presented as
  * commissions rather than stock — several carry client-supplied artwork and
  * are intentionally not purchasable.

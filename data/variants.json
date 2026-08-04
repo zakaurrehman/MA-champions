@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "status": "STRUCTURE CONFIRMED — PRICE MODIFIERS NOT CONFIRMED",
+    "warning": "Every priceModifier below is 0 and every group is confirmed:false. The live-price mechanism on the product page is fully wired and working — it is simply adding zero until the client supplies real upcharges. Do not invent these numbers; a wrong upcharge is a mispriced order.",
+    "howToConfirm": "Set each priceModifier to the amount (in USD) that option adds to the base price, then set the group's confirmed to true. Negative values are allowed (e.g. Kids sizes below the adult base).",
+    "currency": "USD"
+  },
+  "groups": [
+    {
+      "id": "plateMaterial",
+      "label": "Plate material",
+      "required": true,
+      "confirmed": false,
+      "options": [
+        { "id": "brass", "label": "Brass", "hint": "Lightweight, etched detail", "priceModifier": 0 },
+        { "id": "zinc", "label": "Zinc", "hint": "Deep-etched, sharper relief", "priceModifier": 0 },
+        { "id": "24k-gold", "label": "24K Gold", "hint": "True gold plating", "priceModifier": 0 },
+        { "id": "cnc", "label": "CNC / HD", "hint": "Machine-cut from solid stock", "priceModifier": 0 }
+      ]
+    },
+    {
+      "id": "size",
+      "label": "Size",
+      "required": true,
+      "confirmed": false,
+      "options": [
+        { "id": "adult-2mm", "label": "Adult 2mm", "hint": "Standard adult strap", "priceModifier": 0 },
+        { "id": "adult-4mm", "label": "Adult 4mm", "hint": "Heavier plates, more relief", "priceModifier": 0 },
+        { "id": "kids", "label": "Kids", "hint": "Scaled for children", "priceModifier": 0 },
+        { "id": "mini", "label": "Mini", "hint": "Display / desk size", "priceModifier": 0 }
+      ]
+    },
+    {
+      "id": "leatherColour",
+      "label": "Leather colour",
+      "required": true,
+      "confirmed": false,
+      "options": [
+        { "id": "black", "label": "Black", "swatch": "#141210", "priceModifier": 0 },
+        { "id": "oxblood", "label": "Oxblood", "swatch": "#5e141c", "priceModifier": 0 },
+        { "id": "brown", "label": "Brown", "swatch": "#5a3921", "priceModifier": 0 },
+        { "id": "white", "label": "White", "swatch": "#e8e3d9", "priceModifier": 0 },
+        { "id": "blue", "label": "Blue", "swatch": "#1b3a6b", "priceModifier": 0 },
+        { "id": "red", "label": "Red", "swatch": "#8c1c1c", "priceModifier": 0 }
+      ]
+    }
+  ],
+  "engraving": {
+    "label": "Nameplate engraving",
+    "maxLength": 24,
+    "hint": "Engraved on the side plates. Leave blank for none.",
+    "priceModifier": 0,
+    "confirmed": false
+  }
+}
