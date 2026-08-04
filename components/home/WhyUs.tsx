@@ -20,7 +20,7 @@ const POINTS = [
   {
     Icon: GlobeIcon,
     title: 'Shipped worldwide',
-    body: 'Free delivery to the USA, Canada and the UK, with tracked shipping everywhere else.',
+    body: 'Free delivery to the USA, Canada and the UK, and we ship everywhere else too.',
   },
 ] as const;
 

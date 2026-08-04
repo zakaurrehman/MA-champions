@@ -31,8 +31,8 @@ export default function Newsletter() {
               Spec your belt in <span className="text-plated">two minutes</span>
             </h2>
             <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-bone-dim">
-              Pick a silhouette, plates, leather and engraving. You get a written quote and a
-              free digital proof before we cut any metal.
+              Pick a silhouette, plates, leather and engraving, and we will come back to you
+              with a written quote.
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

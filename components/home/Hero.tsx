@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
+import { site } from '@/lib/site';
 
 /**
  * Hero — display case under a spotlight.
@@ -65,9 +66,11 @@ export default function Hero() {
             </Button>
           </div>
 
-          <p className="mt-7 text-2xs uppercase tracking-[0.16em] text-nickel">
-            Free digital proof before we cut metal
-          </p>
+          {site.claims.freeDigitalProof && (
+            <p className="mt-7 text-2xs uppercase tracking-[0.16em] text-nickel">
+              Free design proof before production
+            </p>
+          )}
         </div>
 
         {/* Plinth */}

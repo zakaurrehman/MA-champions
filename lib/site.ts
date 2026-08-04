@@ -50,6 +50,22 @@ export interface SiteConfig {
     freeTo: string[];
     worldwide: boolean;
   };
+
+  /**
+   * Marketing claims that are only true if you say they are. Each is null
+   * until confirmed, and every surface that would state one checks first.
+   * Never flip one of these to true without the client confirming it.
+   */
+  claims: {
+    /** Do you send a design proof for approval before production? */
+    freeDigitalProof: boolean | null;
+    /** Typical first-response time to an enquiry, e.g. "one working day". */
+    responseTime: string | null;
+    /** Is shipping tracked to all destinations? */
+    trackedShipping: boolean | null;
+    /** How the belt is packed, e.g. "a fitted box". */
+    packaging: string | null;
+  };
 }
 
 export const site: SiteConfig = {
@@ -88,9 +104,16 @@ export const site: SiteConfig = {
   },
 
   shipping: {
-    // Safe to state: matches the brief's announcement-bar copy.
+    // Safe to state: supplied by the client in the project brief.
     freeTo: ['USA', 'Canada', 'UK'],
     worldwide: true,
+  },
+
+  claims: {
+    freeDigitalProof: null, // TODO: confirm
+    responseTime: null, // TODO: confirm
+    trackedShipping: null, // TODO: confirm
+    packaging: null, // TODO: confirm
   },
 };
 

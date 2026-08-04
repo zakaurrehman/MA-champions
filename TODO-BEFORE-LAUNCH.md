@@ -45,6 +45,20 @@ Also confirm: is **$430** a list price or already discounted? And is
 
 ---
 
+## 2b. Marketing claims — `lib/site.ts` → `claims`
+
+Each is `null` and stays off the site entirely until you confirm it. Say yes and
+it appears in the announcement bar, hero and custom process automatically.
+
+| Claim | Question |
+| --- | --- |
+| `freeDigitalProof` | Do you send a design proof for approval before production? Is it free? |
+| `responseTime` | Typical first reply to an enquiry — "one working day"? |
+| `trackedShipping` | Is shipping tracked to **all** destinations, or only some? |
+| `packaging` | How is the belt packed? (e.g. "a fitted box") |
+
+---
+
 ## 3. Product data — `data/products.json`
 
 Per product, still marked `TODO:` in the file:

@@ -7,15 +7,20 @@ import { getCustomGalleryProducts } from '@/lib/products';
 export const metadata: Metadata = {
   title: 'Custom Championship Belts — Built To Your Design',
   description:
-    'Custom wrestling belts, corporate award belts and fantasy league trophies built to your artwork. Free digital proof before we cut metal.',
+    'Custom wrestling belts, corporate award belts and fantasy league trophies built to your artwork by M.A Champions Belts.',
   alternates: { canonical: '/custom' },
 };
 
+/*
+ * Process copy describes only what the work inherently involves. Specific
+ * promises — proof turnaround, packaging, tracked shipping — are gated behind
+ * `site.claims` and stay out until the client confirms them.
+ */
 const PROCESS = [
-  { step: '01', title: 'Design', body: 'Send artwork, a logo or a sketch. We draw the plates to scale.' },
-  { step: '02', title: 'Approve', body: 'You get a digital proof. Nothing is cut until you sign it off.' },
+  { step: '01', title: 'Design', body: 'Send artwork, a logo or a sketch and we work it up into a plate design.' },
+  { step: '02', title: 'Approve', body: 'You review the design and confirm it before production starts.' },
   { step: '03', title: 'Manufacture', body: 'Plates are machined, plated and set onto the leather by hand.' },
-  { step: '04', title: 'Ship', body: 'Packed in a fitted box and shipped tracked, worldwide.' },
+  { step: '04', title: 'Ship', body: 'Packed and shipped worldwide.' },
 ] as const;
 
 export default async function CustomPage() {

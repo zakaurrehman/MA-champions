@@ -23,7 +23,7 @@ export default function ContactPage() {
       title="Talk to us"
       intro={
         reachable
-          ? `Message us on WhatsApp or email ${site.email ?? ''} and we will come back to you within one working day. The full contact form, map and address land shortly.`
+          ? `Message us on WhatsApp or email ${site.email ?? ''} and we will come back to you. The full contact form, map and address land shortly.`
           : 'Our contact form, WhatsApp line and workshop address are being set up now. If you have reached this page, the fastest route is to start a build — every submission comes straight to us with your full spec attached.'
       }
       ctaLabel="Start a build"

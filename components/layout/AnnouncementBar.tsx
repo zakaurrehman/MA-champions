@@ -20,7 +20,8 @@ function buildMessages(): string[] {
   const custom = leadTimeLabel('custom');
   if (custom) out.push(`Custom belts: ${custom}`);
 
-  out.push('Free digital proof before we cut metal');
+  if (site.claims.freeDigitalProof) out.push('Free design proof before production');
+
   return out;
 }
 
