@@ -75,6 +75,32 @@ the product page prints "Options shown do not change this price yet."
 Set each `priceModifier`, flip that group's `confirmed` to `true`, and the
 note disappears automatically.
 
+## 2e. Belt Builder economics — `lib/builder.ts`
+
+The running total **does** move: base price per plate material comes from the
+real tier floors ($119.99 brass → $429.99 CNC). What is still zero:
+
+| Modifier | Question |
+| --- | --- |
+| `BUILD_MODIFIERS.plateCount` | What do 3 and 5 plates add over a single centre plate? |
+| `BUILD_MODIFIERS.size` | Adult 4mm vs 2mm; are Kids/Mini cheaper? |
+| `BUILD_MODIFIERS.engraving` | Flat fee, or free? |
+| `BUILD_MODIFIERS.artwork` | Is there a setup/origination fee for custom artwork? |
+
+Set them, flip `BUILD_MODIFIERS.confirmed` to `true`, and the "Indicative only"
+note disappears by itself.
+
+## 2f. Quote delivery — `lib/quote.ts`
+
+**Uploaded artwork does not travel with the quote.** A `mailto:` link cannot
+carry an attachment, so the builder tells the customer to attach the file
+themselves. This is a real limitation, not a placeholder.
+
+The fix is a small API route (`app/api/quote/route.ts`) that accepts the spec
+plus the file and sends it server-side via Resend, SendGrid or Nodemailer.
+`submitQuote()` is already shaped for it — the builder will not need changes.
+Until then, quotes still arrive; only the file needs a manual attach.
+
 ## 2d. Size guide — `components/product/SizeGuideModal.tsx`
 
 The measurement diagram and how-to-measure copy are done. The **strap length
