@@ -134,6 +134,34 @@ blur placeholder.
 
 ---
 
+## 4b. FAQ answers awaiting real figures — `data/faqs.json`
+
+Four answers are written to be true *without* a figure, and are flagged
+`needsConfirmation: true`. They are published and they are honest, but they are
+weaker than they need to be. Rewrite them with real numbers once you have them:
+
+| FAQ | What it currently says | What it should say |
+| --- | --- | --- |
+| `lead-time` | "confirmed in writing on your quote" | "Typically X–Y working days" |
+| `rush` | "tell us the date and we'll confirm" | Your actual rush capability |
+| `payment` | "arranged directly, no card payments on site" | Accurate once checkout exists |
+| `returns` | "see refund policy" | Your actual returns window |
+
+**These answers are also emitted as FAQPage structured data to Google.** Do not
+put anything in this file you cannot honour.
+
+## 4c. Policy pages — still deliberately empty
+
+`/policies/privacy`, `/refund`, `/shipping` and `/terms` render an honest
+"being prepared" page rather than placeholder legal text. This is intentional:
+a published refund window is contractually binding the moment it goes live, and
+boilerplate copied from another site is both unenforceable and a liability.
+
+These need your real terms (or a solicitor's) before launch. Everything else on
+the site links to them correctly already.
+
+---
+
 ## 5. Content that must not be invented
 
 These are deliberately empty and will stay empty until real content exists:

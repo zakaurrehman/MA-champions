@@ -15,7 +15,8 @@
         "fully-custom": 179.99
       }
     },
-    "importantException": "HD & CNC Premium is NOT set by undercutting. The competitor's floor is $699.99, but your own CNC belts in the .docx are $430-470. Setting that floor to ~$610 would contradict your real inventory, so it is anchored to your actual cheapest CNC build ($430). That lands ~39% under the competitor — a much stronger position than the 10-15% rule would have produced, and it is real rather than invented."
+    "importantException": "HD & CNC Premium is NOT set by undercutting. The competitor's floor is $699.99, but your own CNC belts in the .docx are $430-470. Setting that floor to ~$610 would contradict your real inventory, so it is anchored to your actual cheapest CNC build ($430). That lands ~39% under the competitor — a much stronger position than the 10-15% rule would have produced, and it is real rather than invented.",
+    "compareNote": "Technical attributes describe the materials themselves and are safe to publish. weight and leadTime are null because they are business facts the client has not supplied — the pricing table renders them as a dash rather than guessing."
   },
   "tiers": [
     {
@@ -32,7 +33,17 @@
         "Lightweight — comfortable over the shoulder",
         "Genuine leather strap"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "Solid brass",
+        "plating": "Polished / optional gold tone",
+        "etching": "Standard etch",
+        "leather": "Genuine leather",
+        "stones": "None",
+        "bestFor": "Gifts, first belts, tight budgets",
+        "weight": null,
+        "leadTime": null
+      }
     },
     {
       "id": "boxing",
@@ -48,7 +59,17 @@
         "Full-length adult strap",
         "Custom centre artwork available"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "Brass or zinc",
+        "plating": "Gold or silver tone",
+        "etching": "Standard etch",
+        "leather": "Genuine leather",
+        "stones": "Optional",
+        "bestFor": "Boxing gyms and sanctioning-style belts",
+        "weight": null,
+        "leadTime": null
+      }
     },
     {
       "id": "zinc",
@@ -64,7 +85,17 @@
         "Sharper relief and shadow detail",
         "Real cowhide leather strap"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "Die-cast zinc",
+        "plating": "Gold or nickel",
+        "etching": "Deep etch",
+        "leather": "Real cowhide",
+        "stones": "Optional",
+        "bestFor": "Replica titles where detail matters",
+        "weight": null,
+        "leadTime": null
+      }
     },
     {
       "id": "24k-gold",
@@ -80,7 +111,17 @@
         "Contrast silver inlay detail",
         "Real cowhide leather strap"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "Zinc or brass core",
+        "plating": "True 24k gold over polished nickel",
+        "etching": "Deep etch",
+        "leather": "Real cowhide",
+        "stones": "Optional",
+        "bestFor": "Display pieces and serious collectors",
+        "weight": null,
+        "leadTime": null
+      }
     },
     {
       "id": "hd-cnc-premium",
@@ -97,7 +138,17 @@
         "4mm and 6mm plate thickness",
         "24k gold plating, sealed-edge cowhide"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "CNC-machined from solid stock",
+        "plating": "24k gold, multi-tone",
+        "etching": "HD/CNC deep machine etch",
+        "leather": "Sealed-edge cowhide",
+        "stones": "Cubic zirconia available",
+        "bestFor": "Screen-accurate replicas and flagship builds",
+        "weight": null,
+        "leadTime": null
+      }
     },
     {
       "id": "fully-custom",
@@ -111,9 +162,19 @@
       "specBullets": [
         "Custom-designed plates from your artwork",
         "Any leather colour and stitching",
-        "Free digital proof before we cut metal"
+        "Designed with you, built from scratch"
       ],
-      "confirmed": false
+      "confirmed": false,
+      "compare": {
+        "plateMetal": "Your choice of any above",
+        "plating": "Your choice",
+        "etching": "To your artwork",
+        "leather": "Any colour, any stitching",
+        "stones": "Optional",
+        "bestFor": "Leagues, promotions, corporate awards, one-offs",
+        "weight": null,
+        "leadTime": null
+      }
     }
   ]
 }

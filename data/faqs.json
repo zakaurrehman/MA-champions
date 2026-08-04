@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "note": "Answers here state only what we can stand behind. Where a business fact is missing (lead times, returns windows), the answer says how it is handled rather than inventing a number. Items with needsConfirmation:true should be rewritten with real figures once supplied — see TODO-BEFORE-LAUNCH.md.",
+    "warning": "These answers are published to customers AND emitted as FAQPage structured data to Google. Do not add an answer you cannot honour."
+  },
+  "faqs": [
+    {
+      "id": "lead-time",
+      "category": "Lead times",
+      "needsConfirmation": true,
+      "question": "How long does a championship belt take to make?",
+      "answer": "Build time depends on the tier, the number of plates and whether your artwork still needs drawing. We confirm your exact build time in writing on your quote, before you pay anything. We would rather give you a date we can hold than a generic estimate that slips."
+    },
+    {
+      "id": "rush",
+      "category": "Lead times",
+      "needsConfirmation": true,
+      "question": "Can you make a belt for a specific date?",
+      "answer": "Often, yes. Tell us the date when you send your build or enquiry and we will confirm whether it is achievable before you commit. If it is tight, we will say so rather than accept the order and miss it."
+    },
+    {
+      "id": "shipping",
+      "category": "Shipping",
+      "needsConfirmation": false,
+      "question": "Where do you ship, and how much does it cost?",
+      "answer": "Shipping is free to the USA, Canada and the United Kingdom. We ship worldwide; delivery to other countries is quoted with your order so there are no surprises at the end."
+    },
+    {
+      "id": "sizing",
+      "category": "Sizing",
+      "needsConfirmation": false,
+      "question": "What size belt should I order?",
+      "answer": "Measure around your waist where the belt will actually sit, over the clothing you will wear it with. A championship belt is worn loose over the hip, so add a few inches to a trouser waist measurement. Adult, Kids and Mini sizes are available, and Mini is a display size rather than a wearable one. If you are between sizes, send us your measurement and we will set the snap positions to match."
+    },
+    {
+      "id": "custom-process",
+      "category": "Custom process",
+      "needsConfirmation": false,
+      "question": "How does ordering a custom belt work?",
+      "answer": "Start in the Belt Builder: choose your silhouette, plates, leather and engraving, and upload artwork if you have it. Send it to us and we work the design up into plate artwork. You review and confirm the design, then we machine, plate and assemble the belt by hand and ship it to you."
+    },
+    {
+      "id": "no-artwork",
+      "category": "Custom process",
+      "needsConfirmation": false,
+      "question": "What if I do not have artwork ready?",
+      "answer": "That is normal. Send a description, a photo, a logo file or a rough sketch on paper and our team will draw the plates from it. Most of what we build starts as an idea rather than a finished file."
+    },
+    {
+      "id": "materials",
+      "category": "Materials",
+      "needsConfirmation": false,
+      "question": "What is the difference between brass, zinc and CNC plates?",
+      "answer": "Brass is the lightest and most affordable, and takes a standard etch. Zinc is die-cast and holds a much deeper etch, so the relief and shadow detail are noticeably sharper — this is where most replica work sits. CNC plates are machined from solid stock rather than cast, which produces the deepest and crispest detail we can make, and the most weight. The metal is the single biggest factor in how a belt looks in person."
+    },
+    {
+      "id": "gold-plating",
+      "category": "Materials",
+      "needsConfirmation": false,
+      "question": "Is the 24k gold plating real gold?",
+      "answer": "Yes. It is genuine 24k gold plating applied over a polished nickel base, not a yellow lacquer or paint. Plating over a polished base is what gives the finish its depth — a plated belt over an unpolished base looks flat and dulls faster."
+    },
+    {
+      "id": "leather",
+      "category": "Materials",
+      "needsConfirmation": false,
+      "question": "Is the strap real leather?",
+      "answer": "Our cowhide straps are genuine full-grain leather, and our premium builds use a sealed, painted edge rather than a raw cut edge. Entry-tier belts use genuine leather. We will always tell you which one you are getting before you order."
+    },
+    {
+      "id": "payment",
+      "category": "Payment",
+      "needsConfirmation": true,
+      "question": "How do I pay?",
+      "answer": "Orders are arranged directly with us rather than checked out on the website. You will receive a written quote with the final price and payment details before anything is made. We do not currently take card payments on the site."
+    },
+    {
+      "id": "returns",
+      "category": "Returns",
+      "needsConfirmation": true,
+      "question": "Can I return a belt?",
+      "answer": "Custom and engraved belts are made to order, so they are treated differently from stock items. Our refund policy sets out exactly what applies to each; please read it before ordering, and ask us if anything is unclear."
+    },
+    {
+      "id": "bulk",
+      "category": "Custom process",
+      "needsConfirmation": false,
+      "question": "Do you make belts for leagues, gyms and corporate awards?",
+      "answer": "Yes. Fantasy leagues, boxing and MMA gyms, wrestling promotions, corporate recognition awards and one-off gifts are a large part of what we build. Tell us how many you need and when, and we will quote it."
+    }
+  ]
+}

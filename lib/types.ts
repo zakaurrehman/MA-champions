@@ -93,6 +93,24 @@ export interface Product {
   availableSizes?: string[];
 }
 
+/**
+ * Structured attributes for the /pricing comparison table.
+ *
+ * The string fields describe the materials themselves, which is safe to
+ * publish. `weight` and `leadTime` are business facts we do not hold, so they
+ * are nullable and render as a dash rather than a guess.
+ */
+export interface TierCompare {
+  plateMetal: string;
+  plating: string;
+  etching: string;
+  leather: string;
+  stones: string;
+  bestFor: string;
+  weight: string | null;
+  leadTime: string | null;
+}
+
 export interface MaterialTier {
   id: MaterialTierId;
   name: string;
@@ -104,6 +122,7 @@ export interface MaterialTier {
   anchoredToRealProduct?: string;
   blurb: string;
   specBullets: string[];
+  compare: TierCompare;
   /** false until the client signs off on the price floor. */
   confirmed: boolean;
 }
