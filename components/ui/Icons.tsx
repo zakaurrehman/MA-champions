@@ -94,6 +94,34 @@ export const PlatingIcon = (p: P) => (
   </svg>
 );
 
+/* -- Social. Filled marks, since brand glyphs read badly as outlines. -- */
+
+export const InstagramIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true" {...p}>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+export const FacebookIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...p}>
+    <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z" />
+  </svg>
+);
+
+export const TikTokIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...p}>
+    <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.79-2.46V9.8a5.68 5.68 0 1 0 4.88 5.62V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.28 4.28 0 0 1-3.24-1.48Z" />
+  </svg>
+);
+
+export const YouTubeIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...p}>
+    <path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.25 5 12 5 12 5s-6.25 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.75 19 12 19 12 19s6.25 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3-5.2 3Z" />
+  </svg>
+);
+
 export const GlobeIcon = (p: P) => (
   <svg {...base} {...p}>
     <circle cx="12" cy="12" r="9" />

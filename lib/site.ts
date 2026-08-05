@@ -98,10 +98,19 @@ export const site: SiteConfig = {
     shippingDays: null, // TODO
   },
 
+  /*
+   * Supplied by the client. Tracking parameters (mibextid, igsh, utm_source,
+   * _r, _t) have been stripped — they are per-share analytics tokens, not part
+   * of the address, and publishing them leaks how the link was obtained.
+   *
+   * NOTE: `facebook` points at the M.A Championship Belts GROUP. The client
+   * also sent a personal Facebook profile ("Muhammad Ali"); that is
+   * deliberately NOT published here — see TODO-BEFORE-LAUNCH.md.
+   */
   social: {
-    instagram: null, // TODO
-    facebook: null, // TODO
-    tiktok: null, // TODO
+    instagram: 'https://www.instagram.com/m.a_championship_belt',
+    facebook: 'https://www.facebook.com/share/g/1BymFimgkH/',
+    tiktok: 'https://www.tiktok.com/@m.achampionshipbelts',
     youtube: null, // TODO
   },
 
@@ -160,6 +169,29 @@ export function contactHref(message: string): string {
 export function yearsInBusiness(): number | null {
   if (!site.foundedYear) return null;
   return new Date().getFullYear() - site.foundedYear;
+}
+
+export interface SocialLink {
+  label: string;
+  href: string;
+  /** Key used to pick the icon. */
+  id: 'instagram' | 'facebook' | 'tiktok' | 'youtube';
+}
+
+/** Only the platforms we actually have, in display order. */
+export function socialLinks(): SocialLink[] {
+  const all: SocialLink[] = [
+    { id: 'instagram', label: 'Instagram', href: site.social.instagram ?? '' },
+    { id: 'facebook', label: 'Facebook', href: site.social.facebook ?? '' },
+    { id: 'tiktok', label: 'TikTok', href: site.social.tiktok ?? '' },
+    { id: 'youtube', label: 'YouTube', href: site.social.youtube ?? '' },
+  ];
+  return all.filter((s) => s.href.length > 0);
+}
+
+/** Profile URLs for Organization JSON-LD `sameAs`. */
+export function sameAs(): string[] {
+  return socialLinks().map((s) => s.href);
 }
 
 /** Human lead-time string, or null if we cannot state one honestly. */

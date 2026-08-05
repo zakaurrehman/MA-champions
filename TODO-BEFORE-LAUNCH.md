@@ -162,6 +162,26 @@ the site links to them correctly already.
 
 ---
 
+## 4c-bis. Social links — two things to confirm
+
+**Live now:** Instagram (`m.a_championship_belt`), TikTok
+(`m.achampionshipbelts`), and the Facebook **Group** "M.A Championship Belts".
+Tracking parameters were stripped from all three.
+
+**1. A personal Facebook profile was supplied and is NOT published.**
+One of the links sent resolves to a personal profile ("Muhammad Ali"), not a
+business page. It is deliberately left out of `lib/site.ts`: a business
+footer linking a personal account exposes family photos and friend lists to
+customers, and it is not what buyers expect from "Facebook". Say the word and
+it goes in — but consider a Facebook **Page** instead.
+
+**2. The Facebook link is a Group, not a Page.**
+Groups are fine, but they behave differently: customers must request to join
+before they can see anything, so a cold visitor clicking your footer may hit a
+wall. A public Page would convert better. The URL is also a `/share/g/` link
+rather than a canonical `/groups/<id>` one — those are stable, but the
+canonical form is safer long-term.
+
 ## 4d. Newsletter signups are NOT being stored
 
 Both the homepage newsletter form and the exit-intent modal show a success

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MAIN_NAV, POLICY_LINKS } from '@/lib/nav';
 import { site, hasEmail, hasWhatsApp, whatsAppDisplay } from '@/lib/site';
+import SocialLinks from './SocialLinks';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 import Logo from './Logo';
 
@@ -56,6 +57,10 @@ export default function Footer() {
                 </Link>
               )}
             </div>
+
+            <div className="mt-8">
+              <SocialLinks />
+            </div>
           </div>
 
           {/* Nav columns */}
@@ -103,9 +108,9 @@ export default function Footer() {
         </div>
 
         {/*
-          TODO: payment icons and social links render once the client supplies
-          accepted payment methods and social handles (lib/site.ts). No payment
-          integration exists in v1, so claiming card acceptance would be false.
+          TODO: payment icons render once the client confirms accepted payment
+          methods. No payment integration exists in v1, so claiming card
+          acceptance would be false. Social links are live above.
         */}
       </div>
     </footer>
