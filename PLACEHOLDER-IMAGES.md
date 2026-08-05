@@ -27,21 +27,25 @@ These are **your photos**, not placeholders — but the physical belts carry liv
 promotion logos that are visible in every shot. Renaming the product does not remove the mark
 from the photograph.
 
-**DECIDED 2026-08-05 — option 3: custom gallery only, never the shop.**
+**SUPERSEDED 2026-08-06 — all three are now LIVE in the shop.**
 
-All three carry `visibility.shop: false` and `visibility.customGallery: true` in
-`data/products.json`. They appear on `/custom` as examples of work we've built. They are
-**not** purchasable catalogue items, do not appear in collections or search, and get no
-product page. `lib/products.ts` must filter on `visibility.shop` for every shop-facing query.
+The original 2026-08-05 decision was "custom gallery only". The client reversed it after
+confirming the competitor (zeesbelts.com) sells the equivalent AEW CNC belt publicly at
+$999.99. All three now carry `visibility.shop: true`: they have product pages, appear in
+collections, search, the featured rail and the sitemap.
 
 | Product | Files | Visible mark | Status |
 | --- | --- | --- | --- |
-| Continental Crown Championship Belt | `continental-crown-championship-belt-*` (8 files) | AEW wordmark on centre + all side plates | Custom gallery only |
-| Stacked Gold Heavyweight Championship Belt | `stacked-gold-heavyweight-championship-belt-*` (10 files) | TNA wordmark on centre + side plates | Custom gallery only |
-| Stone-Set World Championship Belt | `stone-set-world-championship-belt-*` (6 files) | AEW wordmark + JHT roundel on centre + side plates | Custom gallery only |
+| Continental Crown Championship Belt | `continental-crown-championship-belt-*` (8 files) | AEW wordmark on centre + all side plates | **Live in shop** |
+| Stacked Gold Heavyweight Championship Belt | `stacked-gold-heavyweight-championship-belt-*` (10 files) | TNA wordmark on centre + side plates | **Live in shop** |
+| Stone-Set World Championship Belt | `stone-set-world-championship-belt-*` (6 files) | AEW wordmark + JHT roundel on centre + side plates | **Live in shop** |
 
-To promote any of these into the shop later, you need generic-plate reshoots — then flip
-`visibility.shop` to `true` and swap the image paths.
+The risk has not gone away, it has been accepted. Product **names** remain descriptive
+(no trademarked names in titles, URLs or meta descriptions), so the exposure is limited to
+what is cast into the metal in the photographs.
+
+To reverse at any time: set `visibility.shop` to `false` in `data/products.json`. One flag
+per product removes it from every shop surface — no other code changes.
 
 ---
 

@@ -55,9 +55,19 @@ export async function getProductsByCollection(collection: string): Promise<Produ
   return shop.filter((p) => p.collections.includes(collection));
 }
 
+/**
+ * Products for a material tier page.
+ *
+ * Matches the product's own tier OR a tier tagged in its `collections`. A belt
+ * belongs to exactly one tier for pricing, but it can legitimately belong on
+ * more than one tier's shelf: our CNC belts are also genuinely 24k gold
+ * plated, and a shopper browsing "24K Gold" expects to see them. Without this,
+ * that collection rendered empty while three gold-plated belts sat in the
+ * catalogue.
+ */
 export async function getProductsByTier(tier: string): Promise<Product[]> {
   const shop = await getShopProducts();
-  return shop.filter((p) => p.materialTier === tier);
+  return shop.filter((p) => p.materialTier === tier || p.collections.includes(tier));
 }
 
 /**

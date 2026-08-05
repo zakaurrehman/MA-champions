@@ -9,16 +9,17 @@
       "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
       "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
       "Fields marked TODO were NOT present in the source document and must be confirmed before launch. Nothing has been invented.",
-      "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text."
+      "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text.",
+      "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap."
     ]
   },
   "products": [
     {
       "id": "ma-001",
       "visibility": {
-        "shop": false,
+        "shop": true,
         "customGallery": true,
-        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+        "reason": "Live in the shop by client decision (2026-08-06), after confirming the competitor sells the equivalent belt publicly. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
       },
       "name": "Continental Crown Championship Belt",
       "slug": "continental-crown-championship-belt",
@@ -126,9 +127,9 @@
     {
       "id": "ma-002",
       "visibility": {
-        "shop": false,
+        "shop": true,
         "customGallery": true,
-        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+        "reason": "Live in the shop by client decision (2026-08-06), after confirming the competitor sells the equivalent belt publicly. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
       },
       "name": "Stacked Gold Heavyweight Championship Belt",
       "slug": "stacked-gold-heavyweight-championship-belt",
@@ -250,9 +251,9 @@
     {
       "id": "ma-003",
       "visibility": {
-        "shop": false,
+        "shop": true,
         "customGallery": true,
-        "reason": "Live third-party mark cast into the plates and visible in all photos. Shown as past custom work only, not as a purchasable catalogue item. See PLACEHOLDER-IMAGES.md."
+        "reason": "Live in the shop by client decision (2026-08-06), after confirming the competitor sells the equivalent belt publicly. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
       },
       "name": "Stone-Set World Championship Belt",
       "slug": "stone-set-world-championship-belt",
