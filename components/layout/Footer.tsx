@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { MAIN_NAV, POLICY_LINKS } from '@/lib/nav';
-import { site, hasEmail, hasWhatsApp } from '@/lib/site';
+import { site, hasEmail, hasWhatsApp, whatsAppDisplay } from '@/lib/site';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 import Logo from './Logo';
 
@@ -40,7 +40,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 text-ink transition-colors hover:text-link"
                 >
                   <WhatsAppIcon className="h-4 w-4" />
-                  WhatsApp us
+                  {whatsAppDisplay()}
                 </a>
               )}
               {hasAddress && (

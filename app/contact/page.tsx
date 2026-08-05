@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/ui/PageShell';
 import ContactForm from '@/components/contact/ContactForm';
-import { site, hasEmail, hasWhatsApp } from '@/lib/site';
+import { site, hasEmail, hasWhatsApp, whatsAppDisplay } from '@/lib/site';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
 export const metadata: Metadata = {
@@ -55,7 +55,7 @@ export default function ContactPage() {
                       className="inline-flex items-center gap-2 text-ink hover:text-link"
                     >
                       <WhatsAppIcon className="h-4 w-4" />
-                      WhatsApp
+                      {whatsAppDisplay()}
                     </a>
                   </li>
                 )}

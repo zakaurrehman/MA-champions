@@ -76,7 +76,9 @@ export const site: SiteConfig = {
     'Custom championship belts and replica title belts, made in-house from real cowhide and deep-etched metal with 24k gold plating. Design your own belt or shop our collections.',
   url: 'https://machampionsbelts.com', // TODO: confirm production domain
 
-  whatsapp: null, // TODO: client to supply — with country code, digits only
+  // Supplied by the client. wa.me requires digits only — no +, spaces or
+  // dashes — so this is stored in link form. Displayed as +92 302 4057417.
+  whatsapp: '923024057417',
   email: null, // TODO: client to supply
   phone: null, // TODO: client to supply (optional if WhatsApp covers it)
 
@@ -121,6 +123,20 @@ export const site: SiteConfig = {
 
 export const hasWhatsApp = (): boolean => Boolean(site.whatsapp);
 export const hasEmail = (): boolean => Boolean(site.email);
+
+/**
+ * The number formatted for reading, derived from the link form so the two can
+ * never disagree. Falls back to the raw digits for any country code we have
+ * not added a grouping rule for.
+ */
+export function whatsAppDisplay(): string | null {
+  const raw = site.whatsapp;
+  if (!raw) return null;
+  // +92 3XX XXXXXXX (Pakistan)
+  const pk = /^92(\d{3})(\d{7})$/.exec(raw);
+  if (pk) return `+92 ${pk[1]} ${pk[2]}`;
+  return `+${raw}`;
+}
 
 /**
  * WhatsApp deep link with a prefilled message, or null when we have no number.
