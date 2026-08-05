@@ -6,6 +6,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import { getPostBySlug, getPosts } from '@/lib/blog';
 import { site } from '@/lib/site';
+import JsonLd from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd } from '@/lib/seo';
 
 interface Params {
   params: Promise<{ slug: string }>;
@@ -141,19 +143,26 @@ export default async function BlogPostPage({ params }: Params) {
         />
       </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.title,
-            description: post.excerpt,
-            datePublished: post.date,
-            author: { '@type': 'Organization', name: site.name },
-            publisher: { '@type': 'Organization', name: site.name },
-          }),
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          dateModified: post.date,
+          mainEntityOfPage: `${site.url}/blog/${post.slug}`,
+          author: { '@id': `${site.url}/#organization` },
+          publisher: { '@id': `${site.url}/#organization` },
+          ...(post.cover && { image: `${site.url}${post.cover.src}` }),
         }}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Journal', path: '/blog' },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
       />
     </article>
   );

@@ -27,7 +27,23 @@ npm run dev          # http://localhost:3000
 
 ## Project status
 
-Phase 1 of 6 is complete: foundation, design system, header/footer and homepage.
+All six build phases are complete:
+
+| Phase | What it covers |
+| --- | --- |
+| 1 | Foundation, design tokens, header/footer, homepage |
+| 2 | Collection filtering, product pages, gallery zoom + lightbox |
+| 3 | The Belt Builder (`/build`) — six-step visual configurator |
+| 4 | Pricing table, FAQs, about, contact, reviews, MDX blog, policies |
+| 5 | Cart drawer, wishlist, fuzzy search, recently viewed, toasts |
+| 6 | SEO, JSON-LD, sitemap, OG images, error pages, a11y + responsive QA |
+
+Plus a light/dark theme redesign with an oxblood-led palette.
+
+**The site is not launch-ready** — not because of missing code, but because of
+missing business facts. See [TODO-BEFORE-LAUNCH.md](TODO-BEFORE-LAUNCH.md).
+The single most urgent item is `site.url` in `lib/site.ts`, which is still a
+placeholder domain and currently feeds every canonical URL and the sitemap.
 
 Before this site can take real orders, see **[TODO-BEFORE-LAUNCH.md](TODO-BEFORE-LAUNCH.md)** —
 it lists every business fact, price and asset that is still missing. Nothing in
@@ -137,6 +153,28 @@ moving to Shopify Storefront or Sanity touches only the function bodies:
 3. Leave every exported signature unchanged.
 
 No component, page or call site changes.
+
+### SEO and structured data
+
+All JSON-LD is built in `lib/seo.ts` and rendered through
+`components/seo/JsonLd.tsx` — never inline in a page. That keeps every field
+defined once, so the markup cannot drift from the visible page (drift is what
+gets rich results suppressed).
+
+Emitted: `Organization` and `WebSite` site-wide, plus `BreadcrumbList` on
+product, collection, blog and FAQ pages, `Product` on product pages, `FAQPage`
+on `/faqs`, and `BlogPosting` on posts.
+
+`aggregateRating` is emitted **only** when a product has real reviews. Never
+change this to a default value — Google issues manual actions for ratings that
+do not match visible content, and fabricated reviews are unlawful in the US,
+UK and EU.
+
+Social share images are generated at build time by `app/opengraph-image.tsx`
+using `next/og`. Note that Satori (which renders them) is not a browser: SVG
+`<text>` is unsupported, and any glyph outside the bundled font triggers a
+network font fetch that fails the build. Keep to plain HTML elements and
+common characters.
 
 ### Design tokens
 

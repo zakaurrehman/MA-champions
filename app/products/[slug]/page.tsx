@@ -16,6 +16,8 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import WishlistButton from '@/components/product/WishlistButton';
 import RecordView from '@/components/product/RecordView';
 import RecentlyViewedRail from '@/components/product/RecentlyViewedRail';
+import JsonLd from '@/components/seo/JsonLd';
+import { productJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 interface Params {
   params: Promise<{ slug: string }>;
@@ -120,26 +122,32 @@ export default async function ProductPage({ params }: Params) {
       {/* Client island: writes this slug to the recently-viewed list. */}
       <RecordView slug={slug} />
 
-      {/* Product structured data. Expanded with aggregateRating in Phase 6. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Product',
-            name: product.name,
-            description: product.shortDescription,
-            image: product.images.map((i) => i.src),
-            offers: {
-              '@type': 'Offer',
-              price: product.salePrice ?? product.price,
-              priceCurrency: product.currency,
-              availability: product.inStock
-                ? 'https://schema.org/InStock'
-                : 'https://schema.org/OutOfStock',
-            },
-          }),
-        }}
+      {/*
+        aggregateRating is passed only when this product has real reviews.
+        With none, the property is omitted entirely rather than sent as zero —
+        Google issues manual actions for ratings that do not match the page.
+      */}
+      <JsonLd
+        data={productJsonLd({
+          product,
+          rating:
+            reviews.length > 0
+              ? {
+                  value:
+                    Math.round(
+                      (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) * 10
+                    ) / 10,
+                  count: reviews.length,
+                }
+              : null,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Collections', path: '/collections' },
+          { name: product.name, path: `/products/${product.slug}` },
+        ])}
       />
 
       <p className="sr-only">

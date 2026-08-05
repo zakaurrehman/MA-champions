@@ -162,6 +162,32 @@ the site links to them correctly already.
 
 ---
 
+## 4b-bis. Lighthouse — what I could and could not verify
+
+I have no browser in this environment, so **I have not run Lighthouse**. The
+brief targets 95+; here is the honest split.
+
+Verified by inspecting the build output:
+
+| | Result |
+| --- | --- |
+| Rendering | All 37 routes statically prerendered — no server work per request |
+| Shared JS | 103 kB; heaviest route 123 kB (`/products/[slug]`) |
+| CSS | 43 KB, 366 utility classes |
+| Images | `next/image` everywhere, with `sizes` and blur placeholders |
+| Fonts | `next/font` self-hosted, no render-blocking external request |
+| Alt text | 14 `<Image>`, zero missing `alt`; 2 decorative with `aria-hidden` |
+| Headings | Exactly one `<h1>` per page across all routes |
+| SVG | Zero unlabelled inline SVGs in rendered HTML |
+| Contrast | All 15 text pairs pass WCAG AA in both themes |
+
+**Still needs a real browser:** Largest Contentful Paint, Cumulative Layout
+Shift, Total Blocking Time, and interaction testing at each breakpoint. Run
+`npm run build && npm start`, then Lighthouse against `http://localhost:3000`.
+
+Layout-shift risk is concentrated in the announcement bar (rotating text) and
+the hero. Both have fixed heights, but that is reasoning, not measurement.
+
 ## 4c-bis. Social links — two things to confirm
 
 **Live now:** Instagram (`m.a_championship_belt`), TikTok

@@ -82,19 +82,25 @@ export default function ProductTabs({ product, reviews }: Props) {
       </div>
 
       <div role="tabpanel" id="panel-specifications" aria-labelledby="tab-specifications" hidden={tab !== 'specifications'} className="py-8">
-        <table className="w-full max-w-2xl text-left text-sm">
-          <caption className="sr-only">Specifications for {product.name}</caption>
-          <tbody>
-            {rows.map(([label, value]) => (
-              <tr key={label} className="border-b border-line/60">
-                <th scope="row" className="w-44 py-3 pr-4 align-top font-body font-semibold text-ink">
-                  {label}
-                </th>
-                <td className="py-3 text-muted">{value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* Wrapped so a long spec value can never push the page sideways. */}
+        <div className="overflow-x-auto">
+          <table className="w-full max-w-2xl text-left text-sm">
+            <caption className="sr-only">Specifications for {product.name}</caption>
+            <tbody>
+              {rows.map(([label, value]) => (
+                <tr key={label} className="border-b border-line/60">
+                  <th
+                    scope="row"
+                    className="w-44 py-3 pr-4 align-top font-body font-semibold text-ink"
+                  >
+                    {label}
+                  </th>
+                  <td className="py-3 text-muted">{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div role="tabpanel" id="panel-shipping" aria-labelledby="tab-shipping" hidden={tab !== 'shipping'} className="py-8">

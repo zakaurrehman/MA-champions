@@ -8,6 +8,8 @@ import CartDrawer from '@/components/cart/CartDrawer';
 import Toaster from '@/components/ui/Toaster';
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
 import ExitIntentModal from '@/components/ui/ExitIntentModal';
+import JsonLd from '@/components/seo/JsonLd';
+import { organizationJsonLd, webSiteJsonLd } from '@/lib/seo';
 import './globals.css';
 
 /* Display: heavy condensed — the weight of an arena banner / fight poster. */
@@ -66,6 +68,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        {/* Site-wide identity. Emitted once here so every page inherits it and
+            page-level blocks can reference it by @id rather than repeating. */}
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={webSiteJsonLd()} />
+
         <Header />
         <main id="main">{children}</main>
         <Footer />

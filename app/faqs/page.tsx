@@ -3,6 +3,8 @@ import PageShell from '@/components/ui/PageShell';
 import Accordion from '@/components/ui/Accordion';
 import Button from '@/components/ui/Button';
 import { getFaqs, getFaqsByCategory } from '@/lib/faqs';
+import JsonLd from '@/components/seo/JsonLd';
+import { faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'FAQs — Lead Times, Sizing, Materials & Shipping',
@@ -60,19 +62,12 @@ export default async function FaqsPage() {
         answers, so the two can never drift — Google penalises rich results
         whose markup does not match the page.
       */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: all.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-            })),
-          }),
-        }}
+      <JsonLd data={faqJsonLd(all)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'FAQs', path: '/faqs' },
+        ])}
       />
     </PageShell>
   );

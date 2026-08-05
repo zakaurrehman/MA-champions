@@ -4,6 +4,8 @@ import PageShell from '@/components/ui/PageShell';
 import CollectionView from '@/components/collection/CollectionView';
 import { getTierBySlug, LEAGUE_COLLECTIONS } from '@/lib/tiers';
 import { getProductsByCollection, getProductsByTier } from '@/lib/products';
+import JsonLd from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd } from '@/lib/seo';
 
 /**
  * Collection page. Stays statically rendered; CollectionView reads filter
@@ -67,6 +69,14 @@ export default async function CollectionPage({ params }: Params) {
   return (
     <PageShell eyebrow="Collection" title={data.title} intro={data.intro}>
       <CollectionView products={data.products} />
+
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Collections', path: '/collections' },
+          { name: data.name, path: `/collections/${slug}` },
+        ])}
+      />
     </PageShell>
   );
 }
