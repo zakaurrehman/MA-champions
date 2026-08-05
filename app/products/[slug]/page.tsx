@@ -13,6 +13,9 @@ import BuyBox from '@/components/product/BuyBox';
 import ProductTabs from '@/components/product/ProductTabs';
 import ProductCard from '@/components/product/ProductCard';
 import SectionHeading from '@/components/ui/SectionHeading';
+import WishlistButton from '@/components/product/WishlistButton';
+import RecordView from '@/components/product/RecordView';
+import RecentlyViewedRail from '@/components/product/RecentlyViewedRail';
 
 interface Params {
   params: Promise<{ slug: string }>;
@@ -52,9 +55,10 @@ export default async function ProductPage({ params }: Params) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const [reviews, related] = await Promise.all([
+  const [reviews, related, allProducts] = await Promise.all([
     getReviewsForProduct(slug),
     getRelatedProducts(product),
+    getShopProducts(),
   ]);
 
   return (
@@ -86,6 +90,10 @@ export default async function ProductPage({ params }: Params) {
             {product.shortDescription}
           </p>
 
+          <div className="mt-5">
+            <WishlistButton slug={product.slug} name={product.name} variant="inline" />
+          </div>
+
           <div className="mt-8">
             <BuyBox product={product} />
           </div>
@@ -106,6 +114,11 @@ export default async function ProductPage({ params }: Params) {
           </div>
         </section>
       )}
+
+      <RecentlyViewedRail products={allProducts} excludeSlug={slug} />
+
+      {/* Client island: writes this slug to the recently-viewed list. */}
+      <RecordView slug={slug} />
 
       {/* Product structured data. Expanded with aggregateRating in Phase 6. */}
       <script

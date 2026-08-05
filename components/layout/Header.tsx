@@ -8,13 +8,38 @@ import MegaMenu from './MegaMenu';
 import MobileNav from './MobileNav';
 import AnnouncementBar from './AnnouncementBar';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import { useCart, selectCount } from '@/lib/cart';
+import { useWishlist } from '@/lib/wishlist';
+import { useHydrated } from '@/lib/useHydrated';
 import { CartIcon, ChevronDownIcon, HeartIcon, MenuIcon, SearchIcon } from '@/components/ui/Icons';
+
+/** Count bubble on the cart and wishlist icons. */
+function Badge({ children }: { children: React.ReactNode }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-primary px-1 font-body text-[10px] font-bold tabular-nums leading-none text-on-primary"
+    >
+      {children}
+    </span>
+  );
+}
 
 export default function Header() {
   const [condensed, setCondensed] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+
+  const openCart = useCart((s) => s.openCart);
+  const hydrated = useHydrated();
+
+  /* Counts come from localStorage, so they are unknown during SSR. Gating on
+     `hydrated` keeps the server and first client render identical. */
+  const rawCartCount = useCart(selectCount);
+  const rawWishCount = useWishlist((s) => s.slugs.length);
+  const cartCount = hydrated ? rawCartCount : 0;
+  const wishCount = hydrated ? rawWishCount : 0;
 
   /* Condense on scroll. Passive listener, rAF-throttled. */
   useEffect(() => {
@@ -115,18 +140,26 @@ export default function Header() {
             </Link>
             <Link
               href="/wishlist"
-              aria-label="Wishlist"
-              className="hidden h-10 w-10 place-items-center text-ink transition-colors hover:text-link sm:grid"
+              aria-label={
+                wishCount > 0 ? `Wishlist, ${wishCount} saved` : 'Wishlist'
+              }
+              className="relative hidden h-10 w-10 place-items-center text-ink transition-colors hover:text-link sm:grid"
             >
               <HeartIcon className="h-5 w-5" />
+              {wishCount > 0 && <Badge>{wishCount}</Badge>}
             </Link>
-            <Link
-              href="/cart"
-              aria-label="Cart"
-              className="grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link"
+
+            {/* Opens the drawer rather than navigating — the full /cart page
+                still exists and is linked from inside the drawer. */}
+            <button
+              type="button"
+              onClick={openCart}
+              aria-label={cartCount > 0 ? `Cart, ${cartCount} items` : 'Cart'}
+              className="relative grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link"
             >
               <CartIcon className="h-5 w-5" />
-            </Link>
+              {cartCount > 0 && <Badge>{cartCount}</Badge>}
+            </button>
 
             <Link
               href="/build"

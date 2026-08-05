@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import InterimPage from '@/components/ui/InterimPage';
+import PageShell from '@/components/ui/PageShell';
+import WishlistView from '@/components/wishlist/WishlistView';
+import { getShopProducts } from '@/lib/products';
 
 export const metadata: Metadata = {
   title: 'Wishlist',
@@ -8,14 +10,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function WishlistPage() {
+export default async function WishlistPage() {
+  const products = await getShopProducts();
+
   return (
-    <InterimPage
+    <PageShell
       eyebrow="Wishlist"
-      title="Your wishlist is empty"
-      intro="Save belts as you browse and they will collect here. Nothing saved yet."
-      ctaLabel="Browse collections"
-      ctaHref="/collections"
-    />
+      title="Saved belts"
+      intro="Kept on this device. No account, no sign-up."
+    >
+      <WishlistView products={products} />
+    </PageShell>
   );
 }

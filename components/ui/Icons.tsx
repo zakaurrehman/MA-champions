@@ -24,8 +24,12 @@ export const SearchIcon = (p: P) => (
   </svg>
 );
 
-export const HeartIcon = (p: P) => (
-  <svg {...base} {...p}>
+/**
+ * `filled` marks a saved item. Shape change matters: colour alone would leave
+ * the saved state invisible to anyone who cannot distinguish it.
+ */
+export const HeartIcon = ({ filled = false, ...p }: P & { filled?: boolean }) => (
+  <svg {...base} {...p} fill={filled ? 'currentColor' : 'none'}>
     <path d="M12 20s-7-4.35-7-9a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 4.65-7 9-7 9Z" />
   </svg>
 );

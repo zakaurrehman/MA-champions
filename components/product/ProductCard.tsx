@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Product } from '@/lib/types';
 import { formatPrice } from '@/lib/products';
 import StarRating from '@/components/ui/StarRating';
+import WishlistButton from './WishlistButton';
 
 interface Props {
   product: Product;
@@ -22,7 +23,13 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
   const onSale = product.salePrice !== null && product.salePrice < product.price;
 
   return (
-    <article className={fixedWidth ? 'w-[78vw] max-w-[20rem] shrink-0 sm:w-72' : ''}>
+    <article
+      className={`relative ${fixedWidth ? 'w-[78vw] max-w-[20rem] shrink-0 sm:w-72' : ''}`}
+    >
+      {/* Sibling of the Link, not a child: a <button> inside an <a> is invalid
+          HTML and the click would navigate instead of saving. */}
+      <WishlistButton slug={product.slug} name={product.name} />
+
       <Link href={`/products/${product.slug}`} className="group block">
         <div className="border-plate relative aspect-[4/3] overflow-hidden rounded-[--radius-plate] bg-surface">
           {primary && (

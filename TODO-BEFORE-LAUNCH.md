@@ -162,6 +162,21 @@ the site links to them correctly already.
 
 ---
 
+## 4d. Newsletter signups are NOT being stored
+
+Both the homepage newsletter form and the exit-intent modal show a success
+message but **no email address is saved anywhere**. There is no mailing-list
+provider connected and no database.
+
+This is currently harmless (nothing is lost that was ever promised storage),
+but it becomes a real problem the moment you drive traffic: people will think
+they have subscribed. Either connect a provider (Mailchimp, Klaviyo, Resend
+Audiences, Buttondown) or remove both forms before launch.
+
+Files: `components/home/Newsletter.tsx`, `components/ui/ExitIntentModal.tsx`.
+
+---
+
 ## 5. Content that must not be invented
 
 These are deliberately empty and will stay empty until real content exists:

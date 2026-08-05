@@ -1,21 +1,24 @@
 import type { Metadata } from 'next';
-import InterimPage from '@/components/ui/InterimPage';
+import PageShell from '@/components/ui/PageShell';
+import SearchView from '@/components/search/SearchView';
+import { getShopProducts } from '@/lib/products';
 
 export const metadata: Metadata = {
   title: 'Search',
-  description: 'Search championship belts by name, material or sport.',
+  description: 'Search championship belts, replica title belts and custom builds.',
   alternates: { canonical: '/search' },
   robots: { index: false, follow: true },
 };
 
-export default function SearchPage() {
+export default async function SearchPage() {
+  // The catalogue ships with the page and search runs client-side, so results
+  // are instant and keep working offline. Revisit if the catalogue passes a
+  // few thousand products.
+  const products = await getShopProducts();
+
   return (
-    <InterimPage
-      eyebrow="Search"
-      title="Search belts"
-      intro="Fuzzy search across belt names, materials and sports is being wired up. Browse by material or sport in the meantime."
-      ctaLabel="Browse collections"
-      ctaHref="/collections"
-    />
+    <PageShell eyebrow="Search" title="Find your belt">
+      <SearchView products={products} />
+    </PageShell>
   );
 }

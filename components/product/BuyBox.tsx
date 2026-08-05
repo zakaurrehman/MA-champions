@@ -12,6 +12,7 @@ import {
   hasUnconfirmedModifiers,
 } from '@/lib/variants';
 import { useCart } from '@/lib/cart';
+import { useToasts } from '@/lib/toast';
 import { site, whatsAppHref } from '@/lib/site';
 import VariantSelector from './VariantSelector';
 import SizeGuideModal from './SizeGuideModal';
@@ -28,6 +29,8 @@ export default function BuyBox({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
 
   const addItem = useCart((s) => s.addItem);
+  const openCart = useCart((s) => s.openCart);
+  const pushToast = useToasts((s) => s.push);
 
   const basePrice = product.salePrice ?? product.price;
   const unitPrice = useMemo(
@@ -61,6 +64,12 @@ export default function BuyBox({ product }: { product: Product }) {
     );
     setAdded(true);
     window.setTimeout(() => setAdded(false), 2200);
+
+    pushToast(
+      `${quantity} × ${product.name} added to cart`,
+      { label: 'View cart', href: '/cart' }
+    );
+    openCart();
   };
 
   const waMessage = [

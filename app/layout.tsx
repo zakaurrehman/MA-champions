@@ -4,6 +4,10 @@ import { site } from '@/lib/site';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { themeInitScript } from '@/components/ui/ThemeToggle';
+import CartDrawer from '@/components/cart/CartDrawer';
+import Toaster from '@/components/ui/Toaster';
+import WhatsAppFloat from '@/components/ui/WhatsAppFloat';
+import ExitIntentModal from '@/components/ui/ExitIntentModal';
 import './globals.css';
 
 /* Display: heavy condensed — the weight of an arena banner / fight poster. */
@@ -65,6 +69,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
+
+        {/* Global commerce and conversion islands. Each renders nothing until
+            it has something to show, so none of them cost layout on first
+            paint. WhatsAppFloat self-hides when no number is configured. */}
+        <CartDrawer />
+        <Toaster />
+        <WhatsAppFloat />
+        <ExitIntentModal />
       </body>
     </html>
   );
