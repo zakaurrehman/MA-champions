@@ -14,3 +14,8 @@ yarn-error.log*
 next-env.d.ts
 public/sitemap*.xml
 public/robots.txt
+
+# Original camera folders. Kept locally as the source of truth for product
+# photos; the web-ready copies live in public/products/. Excluded because they
+# are large duplicates and their names contain spaces and \$ characters.
+source-photos/

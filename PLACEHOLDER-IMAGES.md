@@ -34,11 +34,40 @@ confirming the competitor (zeesbelts.com) sells the equivalent AEW CNC belt publ
 $999.99. All three now carry `visibility.shop: true`: they have product pages, appear in
 collections, search, the featured rail and the sitemap.
 
-| Product | Files | Visible mark | Status |
-| --- | --- | --- | --- |
-| Continental Crown Championship Belt | `continental-crown-championship-belt-*` (8 files) | AEW wordmark on centre + all side plates | **Live in shop** |
-| Stacked Gold Heavyweight Championship Belt | `stacked-gold-heavyweight-championship-belt-*` (10 files) | TNA wordmark on centre + side plates | **Live in shop** |
-| Stone-Set World Championship Belt | `stone-set-world-championship-belt-*` (6 files) | AEW wordmark + JHT roundel on centre + side plates | **Live in shop** |
+All 14 catalogue products carry a third-party promotion mark cast into the metal
+and visible in the photography. Product **names** are descriptive throughout — no
+trademarked terms appear in any title, slug, meta description or heading.
+
+| Product | Files | Visible mark |
+| --- | --- | --- |
+| Continental Crown Championship Belt | 8 | AEW |
+| Stacked Gold Heavyweight Championship Belt | 10 | TNA |
+| Stone-Set World Championship Belt | 6 | AEW + JHT |
+| Winged Eagle Style Championship Belt | 11 | WWF |
+| Big Gold Platinum Heavyweight Championship Belt | 10 | WWE |
+| Big Gold Deep-Engraved Heavyweight Belt | 13 | WWE |
+| Modern Continental Heavyweight Championship Belt | 10 | WWE |
+| Oval Continental Championship Belt | 7 | WWF |
+| Cruiserweight Champion Style Belt | 10 | WWE |
+| World Television Gold Championship Belt | 7 | WCW |
+| Television Champion Silver Championship Belt | 12 | WCW + TBS |
+| World Tag Team Silver Championship Belt | 10 | WWF |
+| Extreme Silver Chrome Championship Belt | 7 | ECW |
+| National Eagle Championship Belt | 19 | AEW |
+
+### Two products additionally show a real person's name — HIGHER RISK
+
+This is a **publicity/personality right**, which is separate from trademark and
+is not covered by the decision above. Using a performer's name to sell
+merchandise is the exact thing those rights exist to stop.
+
+| Product | Where | Action |
+| --- | --- | --- |
+| Cruiserweight Champion Style Belt | Nameplate reads a named performer | **Reshoot with a blank nameplate.** The plate is engravable, so this is a photography fix, not a manufacturing one. |
+| Modern Continental Heavyweight Championship Belt | One side plate carries a named performer with their slogan | Reshoot with the standard side plate — the listing already says side plates can be standard or custom. |
+
+Both are live in the shop. Neither name appears in any product title or text we
+wrote; the exposure is in the photograph only.
 
 The risk has not gone away, it has been accepted. Product **names** remain descriptive
 (no trademarked names in titles, URLs or meta descriptions), so the exposure is limited to
@@ -48,6 +77,22 @@ To reverse at any time: set `visibility.shop` to `false` in `data/products.json`
 per product removes it from every shop surface — no other code changes.
 
 ---
+
+## 2b. A 12th belt is photographed but NOT listed — needs a price
+
+The folder you sent named **"Internal storage"** was not a duplicate. It holds 11
+photographs of a belt none of the labelled folders cover:
+
+> **A World Tag Team style belt on blue leather** — gold plates, blue enamel
+> globe, continent-map side plates. Genuinely distinct from the silver chrome
+> tag team belt, and the only blue-strap belt in the whole set.
+
+It is **not in the shop**, because the folder name carried no price and I will
+not invent one. Everything else is ready: photos are in
+`source-photos/Internal storage/`.
+
+**Send me a price and it goes live in one pass.** Suggested name: *World Tag
+Team Blue Championship Belt*.
 
 ## 3. Image gaps — no asset exists yet
 

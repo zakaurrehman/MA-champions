@@ -3,14 +3,15 @@
     "source": "images with prices.docx",
     "extractedOn": "2026-08-05",
     "currency": "USD",
-    "productCount": 3,
-    "imageCount": 24,
+    "productCount": 14,
+    "imageCount": 140,
     "notes": [
       "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
       "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
       "Fields marked TODO were NOT present in the source document and must be confirmed before launch. Nothing has been invented.",
       "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text.",
-      "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap."
+      "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap.",
+      "2026-08-06: imported 11 further belts supplied as folders in public/. Descriptive style names used throughout; source folder names retained in _source."
     ]
   },
   "products": [
@@ -343,6 +344,1169 @@
         "Confirm strap length / available sizes",
         "Source says '$450 with shipping' — confirm whether shipping is bundled for this product only or all products",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
+      ]
+    },
+    {
+      "id": "ma-004",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Winged Eagle Style Championship Belt",
+      "slug": "winged-eagle-style-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 550,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "The classic winged eagle silhouette: a spread-wing eagle over a blue enamel globe, hand-finished feather texture and a full belt tip.",
+      "description": "Our Winged Eagle is a 6mm CNC build with hand-mated wing and feather texture — the detail that separates a good eagle plate from a flat one. The centre plate carries a spread-wing eagle across a blue enamel globe beneath a scalloped crown, with four matching side plates on a tooled black cowhide strap. Supplied with a full belt tip, and the strap carries a sealed, painted edge.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating over polished base",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/winged-eagle-style-championship-belt-01.jpg",
+          "alt": "Winged Eagle Style Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoMAAkAAwBSJaACdAEWoC/BlZQAAP4ZVXc+riA2KySlPt4FCMQ/HpXjNkwTyamh00tahmYAQ0cI2a4LjoqNNJUUinmmQuTcAAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-02.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoMAAkAAwBSJbACdAYr7axUMkzAAP00izCnGuJKzR+ngahODEh4Za+9jLQM9WU/pWRO4Bk4M+bjTy7yw6KkHpzgVuyusJcAAAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-03.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAkAAwBSJZgCdADbqvGDEAAA/kzpOHqvR0rzIlV2soS8EJfVt60NKPAzFH88KJ5gAs9Jmpgxv51aXQCALzlC++AAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-04.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAkAAwBSJaACdAEQE5WNlEQA/iZqWhTQNo4tCHb4MQIxEN1M3GFP57UY4PFWLo+Qb9ssOTbxi1PkDzcI2JrkjAAAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-05.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACQAgCdASoMABAAAwBSJbACdAYwxzDJ3biGJ4coAAD+eJnvvmrKWEeYJcPV2x+8lJ1CFwFlSMaF7fA/NIk3wlppkFeX4xbC2tLoOwa4h7w/aLtQ4+FJweply5NDVACKIA91JNYQYAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-06.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoMAAkAAwBSJagCdAEOV32gAP1Tzcs4fEF/PLoQ2HN0+bVloYLb540BjTWdSM3tnctV2L6OVO2QPRr/YvwDxYAiqjkrYAAA"
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-07.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAwAgCdASoMABAAAwBSJagCdADcZu1TyA2DgAD+pTsjHgoLgrJoMKpIs0IMr4VhiRFTfFoOlQ970Or4NIVfsZ2N4k/HkA5yqldPLqls3mbFj513kRwMAAAA"
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-08.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoMAAkAAwBSJZgCdAD0OpaV5gAA8qVZucSf+uXVneqAR+2Tbvs7TphGD2Ebvt22vFYThW/GbUKrxABUt8PEB6DngVGxG4ymMeEAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-09.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJbACdADzcbGhgAD+eJaSdGq+1T0fc3CcZl/0MpX9dYqH8DGClKpbC2CkQsBi8YsPNX29dcWAHTiYqOStgAAA"
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-10.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoMABAAAwBSJbACdAEKblhQ3jAA/r3WrPHzlX1hSIyoVcopSySkUgAq3fsriW0VuT8bnqn0s47K6kcz9ODSJ83bih/P6TMeyNky/gcvxXRREwAA"
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-11.jpg",
+          "alt": "Winged Eagle Style Championship Belt — detail view 11",
+          "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoMABAAAwBSJaACdAEKsEpqOgAA/u0cWDmJTdnn+XqRLcuTdjWDi0hnz5RNCf/NfSXH4FiOfpxgG8xfv4HQA0nJQLZfwrHl3On0/HOAAAA="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WINGED EAGLE 6MM CNC HAND MATE WINGS AND TEXTURE UPGRADED LEATHER SEALED EDGE WITH BELT TIP 550$",
+        "sourceImages": 11,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-005",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Big Gold Platinum Heavyweight Championship Belt",
+      "slug": "big-gold-platinum-heavyweight-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 470,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "The big gold heavyweight: a single vast scrollwork plate with a raised crown, globe field and red stone settings, on black cowhide.",
+      "description": "The Big Gold Platinum is the heaviest plate we make. One enormous centre plate carries dense hand-mated scrollwork around a raised crown and a striped globe, set with red gemstones and finished with a blank engravable nameplate at the base. Two large scrollwork side plates continue the pattern. Machined in 6mm CNC and plated to a platinum-grade 24k gold finish, on a sealed-edge black cowhide strap.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating, platinum-grade finish",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Red gemstone settings"
+      },
+      "images": [
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-01.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAkAAwBSJbACdAYstuJ8iTAA8pTvSOrVA4hfqpeEMaAGtuBMHDigyoC89JEwQ8XIeiRwtOvXVAiD/Kp28AW1Q6cNxy8AAAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-02.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAkAAwBSJbACdADblcqPgAD2VvV2bmg+JAh7y3npCsQmTKcCw3PbsZhmLGuhc/evWpf7C3XpJyw206gr+U+AAAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-03.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAkAAwBSJbACdAELTaduuRAA3mUGDgLyhEhBEcd4aQhLJggP27jSrI72eVTOXA9w8A427hhpvr6cxNcm/BWpAGN0xIIgAAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-04.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAkAAwBSJbACdADcoecByAAA3maGH7GR3nk7yiBULpJ4kgoaVxZc/YXScWfK2tx4xvquwIvvh3sA6KS76Z7ghG4APMxAAAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-05.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAkAAwBSJbACdAELWhC+cAD4YtABxEhFIr8wCB/N1vcgBDBsLzWqR51DLzcBAOaXAmKj+a54UAbUsvAAAA=="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-06.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoMAAkAAwBSJbACdADViToAAPffU2yWyab3jND83FGQUNvkQhAh7Rq1nOcitN6gMVpTFcNiJYeHeghxuvQMGgAeJvDHhAAA"
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-07.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAkAAwBSJbACdADhmI1bBugA+xYE9YA0asqgHzjxewJ0Ru9Q0IdvsQLFKpRYhzb3uRe13EoaskeZ/kyzShwJQAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-08.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJbACdAD65o1zAAD9UvY+xLSwHq0DIjjG/OBTVQVIMKzBPFYzii9axLpzHoBQQilfL4r16pbExUHgwAk9xgAA"
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-09.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAkAAwBSJbACdAECopRDuwAA999TbJbJ7GSHV2jpGvWBSnYkmb+vL41F37gwQ64cqlMfKgfvz1tk/YJr76POAFugBHp1gAA="
+        },
+        {
+          "src": "/products/big-gold-platinum-heavyweight-championship-belt-10.jpg",
+          "alt": "Big Gold Platinum Heavyweight Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAABQAgCdASoMAAkAAwBSJbACdH8AF8h10e88PgAAy07mfw1qahpDY/UMOYsKCpO8l8xCzxaYunpZ4hbdOORnL7un3Vo9E15ZPUXsADtG1RuIaeDMUXNAAA=="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WWE BIG GOLD 6MM CNC HD HAND MATE TEXTURE 24K GOLD PLATINUM UPGRADE LEATHER SEALED EDGE $470",
+        "sourceImages": 10,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-006",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Big Gold Deep-Engraved Heavyweight Belt",
+      "slug": "big-gold-deep-engraved-heavyweight-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 450,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "The same big gold silhouette taken deeper: heavier hand-mated texture and deep engraving across every plate, with red stone settings.",
+      "description": "A deep-engraved take on the big gold heavyweight. Where the standard build relies on the casting, this one is worked further — hand-mated texture and deep engraving cut across the scrollwork so the pattern holds shadow at every angle. Red gemstones are set through the plate borders, and the strap is a sealed-edge black cowhide.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating over polished base",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Red gemstone settings"
+      },
+      "images": [
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-01.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACwAQCdASoMAAkAAwBSJbACdADYC6gAAPZW9XZuaRtu7PtYkKM1OO5o/4Zkyjb3SlnqHMx5FxvO38+vWpf7C3XpJyw206gr5pgAAA=="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-02.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoMAAkAAwBSJbACdAYstqc1vkgAAPKU7Qcd60deBocSOKxVQOzDRJKOtyPcD8xBvunKupEVrjZ8pqevXT4EH+VTt6bontxlMY8IAAAA"
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-03.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJbACdAYstZFWUAD9T5l2bbD+Rl3j3nJP6p4hbDoL0KSKfEU7SkEi4RXoqPHHQxsuikdcXd8ejtEMRAIG3AAA"
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-04.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoMAAkAAwBSJbACdADZgxoAAN5mvsT3X/6eAWT3kpUpWBoU3Tf+BOT+4/JDM1SVK2tx7kQjyppMvNDYnsR/4i5IKB4gAY8IAAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-05.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoMAAkAAwBSJbACdADaMLaAAPffU2x8W7GSGlejOdfbLFvzaZ2uqipgG3aUNS5f9f2kNlAEMBg+9bZP2Ca++jzgBboAR6dYAAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-06.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABQAgCdASoMAAkAAwBSJbACdH8AGEj3cpAU6LAAy07mfw1qahrcj+3b3FbP3dExZOHZA2bKN6yuWIAY2ZzwqZbXWaEH6l/bnuOTO/S1gwX714toMAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-07.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAkAAwBSJbACdAEQzNpXjfAA3mFi8C3ofgaTm0zCdGSv3tWIUtYN8Ckl4HmBNkxyVy83vkN1Yf0TJoAjuF9HYAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-08.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoMAAkAAwBSJbACdADViToAAPffTm22EaR+XND83E4DwYGqIQgQ9o1aznORWm9QGK0p3yaxGs1tk/YNY2+spFwA34AMeEAAAAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-09.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAkAAwBSJbACdAEOyBKfVAAA4C3dF19nxXV+D3ohClGQuiYA4aLaTZTIeCsadtOypgEH9YGIP+treQAMeEAAAAA="
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-10.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoMAAkAAwBSJbACdADhZaM6r2eAAPsXhkFbUUu+HBqa9x4fljbDO5oPPJVAHCEapdSVQPjyPa7iUNWSPM/zGMYuNCHzAAAA"
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-11.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 11",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJbACdAD65o1zAAD9UvY+xLSwHojMpF061MCmqgqQYVl81q88zteDZBA9oQxwxUgHs825FtCk8SmGMAC/JcAA"
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-12.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 12",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoMAAkAAwBSJbACdADdqLUNEgAA+6JKiPRsMezd0Vv00Trq+FB+FFSteqbeAHeR9KhH5S/6Mz1BC+MHsD2T4ZMUb6cNjnAA"
+        },
+        {
+          "src": "/products/big-gold-deep-engraved-heavyweight-belt-13.jpg",
+          "alt": "Big Gold Deep-Engraved Heavyweight Belt — detail view 13",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADwAQCdASoMAAkAAwBSJbACdAYrxkLC5AAA/n1bA9kJR/4XdsbWZ1mq+u1BX99EEWG1l5jM4OakxYk2z81tYXh27vj0bAHds75A34AMLwAAAA=="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "BIG GOLD 6MM CNC 24K HAND MATE TEXTURE WORK DEEP ENGRAVING SEALED EDGE LEATHER 450$",
+        "sourceImages": 13,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-007",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Modern Continental Heavyweight Championship Belt",
+      "slug": "modern-continental-heavyweight-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 420,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A modern circular centre plate with a laurel-framed diamond over a blue globe. Side plates can be built custom or standard.",
+      "description": "A contemporary continental design built around a large circular centre plate: a laurel-framed diamond sits over a blue enamel globe, ringed by raised lettering and a studded border. Machined in 6mm CNC and plated in 24k gold with blue enamel inlay. Side plates can be supplied in the standard pattern or made fully custom to your own artwork — tell us which when you order.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating with blue enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-01.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoMAAkAAwBSJYgCdADhiOtC6AD+433pL/q08vfnwdBxuVfBu2rYaq+zlorwELik6eIi4y+kA3DzhRT68AA="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-02.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoMAAkAAwBSJQBOgCFr3BWfgAD+6e9KoQu+duRPa7sgR8EizOvGPJR58jwpEoEIlIHvbrGffGBIAA=="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-03.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoMAAkAAwBSJagC7ADc+x+38gAA/p+PwDvNGh7ZB90/wrhgTJyhYdwlHyZsYX1kP+tPs8rc6qgAAA=="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-04.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoMAAkAAwBSJZACdAEKlqP4dgAA/s9LIXD+iyzIKsS0pEHfWM+iAj5CjvR76aheBAnLG6YOw84/CIwA"
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-05.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoMAAkAAwBSJYgCdH8AF7HL5HgAAP7p70qhC7525E9rvIV1k6/stFFzjiICTUeE5eT9i3s84hOvislcAAA="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-06.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoMAAkAAwBSJYgCdAD1eeO/KTUAAP7bnPpQi9KzFJpV8ZsAzRnV2n/Qpyu7HVxfIHoN25B2q6AAAA=="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-07.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoMAAkAAwBSJbAC7ADdJ9mdrOAA/p+PwT7Sodh4Fzy88JoifmUI+OgRWUWiSxubzp5RV0RXgAA="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-08.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAQAgCdASoMAAkAAwBSJYgCdAEUVFa35/fAAP7sWfjYHIcmYTpzUKbLanMorlaZepc4P87RtEmUNeqYqkyf/IAA"
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-09.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAkAAwBSJQBOgCP8+vVwlAAA/uN96S/gvN+p7vI6Otnoq8/HFn2U9OZC4pPMUhjBTkrbEpJRiroAAAA="
+        },
+        {
+          "src": "/products/modern-continental-heavyweight-championship-belt-10.jpg",
+          "alt": "Modern Continental Heavyweight Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoMAAkAAwBSJQBOgB6XPu1c6AD+25z6UI5fJwMyYLslLGTBspc8+y4qIWnDdJOHe9rcAAAA"
+        }
+      ],
+      "_source": {
+        "sourceFolder": "IC INTERCONTINENTAL 24K 6MM CNC WE CAN CUSTOM AND REGULAR SIDES PLATES UPGRADE LEATHER SEALED EDGE 420$",
+        "sourceImages": 10,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates",
+        "One side plate carries a named performer — confirm before selling as stock"
+      ]
+    },
+    {
+      "id": "ma-008",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Oval Continental Championship Belt",
+      "slug": "oval-continental-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 430,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A wide oval gold centre plate over a blue enamel world map, with continent-named side plates for each region.",
+      "description": "The oval continental is one of the most recognisable shapes in the sport. A broad gold oval carries a blue enamel world map beneath a fanned arch, with clear stones set along the top edge. What makes this build is the side plates: each carries its own continent — North and South America, Europe, Africa, Asia, Australia — as a separate raised globe with a named banner. 6mm CNC, 24k gold plated, sealed-edge black cowhide.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating with blue enamel globe",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Clear stone settings"
+      },
+      "images": [
+        {
+          "src": "/products/oval-continental-championship-belt-01.jpg",
+          "alt": "Oval Continental Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAQCdASoMAAkAAwBSJagCdADYuLUAAN4tG1fFcefaYNJjo1kfVArsqK7ugwTlPmrcqNsvOdiE5tFM538I3RH/Oz465X0gAAA="
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-02.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoMAAkAAwBSJbACdAELQpFzz4AA/I733XA5Cn1aLqnE4Z9p87AI76nVYs1tlGmzbMzn/QA1P5zQo5NAGVgBNfJlzGfIx6AA"
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-03.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoMAAkAAwBSJbACdEf/gdbygAD8tCru9CpvkiiEVESNzj/5Jok96uZrtQEwYM3uf36PIaqntlIMvFc5GdhVH6tJn8XtepZvAGAAAA=="
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-04.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoMAAkAAwBSJaACdAEOWtOAAPyMJzzCUJYRqoN8FmppkY98k0h47X/SsJkxq9DMMgjrcr5i/sFLAdEexyG617+GY3t9+gAA"
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-05.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAAAQAgCdASoMABAAAwBSJaACdDL9gTXopcQ4AP7p7VOPcXGT42yLRoO4qywNEoX4QiZD4k3m5AoX+LU/FFSia9M/LW9jXw+BTySoZBDh3KXvkywZaxOH2Zdne744J13prIXF+2sVUry7gAAA"
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-06.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJagCdADcRFplAAD8jC2sJb99fLZaU2T//3ER/SZgFLxDA+/zzhSHbG0DyVVpEhlMQeb34RB/TtMxVxU12AAA"
+        },
+        {
+          "src": "/products/oval-continental-championship-belt-07.jpg",
+          "alt": "Oval Continental Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoMAAkAAwBSJbACdADb2hjAAPfcGHcP4pR4U0vH/ojPcCufMZPfLS5NuFGBF3L0tr0Ws8Zt7UPyggB5vUDId2IfVHG617rgAAA="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WF OVAL IC INTERCONTINENTAL 6MM CNC 24K GOLD PLATING UPGRADED LEATHER SEALED EDGE $430",
+        "sourceImages": 7,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-009",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Cruiserweight Champion Style Belt",
+      "slug": "cruiserweight-champion-style-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 430,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A sunburst cruiserweight plate in 24k gold with red enamel banners, clear stones and an engravable nameplate.",
+      "description": "Built for the lighter divisions but made to the same weight of metal. The centre plate fans out in a studded sunburst around stacked banners, set with clear stones and finished with an engravable nameplate along the base. Four side plates repeat the sunburst in miniature over red enamel. Machined in 6mm CNC, 24k gold plated, on an embossed black cowhide strap with a sealed edge.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating with red enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "Clear stone settings"
+      },
+      "images": [
+        {
+          "src": "/products/cruiserweight-champion-style-belt-01.jpg",
+          "alt": "Cruiserweight Champion Style Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoMAAcAAwBSJbACdAD1MmJAAP4eeGrJHekUm803EnzjW83sPT/Pf1T8mqfvE9bFl30zvzgFR/OAVm8AAAA="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-02.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoMAAcAAwBSJbACdADdeQcAAP13KDxqx6qJh5znY5BFG+5ukqtt+dyEHs10i+J7Ef55FkZr30zvzgFajEAAAA=="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-03.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAcAAwBSJagCdAELMOX09AAA/nVlxNnYoQpf1QLaIuEsKkRLY+LsaelmtiWYYWttD3oIbiXc2WBXUAA="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-04.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoMAAYAAwBSJagCdAD0R8wAAPoKHsTJFMq5bYsJE4v5wVs5obE9diTEUW53QAAA"
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-05.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoMAAcAAwBSJbACdAD0U4TWAAD+HtzXDwXtjJNhN16e76mut5waC0SrUf2H7lwRtXq0gsY0MBeRIQ8AAAA="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-06.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoMAAcAAwBSJbACdAEekRfTLcAA/U495YeIDuhTJNA1vx+pPAUQJwXnYmAc8qjU1lhmT5BAAAA="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-07.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAQCdASoMAAcAAwBSJagCdAD0BBmAAP1whh4HKaEK1BHXCR5NBb4H9u9MfvbC7YsuTxLvD46tIgjgAAA="
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-08.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAAAQBACdASoMABUAPt1apkyopSOiMAgBEBuJaACdMoACskIt61aq722V4ADvg74/rfmK8Gvf4nGu2430q4vSkHYXg5I/Hod8u5hcj1AmzOs2bgoS1K4afXgDd7AYSPXnPvYI+Xe8GU3yK/71gaoEZZuYTKaM3vgKl6XjYCOtF/Kcnam6Yrl6scW5O/WHma/N65+mgAAA"
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-09.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoMAAcAAwBSJagCdADdtLD7oAD+H0JCUbFcHhWt0agEs9mC9iLw7JxxfBfH1tmb/J5kBSyNSFLJCHgA"
+        },
+        {
+          "src": "/products/cruiserweight-champion-style-belt-10.jpg",
+          "alt": "Cruiserweight Champion Style Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoMAAcAAwBSJbACdADbrdgAAP4lyEttzCAGWXJNeusZty+maFa8l/e3qHfIxP+Me/0EXuuuokyMBcqYAAA="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "CRUISER WEIGHT CHAMPION 6MM CNC 24K UPGRADED LEATHER SEALED EDGE 430$",
+        "sourceImages": 10,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates",
+        "Nameplate in the photos carries a named performer — reshoot with a blank plate before selling as stock"
+      ]
+    },
+    {
+      "id": "ma-010",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "World Television Gold Championship Belt",
+      "slug": "world-television-gold-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold",
+        "zinc"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 430,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "Dense filigree gold framing a blue enamel globe, with grappler medallion side plates. Deep-etched HD CNC zinc.",
+      "description": "A television-title build in deep-etched zinc, machined to HD CNC tolerances. The centre plate packs dense filigree scrollwork around a blue enamel globe, banded above and below with raised lettering. Four side plates carry grappler medallions in matching filigree. Zinc holds this much fine detail far better than brass, which is exactly why this design is cut in it.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "24k gold plating with blue enamel globe",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/world-television-gold-championship-belt-01.jpg",
+          "alt": "World Television Gold Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoMAAkAAwBSJbACdAEWOwO9UAAA/bbwMLU1D0eBV4x48tWF7kPYCtnuUMQ17GUULSBvUcHq9fTNiAsE64s1v2xs3bU1B7/U3/4Fb0AA"
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-02.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAwAgCdASoMAAgAAwBSJbACdAYtpuKlFDZeQAD+0GswlU5dF+FI7ldnf/MYK2cXjI5xZU9mwEvNoxhdOt83FFDOz9q5/6N+lhnzgpv67rlQAA=="
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-03.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAQCdASoMAAgAAwBSJbACdAEQXGHGYUAA/buHQVpJkdN//ktolQUS7uxwzmfdkeWEhncbNMsSDCyHfJd36Ldr0uTxRJh8b984YLxln/sb/gFsdAAAAA=="
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-04.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAQCdASoMAAkAAwBSJbACdAD1bQAkAAD+n7uinaCU7nRUEH9GZYQyjFPwWfLMu15FGnMcqPsFvFpiJZ+T+NXfe6Toc4WRYD59/Q43X00EN3aAAAA="
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-05.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAcAAwBSJbACdADcqJ7LAAD+eMUiD3ajPnptz7GoCwJL5d5jw3RAShG+tO7DntB/Yy0dBGqP9sQMw9jb/vN5YAAAAA=="
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-06.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoMAAUAAwBSJbACdAEOJM8AAAD+0cxQUabGwrrVTejuTQ4lHL5pGMJpLbv/gszIRB/9GQEZD/ebywAA"
+        },
+        {
+          "src": "/products/world-television-gold-championship-belt-07.jpg",
+          "alt": "World Television Gold Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoMAAcAAwBSJbACdAECpYM5+BgAAP2ZfD1sFtIMHTD/a1WBj8qYTgfY4YD9qmNOWQ2DTX7k7CCTFR/cgp4xqj/z+7AAAA=="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WCW WORLD TELEVISION 6MM HD CNC ZINC UPGRADE LEATHER SEALED EDGE 430$",
+        "sourceImages": 7,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-011",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Television Champion Silver Championship Belt",
+      "slug": "television-champion-silver-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 420,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A ribbed silver chrome television title with a blue enamel globe and red banner detail, on black cowhide.",
+      "description": "A silver chrome television title. The centre plate uses a ribbed, fanned field behind a blue enamel globe, with red enamel banners top and bottom. Side plates carry grappler medallions on the same ribbed ground. Chrome shows machining marks far more readily than gold does, so this one is cut and polished carefully — 6mm HD CNC throughout, on a sealed-edge black cowhide strap.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "Polished silver chrome",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/television-champion-silver-championship-belt-01.jpg",
+          "alt": "Television Champion Silver Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAcAAwBSJbAC7AC2h4i2AAD+TmMKrnBYiMXBYU/vP5PBMv0HFRVRq+ACj0ZRocBten/ijehW7KYYKb/HJVVQYKigAA=="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-02.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADwAQCdASoMAAcAAwBSJbACdAD5j7grSUAAyWGHJWPT6u81HNnzuTGaMh3MBBiZ3n5HGa8uqWTLN/Nbd53wAA=="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-03.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACQAQCdASoMAAcAAwBSJbACdABTpAAA2+J+ZRx++8AZHnsrxYctjPK9T2gTfPBeMi4ChvMAuAob62tHmxoAAA=="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-04.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAAAQBACdASoMABUAPt1apkyopSOiMAgBEBuJbACAAAcNbc5a6mU2s3dMgAD53npVkYoopBDCiN0tseLBEqoAUm8Ix4rzjLn6mH/EX9gNGg1Jz8aKpwAq+P//LtWZsLPpobns7OK3A2DgJXFjjbrLRteaoTF8p8ND/Af8t/sRvAA="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-05.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoMAAgAAwBSJbACsAEQXLvgaygAAMyhXTet7jqxv/XjIGF+qkEQK4AivZTXqGQA/mlcuAHUr7b8/gHymfZ81+a8FUiUwAAA"
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-06.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoMAAQAAwBSJbAAAudsg0YYAPvqA4p7zOp+FtQZuqhtkHv/uzdPcZWtgAA="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-07.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoMAAcAAwBSJbAC7ADhmgkhYAD+THCJ8Lv5b5Xcnokdf55PJZ8QUhaC1l/ImBPx3EwY7NzMN39kX+BUAAA="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-08.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAYAAwBSJbACdAD0i2RsYAD+zf11BD1mOFJx0yOpQC04bd5suWoNUZcgVoclhFbC8XzQ+wkn0DFFZfGy2t5AAAA="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-09.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAQCdASoMAAcAAwBSJbACdADQ5nZQAPFEQzVX5M15WSSQTfc/RaEh3u/IKvVKXKx5EHsfmRmozUEOw9O+72XATyeI8BpsAAA="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-10.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAABQBACdASoMAB0APt1cpkyopSOiMAgBEBuJbACdMoABetCdyiY/tC5pV2cAAOkZEvHj8XDKHc/QBXZVzA4NGAzdjgFrv/XHXu199fadgbrIwZKRe3CZbe+QkB9orZfvrySczm3xtr2CkHv1uAF1Iyt9sUXMpDK5Bb9d5jepqh5qv64GJZR66PMOlZEB2lGHfIJduePsEDM+9fjUJ4AAAA=="
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-11.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 11",
+          "blurDataURL": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAABQAgCdASoMABAAAwBSJQBOgMXhtj4pydY4RgAA/oO0W2kTvscckb9XFBfXR+uS3vzTxSFX4Y/w5ND5rQtyNkE7Gtp7kA97x8bZewZ0SW3kZgTO8T3TuXNa7FsP1hMvyGLXCAWUwcATGAAA"
+        },
+        {
+          "src": "/products/television-champion-silver-championship-belt-12.jpg",
+          "alt": "Television Champion Silver Championship Belt — detail view 12",
+          "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQAgCdASoMABAAAwBSJZgCdADZrA1OkDJAAP6GkQg02eipo7Ay55yvtSDi+D8HzF8Q5cuY+SqVxTtb2t6bjEGnANCtcsus9b3hTj5f0oklXDFaN0jDk1cYhVV6Uh/rrE0AAA=="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WCW TELEVISION 6MM CNC HD UPGRADE LEATHER SEALED EDGE  420$",
+        "sourceImages": 12,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-012",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "World Tag Team Silver Championship Belt",
+      "slug": "world-tag-team-silver-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 430,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A silver chrome tag team plate with a spread eagle, twin crowns and a red-and-blue enamel world banner.",
+      "description": "A tag team title in polished silver chrome. A spread eagle crests the centre plate above a blue enamel globe and a red world banner, flanked by twin crowns and rope-edged scrollwork. Star-and-grappler side plates run down a tooled black cowhide strap. Because tag titles are made in pairs, tell us if you need two and we will match the finish across both.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "6mm",
+        "plating": "Polished silver chrome",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-01.jpg",
+          "alt": "World Tag Team Silver Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoMAAYAAwBSJbACdEf/gcXohMyAAP6hae0S4CpHqZ2LMPZLlm7qixGWzEkPTwAA/kkJcSqP7kNj1Y2/4TdowAAA"
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-02.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAYAAwBSJbACdADGfl5m2AD+48LnVLolq88boqMHs1dy5b6iAc2Wxb9lqOwhF4/vPnyYqKyH3FHfP8/paFUQAAA="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-03.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAYAAwBSJbACdAEKVQ1UQAD+wii0mivFPxnSq3uYguH1vr2uW+Xfm3wFU2nmKwJZkaQV8qTxdyFsGYMpvEYYqIAAAA=="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-04.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAQCdASoMAAkAAwBSJbACdAEO+D50QAD+vc2AeTkSBUeSptbLcckx3jnpaxmxXMsclLEynkjlgw6oNMIO5g3LCNkWqROTP5tY6HZj/k3/YxSlhwAAAA=="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-05.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAwAgCdASoMABAAAwBSJagCdACp9/e73zBPAAD+3OiIdVAhkjYNDXq15GcRF4SFws9t7/PmA4M+hMsy03J1v4EXEdRDeT/SL6ddnDGg+BMdoJsTZ9YBCX5pKIH3/b3UDvDqpwVPfgAAAA=="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-06.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoMAAYAAwBSJbACdEf/gY88vpcAAPgqItjMY/xgtqb7ojW92Yryh60Pimsyo8MyQTss9d+9uHim1kqzeV9COxP4/Q3+h+gl3hAAAA=="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-07.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADQAQCdASoMAAQAAwBSJbACdAEO+LrHgAD+qhfAPWjuhHuJMeQlYZINB4pkT7gqEw9/EJxCf6dqv0+MD5J1V3AA"
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-08.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAYAAwBSJbACdAEalD2iAAD+vm5FKz4NvLQoA2DWYF0bEY4VWLlqOuDOwLv7t/za0l+372IpL++v8sAAAA=="
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-09.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoMAAYAAwBSJbACdAEVvMxgsAAA/ol++ZpMM8fMfSe1H+KzUubD+IqKF87d3b3VsPCyRZkaX/Dpd01bm8rNz8cCqf46TAAA"
+        },
+        {
+          "src": "/products/world-tag-team-silver-championship-belt-10.jpg",
+          "alt": "World Tag Team Silver Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAUAAwBSJbACdEf/gYLWwAD+polz9gdxrxlpXBxYr5TwrdwNVPniIyVIMUjoRO8Xfu/7+ieBt/mxcb1Uf9TFkPuYAAAA"
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WF WORLD TAG TEAM 6MM CNC BEAUTIFUL SILVER CHROME UPGRADED LEATHER SEALED EDGE 430$",
+        "sourceImages": 10,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-013",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Extreme Silver Chrome Championship Belt",
+      "slug": "extreme-silver-chrome-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 400,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A jagged flame-cut silver chrome plate on black cowhide. The most aggressive silhouette in the range.",
+      "description": "The most aggressive shape we build. The centre plate breaks out of the usual oval into a jagged, flame-cut outline with layered chrome plates and a starburst field. Four side plates repeat the cut-out motif. Machined in 4mm CNC and polished to a bright silver chrome, on a sealed-edge black cowhide strap.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "4mm",
+        "plating": "Polished silver chrome",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-01.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAkAAwBSJbACdAELW9YZ9AAA3mZ/YoSHHI4AlB47KmtQ5tNjpBbinC55043M1vahjwx7pdoDdKXRSXfRof1tQUAAAA=="
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-02.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoMAAkAAwBSJbACsAEewW+7f8eQAP6D3aAimWb/WphSFM3RgtdjepoJ3Lfc1Zozd9ZZ2crybuCwvIa3GJS9JWvmb3qBtwgrGNYAAA=="
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-03.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoMAAkAAwBSJbACdAECvx/UR9AA+o8qI/wOVqHsFvfV+NbVGAsSO0ALZaftmnkTHssn0KD/ra4q6+AA"
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-04.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAkAAwBSJZgCdADdoFIoAAD+fGnjvthLwQNe29G1+f0R6zvvtJJ2GgmNOgxmiYlSQyHHyEVjN9udodabZkmoX7cAAA=="
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-05.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAkAAwBSJbACdAEf2gQ2bQAA999LJnCSez8VcMOjkC9ZBRmSNpIRqDfsyUpDHGgY1ASMQfUJjGqPvpi/9IBHm+AAAA=="
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-06.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAQCdASoMAAkAAwBSJbACdADRLIdNjYAA8qBxeaIBxvzpG6mQWxNAGu+QF66sDQWLC1g3uuMD0mHRwbRzuHRB4CRDsPQ/Qxc/rgAA"
+        },
+        {
+          "src": "/products/extreme-silver-chrome-championship-belt-07.jpg",
+          "alt": "Extreme Silver Chrome Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADQAQCdASoMAAkAAwBSJbACsAEHNoBS6AD6nnEMlJddmorRfJDhT+w0jhhnprQk/tYDyFzVZ+7arnyZLaf2llmhoWXKAyGNZWTUKgAA"
+        }
+      ],
+      "_source": {
+        "sourceFolder": "ECW 4MM CNC BEAUTIFUL SILVER CHROME UPGRADE LEATHER SEALED EDGE $400",
+        "sourceImages": 7,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-014",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision (2026-08-06). Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "National Eagle Championship Belt",
+      "slug": "national-eagle-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 400,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A national-title build in 24k gold over deep red enamel, with star-cornered side plates and a map motif.",
+      "description": "A national championship design in 24k gold over deep red enamel. The centre plate carries an eagle and scrollwork above a red banner field, and the side plates set a champion-and-map motif into red panels with blue enamel stars at each corner. Machined in 4mm CNC, on a tooled black cowhide strap with a sealed edge.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "4mm",
+        "plating": "24k gold plating with red enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/national-eagle-championship-belt-01.jpg",
+          "alt": "National Eagle Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAkAAwBSJbACdADdQyiH0ADwAJ5V39ZQ71uUmnW0Q99H8KK8YjcaT8d3Wi9afZ5Y3VxURsHCQTJqk8OiP6ZPoAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-02.jpg",
+          "alt": "National Eagle Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAkAAwBSJagCdADD3JfLQAD9Ir4S6Ui2tVjZpXtV91tTl4v2oIb9khFLrG9JFwjAMhpBO15/aD0JECo/RrIw2hAAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-03.jpg",
+          "alt": "National Eagle Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoMAAkAAwBSJZACdAECwY7kGK0gAP5y8eNEm7gKbYviLQZisr6P5c1s2/Ud4oc+am742MBH4sRcfZRMpkVUckYAAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-04.jpg",
+          "alt": "National Eagle Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoMAAkAAwBSJagCdAD7FTbrN/IAAP4Rhp87FMuLgrlIDp4GBwMnDCkeImdOOiS9aDm8Hd8sj6FEC4x2GZNXNuIAAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-05.jpg",
+          "alt": "National Eagle Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoMAAkAAwBSJagCdADcq6NNRYAA/U/q7hh3FZ3Ffce3vhPJZG8VOUxLss1eiDkM33E2ztpU8aZ2HbPYj7N5C7AA"
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-06.jpg",
+          "alt": "National Eagle Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAkAAwBSJaACdAD1Z+hLWAD+QBmWsErlra9BA7ex0p6XtWEJdq+IP1zEEze9hpoCR1hox3B+F2jGB8NY2XPBEAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-07.jpg",
+          "alt": "National Eagle Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAkAAwBSJZgCdADhT3+tAAD+dcTSq6V+CjfFKLyHu49VSqUDH0y3NDIP9t/9B+tw3bkPgnSZWyawv0dW05wZASAAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-08.jpg",
+          "alt": "National Eagle Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoMAAkAAwBSJaACdAD6AOo7gADLTFSrnJ7r8IhRnht8x/jEL9+kfH9LQbxAJt+cYwNV3cfVlYojjDaWj4nH1m3X9QgAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-09.jpg",
+          "alt": "National Eagle Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoMAAkAAwBSJaACdADbMDXedAAA+i5ysuHIctfTMiCToQ0vZ+Mc1oFwTKVFnCGkyDAOpvxOiZgHhECxZhvWLoA+7opB+kMAAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-10.jpg",
+          "alt": "National Eagle Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAkAAwBSJaACdAD8uiM/CAAA+iRfxUwoOgISSSFD/SAD/wymkixclanBbqVzw+9YkmPZxcF1mjIMuUBkNytgAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-11.jpg",
+          "alt": "National Eagle Championship Belt — detail view 11",
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQAgCdASoMABAAAwBSJbACdADdc9d4LZEgAP6pssvFssbEr3MeqELaKhWfWhMcWkwnxLi5FQ9yBDtYpVleA1CJcDEDRLdwgxUQRfLbWA6VQ+buI1UAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-12.jpg",
+          "alt": "National Eagle Championship Belt — detail view 12",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAkAAwBSJYgCdAD1a99hIAD2QRgdeJSu/2/PRb31mSqDMU3PhueX8fTzU+fd+/Yhvex3c5UrUGVSzr+6+roAAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-13.jpg",
+          "alt": "National Eagle Championship Belt — detail view 13",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoMAAkAAwBSJaACdADzMFZgAP1vLdXyyM0KhiJh5jSJ+k3ap/A5Uo2HPA2YG+UA8ONpGsyHM+xRMiCKAAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-14.jpg",
+          "alt": "National Eagle Championship Belt — detail view 14",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoMAAkAAwBSJZgCdADdJiPT8QAA/Ti4n+Wc7C07z3fYo0h5Vs2xX6bBf1blGAbtsw9NY4rzAOHJRNlWmPMEb85s/eAAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-15.jpg",
+          "alt": "National Eagle Championship Belt — detail view 15",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoMAAkAAwBSJagCdACRcqigAP0xcP13Cc9nN63s8MDygJKL6SwNOe5IgWTej6pfrZI5wh+7DJEmMOiP5t8gAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-16.jpg",
+          "alt": "National Eagle Championship Belt — detail view 16",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAQCdASoMAAkAAwBSJZgCdADaMLzwAPqK4KsqtvXWAb4d6/Qv3+opCxta8ooksIRApGS0pRtby7y2DnWzvKz4g/9h8BpAi/AQfpT3AAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-17.jpg",
+          "alt": "National Eagle Championship Belt — detail view 17",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoMAAkAAwBSJZgCdADb8QSPIADicQ0YlO4ec0axjclNz8MchGsmeBdCg33W33+ApIqVA+iLCXQVl4Rjo8khqobS2NaMlOMOLdNAAA=="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-18.jpg",
+          "alt": "National Eagle Championship Belt — detail view 18",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoMAAkAAwBSJaACdADbqozCiAD9TCRY60JJgP9cF9W7LclQI7FqWMQ0un6d7sjHAYOVO8Ef8t38HKh6ZUHKjNIf1HZ/SH17gAA="
+        },
+        {
+          "src": "/products/national-eagle-championship-belt-19.jpg",
+          "alt": "National Eagle Championship Belt — detail view 19",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQAgCdASoMAAkAAwBSJaACdAEDfY4syBoAAP4/3VQ06xUIsAKDEm67MgPB/i2ul+nU6BKRW1nN4Nd2yVPVEZtGAYV+gmpFj8u3MgAA"
+        }
+      ],
+      "_source": {
+        "sourceFolder": "AEW NATIONAL 4MM CNC 24K GOLD UPGRADE LEATHER SEALED EDGE $400",
+        "sourceImages": 19,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
       ]
     }
   ]
