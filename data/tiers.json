@@ -1,8 +1,8 @@
 {
   "meta": {
-    "status": "DRAFT — needs your confirmation before launch",
+    "status": "Brass, Zinc and HD & CNC floors are CONFIRMED from the client build ladder. Boxing, 24K Gold and Fully Custom are still drafts.",
     "currency": "USD",
-    "basis": "Floors drafted at roughly 10-15% under the competitor's published floors, per your instruction. One exception is noted below.",
+    "basis": "Brass, Zinc and HD & CNC floors come from the client build ladder (2mm Brass , 4mm Standard , 4mm CNC , 6mm CNC ) and are confirmed. Boxing, 24K Gold and Fully Custom are still drafts derived from undercutting the competitor and need real numbers.",
     "competitorReference": {
       "source": "https://zeesbelts.com/pages/pricing",
       "checkedOn": "2026-08-05",
@@ -15,8 +15,8 @@
         "fully-custom": 179.99
       }
     },
-    "importantException": "HD & CNC Premium is NOT set by undercutting. The competitor's floor is $699.99, but your own CNC belts in the .docx are $430-470. Setting that floor to ~$610 would contradict your real inventory, so it is anchored to your actual cheapest CNC build ($430). That lands ~39% under the competitor — a much stronger position than the 10-15% rule would have produced, and it is real rather than invented.",
-    "compareNote": "Technical attributes describe the materials themselves and are safe to publish. weight and leadTime are null because they are business facts the client has not supplied — the pricing table renders them as a dash rather than guessing."
+    "compareNote": "Technical attributes describe the materials themselves and are safe to publish. weight and leadTime are null because they are business facts the client has not supplied — the pricing table renders them as a dash rather than guessing.",
+    "buildLadder": "See data/products.json meta.buildLadder. Every product is offered in all four builds."
   },
   "tiers": [
     {
@@ -24,16 +24,15 @@
       "name": "Brass",
       "slug": "brass-championship-belts",
       "order": 1,
-      "priceFloor": 119.99,
+      "priceFloor": 170,
       "competitorFloor": 139.99,
-      "undercutPct": 14,
       "blurb": "Our entry tier. Light, affordable, and still a real metal plate on a real leather strap.",
       "specBullets": [
         "Solid brass plates, etched detail",
         "Lightweight — comfortable over the shoulder",
         "Genuine leather strap"
       ],
-      "confirmed": false,
+      "confirmed": true,
       "compare": {
         "plateMetal": "Solid brass",
         "plating": "Polished / optional gold tone",
@@ -43,7 +42,8 @@
         "bestFor": "Gifts, first belts, tight budgets",
         "weight": null,
         "leadTime": null
-      }
+      },
+      "basis": "Client build ladder"
     },
     {
       "id": "boxing",
@@ -76,16 +76,15 @@
       "name": "Zinc",
       "slug": "zinc-championship-belts",
       "order": 3,
-      "priceFloor": 219.99,
+      "priceFloor": 270,
       "competitorFloor": 249.99,
-      "undercutPct": 12,
       "blurb": "Deep-etched zinc holds far sharper relief than brass. This is where the detail starts to show.",
       "specBullets": [
         "Deep-etched zinc plates",
         "Sharper relief and shadow detail",
         "Real cowhide leather strap"
       ],
-      "confirmed": false,
+      "confirmed": true,
       "compare": {
         "plateMetal": "Die-cast zinc",
         "plating": "Gold or nickel",
@@ -95,7 +94,8 @@
         "bestFor": "Replica titles where detail matters",
         "weight": null,
         "leadTime": null
-      }
+      },
+      "basis": "Client build ladder"
     },
     {
       "id": "24k-gold",
@@ -128,17 +128,15 @@
       "name": "HD & CNC Premium",
       "slug": "hd-cnc-championship-belts",
       "order": 5,
-      "priceFloor": 429.99,
+      "priceFloor": 400,
       "competitorFloor": 699.99,
-      "undercutPct": 39,
-      "anchoredToRealProduct": "ma-001 (Continental Crown Championship Belt, $430)",
       "blurb": "Machine-cut from solid stock, not cast. The deepest etching we can produce, in 4mm and 6mm.",
       "specBullets": [
         "CNC/HD deep machine etching",
         "4mm and 6mm plate thickness",
         "24k gold plating, sealed-edge cowhide"
       ],
-      "confirmed": false,
+      "confirmed": true,
       "compare": {
         "plateMetal": "CNC-machined from solid stock",
         "plating": "24k gold, multi-tone",
@@ -148,7 +146,8 @@
         "bestFor": "Screen-accurate replicas and flagship builds",
         "weight": null,
         "leadTime": null
-      }
+      },
+      "basis": "Client build ladder"
     },
     {
       "id": "fully-custom",

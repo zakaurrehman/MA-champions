@@ -38,11 +38,25 @@ export function hasVariants(product: Product): boolean {
   return getVariants(product).length > 0;
 }
 
-/** The variant selected by default: first in stock, else the first listed. */
+/**
+ * The variant selected by default: the one flagged `isDefault`, else the first
+ * in stock, else the first listed.
+ *
+ * The flag matters because variants are listed cheapest-first for scanning,
+ * but the belt in the photographs is usually a mid-ladder build. Without it,
+ * every card would headline the entry price against a picture of something
+ * dearer.
+ */
 export function defaultVariant(product: Product): ProductVariant | null {
   const variants = getVariants(product);
   if (variants.length === 0) return null;
-  return variants.find((v) => v.inStock) ?? variants[0] ?? null;
+  return (
+    variants.find((v) => v.isDefault && v.inStock) ??
+    variants.find((v) => v.isDefault) ??
+    variants.find((v) => v.inStock) ??
+    variants[0] ??
+    null
+  );
 }
 
 export function findVariant(product: Product, variantId?: string | null): ProductVariant | null {

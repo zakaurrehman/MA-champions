@@ -13,7 +13,34 @@
       "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap.",
       "2026-08-06: imported 11 further belts supplied as folders in public/. Descriptive style names used throughout; source folder names retained in _source.",
       "2026-08-08: originalPrice (compare-at) set from the client-supplied ratio in their brief ( sale ->  compare-at, ~13%). These are REFERENCE prices — they are only lawful to display if the belts are genuinely offered at them. See README.",
-      "2026-08-08: 4mm and 6mm Winged Eagle merged into one product with priced thickness variants. ECW close-up showing a third-party phone number removed from the gallery."
+      "2026-08-08: 4mm and 6mm Winged Eagle merged into one product with priced thickness variants. ECW close-up showing a third-party phone number removed from the gallery.",
+      "2026-08-08: client build ladder applied to every product — 2mm Brass $170, 4mm Standard $270, 4mm CNC $400, 6mm CNC $470. The build shown in each product photograph is pre-selected."
+    ],
+    "buildLadder": [
+      {
+        "id": "2mm-brass",
+        "name": "2mm Brass",
+        "price": 170,
+        "compareAt": 195
+      },
+      {
+        "id": "4mm-standard",
+        "name": "4mm Standard",
+        "price": 270,
+        "compareAt": 310
+      },
+      {
+        "id": "4mm-cnc",
+        "name": "4mm CNC",
+        "price": 400,
+        "compareAt": 460
+      },
+      {
+        "id": "6mm-cnc",
+        "name": "6mm CNC",
+        "price": 470,
+        "compareAt": 545
+      }
     ]
   },
   "products": [
@@ -34,7 +61,7 @@
         "replica-style"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 430,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -45,7 +72,7 @@
       "description": "Our Continental Crown is a six-millimetre CNC-machined championship belt. The centre plate carries a raised crown above a mirror-polished oval, framed by scrollwork banners and deep-etched pillars. Four matching side plates carry globe and grappler motifs. Every plate is 24k gold plated over a polished silver base, and the strap is a full-grain cowhide with a sealed, painted edge and tooled border.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating over polished silver/nickel base",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -126,7 +153,46 @@
         "Confirm whether $430 is the list price or already discounted",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
       ],
-      "originalPrice": 495
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-002",
@@ -145,7 +211,7 @@
         "replica-style"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 470,
+      "price": 400,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -156,7 +222,7 @@
       "description": "The Stacked Gold Heavyweight is built from layered 4mm CNC plates, giving the centrepiece genuine depth rather than a single flat casting. The face is 24k gold plated with contrasting silver lettering, set with cubic zirconia stones around the border. Six side plates — four globe medallions and two slim accent ovals — run down a sealed-edge cowhide strap with a tooled scalloped border.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined, stacked/layered construction",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with polished silver inlay detail",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -251,7 +317,46 @@
         "Confirm plate count — counted 7 from photos (4 globe medallions + 2 accent ovals + centre)",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
       ],
-      "originalPrice": 545
+      "originalPrice": 460,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
+      ]
     },
     {
       "id": "ma-003",
@@ -270,7 +375,7 @@
         "replica-style"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 450,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "priceIncludesShipping": true,
@@ -282,7 +387,7 @@
       "description": "The Stone-Set World is the most ornate belt in the range. Every plate edge is lined with cubic zirconia, and the centre plate layers a diamond-cut field behind raised lettering with an engravable nameplate at the base. Four extra side plates — two carrying roundel medallions, two carrying rosette scrollwork — extend the jewelled run further down the strap than a standard build. Plates are 24k gold plated with silver inlay, on sealed-edge cowhide.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with polished silver inlay",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -349,7 +454,46 @@
         "Source says '$450 with shipping' — confirm whether shipping is bundled for this product only or all products",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
       ],
-      "originalPrice": 520
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-004",
@@ -368,7 +512,7 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 470,
+      "price": 400,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -379,7 +523,7 @@
       "description": "Our Winged Eagle carries a spread-wing eagle across a blue enamel globe beneath a scalloped crown, with four matching side plates on a tooled black cowhide strap and a sealed, painted edge.\n\nTwo builds. The 4mm CNC is the standard version: same design, same 24k gold plating, lighter in the hand. The 6mm CNC steps up to hand-mated wing and feather texture — the detail that separates a good eagle plate from a flat one — and is supplied with a full belt tip.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm or 6mm — select above",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating over polished base",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -498,24 +642,44 @@
         "Photos show a live promotion mark cast into the plates",
         "4mm price of $470 set on client instruction (2026-08-08)"
       ],
-      "originalPrice": 545,
-      "variantLabel": "Plate thickness",
+      "originalPrice": 460,
+      "variantLabel": "Build",
       "variants": [
         {
-          "id": "4mm",
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
           "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
           "originalPrice": 545,
           "salePrice": 470,
           "stock": null,
-          "inStock": true
-        },
-        {
-          "id": "6mm",
-          "name": "6mm CNC",
-          "originalPrice": 635,
-          "salePrice": 550,
-          "stock": null,
-          "inStock": true
+          "inStock": true,
+          "isDefault": false
         }
       ]
     },
@@ -547,7 +711,7 @@
       "description": "The Big Gold Platinum is the heaviest plate we make. One enormous centre plate carries dense hand-mated scrollwork around a raised crown and a striped globe, set with red gemstones and finished with a blank engravable nameplate at the base. Two large scrollwork side plates continue the pattern. Machined in 6mm CNC and plated to a platinum-grade 24k gold finish, on a sealed-edge black cowhide strap.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating, platinum-grade finish",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -621,7 +785,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 545
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-006",
@@ -640,7 +843,7 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 450,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -651,7 +854,7 @@
       "description": "A deep-engraved take on the big gold heavyweight. Where the standard build relies on the casting, this one is worked further — hand-mated texture and deep engraving cut across the scrollwork so the pattern holds shadow at every angle. Red gemstones are set through the plate borders, and the strap is a sealed-edge black cowhide.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating over polished base",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -740,7 +943,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 520
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-007",
@@ -759,7 +1001,7 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 420,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -770,7 +1012,7 @@
       "description": "A contemporary continental design built around a large circular centre plate: a laurel-framed diamond sits over a blue enamel globe, ringed by raised lettering and a studded border. Machined in 6mm CNC and plated in 24k gold with blue enamel inlay. Side plates can be supplied in the standard pattern or made fully custom to your own artwork — tell us which when you order.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with blue enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -845,7 +1087,46 @@
         "Photos show a live promotion mark cast into the plates",
         "One side plate carries a named performer — confirm before selling as stock"
       ],
-      "originalPrice": 485
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-008",
@@ -864,7 +1145,7 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 430,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -875,7 +1156,7 @@
       "description": "The oval continental is one of the most recognisable shapes in the sport. A broad gold oval carries a blue enamel world map beneath a fanned arch, with clear stones set along the top edge. What makes this build is the side plates: each carries its own continent — North and South America, Europe, Africa, Asia, Australia — as a separate raised globe with a named banner. 6mm CNC, 24k gold plated, sealed-edge black cowhide.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with blue enamel globe",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -934,7 +1215,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 495
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-009",
@@ -953,7 +1273,7 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 430,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -964,7 +1284,7 @@
       "description": "Built for the lighter divisions but made to the same weight of metal. The centre plate fans out in a studded sunburst around stacked banners, set with clear stones and finished with an engravable nameplate along the base. Four side plates repeat the sunburst in miniature over red enamel. Machined in 6mm CNC, 24k gold plated, on an embossed black cowhide strap with a sealed edge.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with red enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1039,7 +1359,46 @@
         "Photos show a live promotion mark cast into the plates",
         "Nameplate in the photos carries a named performer — reshoot with a blank plate before selling as stock"
       ],
-      "originalPrice": 495
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-010",
@@ -1059,7 +1418,7 @@
         "zinc"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 430,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -1070,7 +1429,7 @@
       "description": "A television-title build in deep-etched zinc, machined to HD CNC tolerances. The centre plate packs dense filigree scrollwork around a blue enamel globe, banded above and below with raised lettering. Four side plates carry grappler medallions in matching filigree. Zinc holds this much fine detail far better than brass, which is exactly why this design is cut in it.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with blue enamel globe",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1129,7 +1488,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 495
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-011",
@@ -1147,7 +1545,7 @@
         "cnc-premium"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 420,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -1158,7 +1556,7 @@
       "description": "A silver chrome television title. The centre plate uses a ribbed, fanned field behind a blue enamel globe, with red enamel banners top and bottom. Side plates carry grappler medallions on the same ribbed ground. Chrome shows machining marks far more readily than gold does, so this one is cut and polished carefully — 6mm HD CNC throughout, on a sealed-edge black cowhide strap.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "Polished silver chrome",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1242,7 +1640,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 485
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-012",
@@ -1260,7 +1697,7 @@
         "cnc-premium"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 430,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -1271,7 +1708,7 @@
       "description": "A tag team title in polished silver chrome. A spread eagle crests the centre plate above a blue enamel globe and a red world banner, flanked by twin crowns and rope-edged scrollwork. Star-and-grappler side plates run down a tooled black cowhide strap. Because tag titles are made in pairs, tell us if you need two and we will match the finish across both.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "Polished silver chrome",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1345,7 +1782,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 495
+      "originalPrice": 545,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        }
+      ]
     },
     {
       "id": "ma-013",
@@ -1374,7 +1850,7 @@
       "description": "The most aggressive shape we build. The centre plate breaks out of the usual oval into a jagged, flame-cut outline with layered chrome plates and a starburst field. Four side plates repeat the cut-out motif. Machined in 4mm CNC and polished to a bright silver chrome, on a sealed-edge black cowhide strap.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "Polished silver chrome",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1433,7 +1909,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 460
+      "originalPrice": 460,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
+      ]
     },
     {
       "id": "ma-014",
@@ -1463,7 +1978,7 @@
       "description": "A national championship design in 24k gold over deep red enamel. The centre plate carries an eagle and scrollwork above a red banner field, and the side plates set a champion-and-map motif into red panels with blue enamel stars at each corner. Machined in 4mm CNC, on a tooled black cowhide strap with a sealed edge.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with red enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1582,7 +2097,46 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
       ],
-      "originalPrice": 460
+      "originalPrice": 460,
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
+      ]
     },
     {
       "id": "ma-015",
@@ -1601,8 +2155,8 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 470,
-      "originalPrice": 545,
+      "price": 400,
+      "originalPrice": 460,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
@@ -1613,7 +2167,7 @@
       "description": "A layered world championship build. The centre plate stacks scrollwork over a raised globe, with red and gold enamel lettering banded across the middle and a champion banner along the base. Four octagonal side plates carry their own globes and banners. Machined in 4mm CNC, 24k gold plated, on an upgraded black cowhide strap supplied with a full belt tip.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with red and black enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1691,6 +2245,45 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
+      ],
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
       ]
     },
     {
@@ -1722,7 +2315,7 @@
       "description": "A United States championship design finished in red, white and blue enamel over 24k gold. The centre plate lays a star field and flag stripes behind raised lettering, with a broad blank nameplate at the base ready for engraving. Side plates carry an eagle crest and a Liberty motif. Machined in 4mm CNC with hand-mated leather work on a black cowhide strap.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with red, white and blue enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1770,6 +2363,45 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
+      ],
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
       ]
     },
     {
@@ -1801,7 +2433,7 @@
       "description": "Built to look battered rather than polished. The rounded centre plate sets a blue enamel globe behind barbed wire and a brick-wall field, with red lettering running across it. Four square side plates repeat the globe and wire motif. Machined in 4mm CNC and 24k gold plated, with hand-mated leather work and a sealed edge on black cowhide.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "4mm",
+        "plateThickness": "2mm–6mm — select your build above",
         "plating": "24k gold plating with blue and red enamel",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -1865,6 +2497,45 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates",
         "A third-party maker mark and phone number is CAST INTO a strap plate and is visible in the gallery by client decision (2026-08-08). Every belt shipped carries it — replace the plate or die."
+      ],
+      "variantLabel": "Build",
+      "variants": [
+        {
+          "id": "2mm-brass",
+          "name": "2mm Brass",
+          "originalPrice": 195,
+          "salePrice": 170,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-standard",
+          "name": "4mm Standard",
+          "originalPrice": 310,
+          "salePrice": 270,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        },
+        {
+          "id": "4mm-cnc",
+          "name": "4mm CNC",
+          "originalPrice": 460,
+          "salePrice": 400,
+          "stock": null,
+          "inStock": true,
+          "isDefault": true
+        },
+        {
+          "id": "6mm-cnc",
+          "name": "6mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true,
+          "isDefault": false
+        }
       ]
     }
   ]

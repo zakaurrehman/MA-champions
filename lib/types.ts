@@ -76,6 +76,12 @@ export interface ProductVisibility {
  * false discount claim under UK CPRs, the FTC Act and the EU UCPD.
  */
 export interface ProductVariant {
+  /**
+   * Pre-selected build. Without this the cheapest option leads, which would
+   * headline every belt at the entry price even though the photographs show a
+   * CNC build. Falls back to first-in-stock when no variant is flagged.
+   */
+  isDefault?: boolean;
   id: string;
   /** Customer-facing label, e.g. "6mm". */
   name: string;
