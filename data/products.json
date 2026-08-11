@@ -4,7 +4,7 @@
     "extractedOn": "2026-08-05",
     "currency": "USD",
     "productCount": 17,
-    "imageCount": 171,
+    "imageCount": 172,
     "notes": [
       "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
       "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
@@ -1822,6 +1822,11 @@
           "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAkAAwBSJYwC7ADbqsXDwAD+WtgLzO9cDVEU0FzVKnsSRIgLhuTW8zOcJNqCdBBuw8ipndO7Dw4B1OAAAA=="
         },
         {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-03.jpg",
+          "alt": "Hardcore World Heavyweight championship belt — close view of the strap plate, tooled edge and adjustment studs",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAkAAwBSJYgC7AD0mWZ1uWAA/liUFptIUhjOdwYUIsvWn6+hKPtIJpJaeXn1iwHjhctLNp8lvjZEJFOAAA=="
+        },
+        {
           "src": "/products/hardcore-world-heavyweight-championship-belt-04.jpg",
           "alt": "Hardcore World Heavyweight Championship Belt — detail view 4",
           "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoMAAkAAwBSJYgC7AEWUNoWeAAA99+uHqW2pTRGfaZ0wp0N0NZ8VKzsij1J7wAjVAc0aoKWNqYQGAAA"
@@ -1859,7 +1864,7 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates",
-        "A third-party maker mark and phone number is CAST INTO a strap plate. The close-up photo was removed, but every belt shipped still carries it — replace the plate or die."
+        "A third-party maker mark and phone number is CAST INTO a strap plate and is visible in the gallery by client decision (2026-08-08). Every belt shipped carries it — replace the plate or die."
       ]
     }
   ]
