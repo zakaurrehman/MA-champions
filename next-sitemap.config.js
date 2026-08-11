@@ -11,13 +11,14 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   // Private/transactional routes stay out of the index.
-  exclude: ['/cart', '/wishlist', '/search', '/track-order', '/404'],
+  exclude: ['/cart', '/wishlist', '/search', '/track-order', '/404', '/admin', '/admin/*'],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/cart', '/wishlist', '/search', '/track-order'],
+        // /admin is token-gated, but there is no reason to advertise it.
+        disallow: ['/cart', '/wishlist', '/search', '/track-order', '/admin'],
       },
     ],
   },
