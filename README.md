@@ -40,10 +40,10 @@ All six build phases are complete:
 
 Plus a light/dark theme redesign with an oxblood-led palette.
 
-**The site is not launch-ready** — not because of missing code, but because of
-missing business facts. See [TODO-BEFORE-LAUNCH.md](TODO-BEFORE-LAUNCH.md).
-The single most urgent item is `site.url` in `lib/site.ts`, which is still a
-placeholder domain and currently feeds every canonical URL and the sitemap.
+Live at **https://www.mawrestlingbelts.com**. `site.url` in `lib/site.ts` and
+`siteUrl` in `next-sitemap.config.js` both read `SITE_URL` first and fall back
+to that domain — they feed every canonical URL, the sitemap and structured
+data, so they must always match the domain actually served.
 
 Before this site can take real orders, see **[TODO-BEFORE-LAUNCH.md](TODO-BEFORE-LAUNCH.md)** —
 it lists every business fact, price and asset that is still missing. Nothing in
@@ -109,25 +109,43 @@ The frontend computes the discount itself — **never hardcode a percentage**:
 ((520 - 450) / 520) * 100  →  13% OFF
 ```
 
-`originalPrice` is `null` on every product today, so nothing shows a
-struck-through price. **Only set it to a price the belt genuinely sold at.**
+`originalPrice` is currently set on every product at roughly 13–14% above the
+sale price. **Only keep it at a price the belts are genuinely offered at.**
 Inventing a higher "was" price to manufacture a discount is a false discount
 claim and is unlawful under UK CPRs, the US FTC Act and the EU UCPD. The code
 will happily display whatever you enter — the restraint has to come from you.
 
-### Pricing: variants (4mm / 6mm / 8mm …)
+### Pricing: the build ladder
 
-Add a `variants` array and the product page grows a picker. Each variant
-carries its own pricing and overrides the product price completely:
+Every belt is sold in four builds. This is the live ladder, applied to all
+products (`meta.buildLadder` in `data/products.json`):
+
+| Build | Price | Compare-at |
+| --- | --- | --- |
+| 2mm Brass | $170 | $195 |
+| 4mm Standard | $270 | $310 |
+| 4mm CNC | $400 | $460 |
+| 6mm CNC | $470 | $545 |
 
 ```jsonc
-"variantLabel": "Plate thickness",
+"variantLabel": "Build",
 "variants": [
-  { "id": "4mm",  "name": "4mm",  "originalPrice": 520,  "salePrice": 450, "stock": null, "inStock": true },
-  { "id": "6mm",  "name": "6mm",  "originalPrice": 600,  "salePrice": 500, "stock": 3,    "inStock": true },
-  { "id": "8mm",  "name": "8mm",  "originalPrice": null, "salePrice": 550, "stock": 0,    "inStock": false }
+  { "id": "2mm-brass",    "name": "2mm Brass",    "originalPrice": 195, "salePrice": 170, "stock": null, "inStock": true },
+  { "id": "4mm-standard", "name": "4mm Standard", "originalPrice": 310, "salePrice": 270, "stock": null, "inStock": true },
+  { "id": "4mm-cnc",      "name": "4mm CNC",      "originalPrice": 460, "salePrice": 400, "stock": null, "inStock": true },
+  { "id": "6mm-cnc",      "name": "6mm CNC",      "originalPrice": 545, "salePrice": 470, "stock": null, "inStock": true, "isDefault": true }
 ]
 ```
+
+`isDefault` marks the build shown in that product's photographs, so the
+headline price matches the picture. Without it the cheapest option leads and
+every belt appears to be $170.
+
+**Plate material and thickness belong here and nowhere else.** They used to
+also exist as unpriced options in `data/variants.json`, which put two
+thickness controls on the page — one of which silently did not change the
+price. `data/variants.json` is now finishing options only: strap size, leather
+colour, engraving.
 
 - Selecting a variant updates the price, the compare-at price and the discount
   badge instantly, with no reload.
@@ -160,8 +178,10 @@ should need to.
 with `shop: false` never reaches a collection grid, search, the sitemap or a
 product route — `lib/products.ts` filters it out at the boundary.
 
-All three current products are `shop: false` because their photography shows
-live third-party trademarks. They appear only in the `/custom` gallery.
+All 17 current products are `shop: false`-free — they are live and purchasable
+by client decision, despite their photography showing third-party marks. See
+[PLACEHOLDER-IMAGES.md](PLACEHOLDER-IMAGES.md) for what that means and how to
+reverse it (one flag per product).
 
 ---
 
@@ -302,7 +322,7 @@ fully disabled under `prefers-reduced-motion`.
 
    | Variable | Value |
    | --- | --- |
-   | `SITE_URL` | Your production URL, e.g. `https://machampionsbelts.com` |
+   | `SITE_URL` | Your production URL, e.g. `https://www.mawrestlingbelts.com` |
 
    This feeds canonical URLs, the sitemap and robots.txt. It must also match
    `site.url` in `lib/site.ts`.

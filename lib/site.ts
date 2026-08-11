@@ -87,7 +87,10 @@ export const site: SiteConfig = {
   tagline: 'Championship belts, built by hand',
   description:
     'Custom championship belts and replica title belts, made in-house from real cowhide and deep-etched metal with 24k gold plating. Design your own belt or shop our collections.',
-  url: 'https://machampionsbelts.com', // TODO: confirm production domain
+  // The live domain. Feeds canonical URLs, the sitemap and structured data —
+  // it must match the domain actually served or every canonical points at a
+  // site that does not exist. Override per-environment with SITE_URL.
+  url: process.env.SITE_URL ?? 'https://www.mawrestlingbelts.com',
 
   // Supplied by the client. wa.me requires digits only — no +, spaces or
   // dashes — so this is stored in link form. Displayed as +92 302 4057417.

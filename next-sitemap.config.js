@@ -1,13 +1,13 @@
-/**
+﻿/**
  * Sitemap + robots.txt generation. Expanded in Phase 6.
  *
- * NOTE: siteUrl must match `site.url` in lib/site.ts. Both are still pointing
- * at a placeholder domain — see TODO-BEFORE-LAUNCH.md.
+ * NOTE: siteUrl must match `site.url` in lib/site.ts. Both now point at the
+ * live domain, and both read SITE_URL first so a preview deploy can override.
  */
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://machampionsbelts.com',
+  siteUrl: process.env.SITE_URL || 'https://www.mawrestlingbelts.com',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   // Private/transactional routes stay out of the index.
@@ -32,3 +32,4 @@ module.exports = {
     };
   },
 };
+
