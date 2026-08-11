@@ -4,7 +4,7 @@
     "extractedOn": "2026-08-05",
     "currency": "USD",
     "productCount": 17,
-    "imageCount": 164,
+    "imageCount": 171,
     "notes": [
       "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
       "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
@@ -12,7 +12,8 @@
       "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text.",
       "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap.",
       "2026-08-06: imported 11 further belts supplied as folders in public/. Descriptive style names used throughout; source folder names retained in _source.",
-      "2026-08-08: originalPrice (compare-at) set from the client-supplied ratio in their brief ( sale ->  compare-at, ~13%). These are REFERENCE prices — they are only lawful to display if the belts are genuinely offered at them. See README."
+      "2026-08-08: originalPrice (compare-at) set from the client-supplied ratio in their brief ( sale ->  compare-at, ~13%). These are REFERENCE prices — they are only lawful to display if the belts are genuinely offered at them. See README.",
+      "2026-08-08: 4mm and 6mm Winged Eagle merged into one product with priced thickness variants. ECW close-up showing a third-party phone number removed from the gallery."
     ]
   },
   "products": [
@@ -367,18 +368,18 @@
         "24k-gold"
       ],
       "materialTier": "hd-cnc-premium",
-      "price": 550,
+      "price": 470,
       "salePrice": null,
       "currency": "USD",
       "inStock": true,
       "featured": false,
       "rating": null,
       "reviewCount": 0,
-      "shortDescription": "The classic winged eagle silhouette: a spread-wing eagle over a blue enamel globe, hand-finished feather texture and a full belt tip.",
-      "description": "Our Winged Eagle is a 6mm CNC build with hand-mated wing and feather texture — the detail that separates a good eagle plate from a flat one. The centre plate carries a spread-wing eagle across a blue enamel globe beneath a scalloped crown, with four matching side plates on a tooled black cowhide strap. Supplied with a full belt tip, and the strap carries a sealed, painted edge.",
+      "shortDescription": "The classic winged eagle silhouette — a spread-wing eagle over a blue enamel globe. Available in 4mm CNC, or 6mm with hand-mated wing texture and a full belt tip.",
+      "description": "Our Winged Eagle carries a spread-wing eagle across a blue enamel globe beneath a scalloped crown, with four matching side plates on a tooled black cowhide strap and a sealed, painted edge.\n\nTwo builds. The 4mm CNC is the standard version: same design, same 24k gold plating, lighter in the hand. The 6mm CNC steps up to hand-mated wing and feather texture — the detail that separates a good eagle plate from a flat one — and is supplied with a full belt tip.",
       "specs": {
         "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
-        "plateThickness": "6mm",
+        "plateThickness": "4mm or 6mm — select above",
         "plating": "24k gold plating over polished base",
         "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
         "leatherColour": "Black",
@@ -442,6 +443,46 @@
           "src": "/products/winged-eagle-style-championship-belt-11.jpg",
           "alt": "Winged Eagle Style Championship Belt — detail view 11",
           "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAQCdASoMABAAAwBSJaACdAEKsEpqOgAA/u0cWDmJTdnn+XqRLcuTdjWDi0hnz5RNCf/NfSXH4FiOfpxgG8xfv4HQA0nJQLZfwrHl3On0/HOAAAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-12.jpg",
+          "alt": "Winged Eagle championship belt in the 4mm CNC build, laid flat on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAwAgCdASoMAAkAAwBSJQBOkCc//Aj2FLq6AAD0cec6qp0XgnHY8rhjWDi6t/w9DBzLvI+uz8lVdk3xzTfovOgiVNJQO21IFmomDHaiYioAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-13.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoMAAkAAwBSJQBOgBwr+J14AADMmVq04flJ9caDvBxNovSXtxNXc5Kiv3r9pH74sXWTw4Jv1nqPgq5Tfddr2AEwo5lMYpqAAAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-14.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoMAAkAAwBSJQBOkCYi+QD1NT6AAP4lrPH6PiiR0vpfuy2r+SsRww/qbsd2Z7d4xCsrwgKHm3jjDDnljcrdyquEM0AAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-15.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoMAAQAAwBSJagCdADcyWggAMxUTbMAyoRZVgIzAsINqWl1Log2X7XJB5As314Y5gAAAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-16.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoMAAUAAwBSJYwCdADcJ/eX8gAA9FsUtHBfhh8KnINLAprd+jX3LHWAdx3QI9p2TPHxzQupAAA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-17.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAgCdASoMAAYAAwBSJQBOiP/wMsxvwClwAPqcvJGZL6OKtfGg+KYXN3Dt8Z6K30Cf1nhC90oeJGyhOYCaqYDw6AA="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-18.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQAgCdASoMAAsAAwBSJZACdAD8Y3UCCPvAAP6VDKoaJE1Q/lCtQL6I+GmHSESNkjBnoyROWm3rjK63kL6lxWs8M8dJGYdfrifb0rEJmge7Y1Wo3vpF5WyCY0bQoRgY6CQeNtstbdUwAA=="
+        },
+        {
+          "src": "/products/winged-eagle-style-championship-belt-19.jpg",
+          "alt": "Winged Eagle championship belt, 4mm CNC build — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAAAwBQCdASoMABwAPt1apkyopSOiMAgBEBuJZgC7IDf6AuwAjwSIDlSn1gswRvynVmCU2AD9+9JynRF323Wq9GAqNAWrL/9c6c7vJ+pZSXdZlVpKmUIWAbcPXGkKNgla3BbjpoAbgXz7O1pu4j5p9pYkYGL5RA90jd/SoEYv7iv/k/eKvkMyOe9JcIpX0XE7Mq17uR5C4pgpaVzbCi4bx4Mq+q6+jYG4qYF3fhzOv5ornpeuMgAAAA=="
         }
       ],
       "_source": {
@@ -454,10 +495,29 @@
         "Confirm plate base metal",
         "Confirm finished weight",
         "Confirm strap length / available sizes",
-        "Plate count of 5 inferred from photos — confirm",
-        "Photos show a live promotion mark cast into the plates"
+        "Photos show a live promotion mark cast into the plates",
+        "4mm price of $470 set on client instruction (2026-08-08)"
       ],
-      "originalPrice": 635
+      "originalPrice": 545,
+      "variantLabel": "Plate thickness",
+      "variants": [
+        {
+          "id": "4mm",
+          "name": "4mm CNC",
+          "originalPrice": 545,
+          "salePrice": 470,
+          "stock": null,
+          "inStock": true
+        },
+        {
+          "id": "6mm",
+          "name": "6mm CNC",
+          "originalPrice": 635,
+          "salePrice": 550,
+          "stock": null,
+          "inStock": true
+        }
+      ]
     },
     {
       "id": "ma-005",
@@ -1762,11 +1822,6 @@
           "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAkAAwBSJYwC7ADbqsXDwAD+WtgLzO9cDVEU0FzVKnsSRIgLhuTW8zOcJNqCdBBuw8ipndO7Dw4B1OAAAA=="
         },
         {
-          "src": "/products/hardcore-world-heavyweight-championship-belt-03.jpg",
-          "alt": "Hardcore World Heavyweight Championship Belt — detail view 3",
-          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAkAAwBSJYgC7AD0mWZ1uWAA/liUFptIUhjOdwYUIsvWn6+hKPtIJpJaeXn1iwHjhctLNp8lvjZEJFOAAA=="
-        },
-        {
           "src": "/products/hardcore-world-heavyweight-championship-belt-04.jpg",
           "alt": "Hardcore World Heavyweight Championship Belt — detail view 4",
           "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoMAAkAAwBSJYgC7AEWUNoWeAAA99+uHqW2pTRGfaZ0wp0N0NZ8VKzsij1J7wAjVAc0aoKWNqYQGAAA"
@@ -1804,7 +1859,7 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates",
-        "One side plate carries a manufacturer mark and phone number — reshoot or retouch"
+        "A third-party maker mark and phone number is CAST INTO a strap plate. The close-up photo was removed, but every belt shipped still carries it — replace the plate or die."
       ]
     }
   ]
