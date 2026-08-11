@@ -3,15 +3,16 @@
     "source": "images with prices.docx",
     "extractedOn": "2026-08-05",
     "currency": "USD",
-    "productCount": 14,
-    "imageCount": 140,
+    "productCount": 17,
+    "imageCount": 164,
     "notes": [
       "All three products were extracted from the source .docx, which contained 24 inline photographs and only three price lines and four caption lines.",
       "Prices below are transcribed verbatim from the document. No sale prices were present in the source — salePrice is null pending confirmation.",
       "Fields marked TODO were NOT present in the source document and must be confirmed before launch. Nothing has been invented.",
       "Source product names referenced live trademarks (AEW, TNA). Names here are descriptive style names per the brief. See sourceCaption on each product for the original text.",
       "2026-08-06: all three products made shop-visible at the client's request. They now generate product pages, appear in collections, search, featured and the sitemap.",
-      "2026-08-06: imported 11 further belts supplied as folders in public/. Descriptive style names used throughout; source folder names retained in _source."
+      "2026-08-06: imported 11 further belts supplied as folders in public/. Descriptive style names used throughout; source folder names retained in _source.",
+      "2026-08-08: originalPrice (compare-at) set from the client-supplied ratio in their brief ( sale ->  compare-at, ~13%). These are REFERENCE prices — they are only lawful to display if the belts are genuinely offered at them. See README."
     ]
   },
   "products": [
@@ -123,7 +124,8 @@
         "Confirm strap length / available sizes",
         "Confirm whether $430 is the list price or already discounted",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
-      ]
+      ],
+      "originalPrice": 495
     },
     {
       "id": "ma-002",
@@ -247,7 +249,8 @@
         "Confirm strap length / available sizes",
         "Confirm plate count — counted 7 from photos (4 globe medallions + 2 accent ovals + centre)",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
-      ]
+      ],
+      "originalPrice": 545
     },
     {
       "id": "ma-003",
@@ -344,7 +347,8 @@
         "Confirm strap length / available sizes",
         "Source says '$450 with shipping' — confirm whether shipping is bundled for this product only or all products",
         "Photos show a live promotion logo on the plates — see PLACEHOLDER-IMAGES.md"
-      ]
+      ],
+      "originalPrice": 520
     },
     {
       "id": "ma-004",
@@ -452,7 +456,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 635
     },
     {
       "id": "ma-005",
@@ -555,7 +560,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 545
     },
     {
       "id": "ma-006",
@@ -673,7 +679,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 520
     },
     {
       "id": "ma-007",
@@ -777,7 +784,8 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates",
         "One side plate carries a named performer — confirm before selling as stock"
-      ]
+      ],
+      "originalPrice": 485
     },
     {
       "id": "ma-008",
@@ -865,7 +873,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 495
     },
     {
       "id": "ma-009",
@@ -969,7 +978,8 @@
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates",
         "Nameplate in the photos carries a named performer — reshoot with a blank plate before selling as stock"
-      ]
+      ],
+      "originalPrice": 495
     },
     {
       "id": "ma-010",
@@ -1058,7 +1068,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 495
     },
     {
       "id": "ma-011",
@@ -1170,7 +1181,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 485
     },
     {
       "id": "ma-012",
@@ -1272,7 +1284,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 495
     },
     {
       "id": "ma-013",
@@ -1359,7 +1372,8 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
-      ]
+      ],
+      "originalPrice": 460
     },
     {
       "id": "ma-014",
@@ -1507,6 +1521,290 @@
         "Confirm strap length / available sizes",
         "Plate count of 5 inferred from photos — confirm",
         "Photos show a live promotion mark cast into the plates"
+      ],
+      "originalPrice": 460
+    },
+    {
+      "id": "ma-015",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Stacked World Gold Championship Belt",
+      "slug": "stacked-world-gold-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 470,
+      "originalPrice": 545,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A stacked, multi-layer world title in 24k gold with red enamel lettering, globe side plates and a full belt tip.",
+      "description": "A layered world championship build. The centre plate stacks scrollwork over a raised globe, with red and gold enamel lettering banded across the middle and a champion banner along the base. Four octagonal side plates carry their own globes and banners. Machined in 4mm CNC, 24k gold plated, on an upgraded black cowhide strap supplied with a full belt tip.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "4mm",
+        "plating": "24k gold plating with red and black enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/stacked-world-gold-championship-belt-01.jpg",
+          "alt": "Stacked World Gold Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACwAQCdASoMAAkAAwBSJQBOgBbuM6WgAPx3+TqCIOcGbBOnAl2JVRu9Anthgsi6aPHBOFO43s7DCJJMp94wAAAA"
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-02.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAkAAwBSJQBOgBwsrBUUIAD8jExWebA7lflDvvanGODkZ4KL2K/5j5WjX+kVpt+m0FAMgtQwO+4xsS2YAA=="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-03.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAQCdASoMAAkAAwBSJQBOgBt+IElAAPeBWxE7d6uXSwxbSzXAj6i0gV7m36HxaXwNpge36GzkUbzWGFymMeOvnD4OgAAA"
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-04.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwAgCdASoMABAAAwBSJZACdAEZgGCYihlvAAD+80m5t6ByLhoSshG04N2dRC3mESVlFqIdEi4kdBk5Sf6EBGdcM/PjMNw1Y/wGMhoANmtGeqTX+AAAAA=="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-05.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAQCdASoMAAkAAwBSJQBOgCBveRAf8AAA/duHmB+LdLPPl5X1SYVl+g/BK4ZqsMFa/mX9nAA="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-06.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoMABAAAwBSJYgCsADJr++hoAD+9bTDjZ0UqyG07runu15i+US6m7eSPsYjYkun2B6ibPGToho1ipHUfy2MX8DbdawU48IhQwAAAA=="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-07.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoMABAAAwBSJQBOgCM9USLuKpAAAP73g3NHZffsBq/L7AyJaSikkXr1u+bryGImdXZCbgFV44Mno/bAUmUIHm0Do5dcUzXxsGR23kaS0H0oSMwbcB+AAA=="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-08.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoMAAkAAwBSJQBOgBwykbneEoAA/lhrwhGpX02UV91b/TaA4C8/veVEa+M3DEOj7jhnuXuUcTnAH2RgAAA="
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-09.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 9",
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoMABAAAwBSJYgCdADRY3pJCggA/vaT4QzUZ+euSudbousF/WT8I8lax/g+OwY55RCgkqoGcb5xFjrt6Vhop8W03RwEd60xRZrVgAAA"
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-10.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 10",
+          "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACwAQCdASoMAAkAAwBSJYgCdAEQKwiAAP3bjcmA40Ie5ULPvIRmH2HKHPThF/2HlhJV72w5F4w4XAAA"
+        },
+        {
+          "src": "/products/stacked-world-gold-championship-belt-11.jpg",
+          "alt": "Stacked World Gold Championship Belt — detail view 11",
+          "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoMAAkAAwBSJYgCdAD0OWowgAD8eBYCbMUdsZOfLyvgNcbHb+jp4c2SWMHQ3vR+s+CoAA=="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "TNA WORLD STACKED 4MM CNC 24K GOLD UPGRADED LEATHER WITH BELT TIP  $470",
+        "sourceImages": 11,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-016",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "United States Champion Style Belt",
+      "slug": "united-states-champion-style-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 400,
+      "originalPrice": 460,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "Stars and stripes in enamel over 24k gold, with an eagle crest, Liberty side plate and a blank engravable nameplate.",
+      "description": "A United States championship design finished in red, white and blue enamel over 24k gold. The centre plate lays a star field and flag stripes behind raised lettering, with a broad blank nameplate at the base ready for engraving. Side plates carry an eagle crest and a Liberty motif. Machined in 4mm CNC with hand-mated leather work on a black cowhide strap.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "4mm",
+        "plating": "24k gold plating with red, white and blue enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/united-states-champion-style-belt-01.jpg",
+          "alt": "United States Champion Style Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAQCdASoMAAkAAwBSJbACdEf/geeyIiAAy0+ILbZingF61U+OJdzRszZvDqvV0YMzsIdz8JpvigzjBQc9X4h7DL4EkzPQAAA="
+        },
+        {
+          "src": "/products/united-states-champion-style-belt-02.jpg",
+          "alt": "United States Champion Style Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAQCdASoMAAkAAwBSJbACdADyVMAAAPJvD8WKAtNk6gCUqLQJUx+tUrfNIFQRpK5a10BlYQ9fQZ2+OUBFd/Mia/X4t6IIUOGBoAAA"
+        },
+        {
+          "src": "/products/united-states-champion-style-belt-03.jpg",
+          "alt": "United States Champion Style Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwAQCdASoMAAkAAwBSJbACdACkDIRwAP1TjO3QjLv9twnE8AfcxnYdLgC4RTLOaf4VAodqXHeyWO/Nto8Ra7zffgIJICNOr6EIRyFrU1i+UwAA"
+        },
+        {
+          "src": "/products/united-states-champion-style-belt-04.jpg",
+          "alt": "United States Champion Style Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAwAgCdASoMAAkAAwBSJbACdEf/gekEWnntQADeZ3X8YpGVOsFMPSsGbt4ZuaoZ+Oft6dl1MzaGeXj95HxfXyC5V8UAQTcxPlV09AAA"
+        },
+        {
+          "src": "/products/united-states-champion-style-belt-05.jpg",
+          "alt": "United States Champion Style Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoMAAkAAwBSJbACdAEOgsc8QADLT8Mlo6d8xapkh5tLfRcZy4dcmM60UXw6/NZw6ZaR6KQQhUUl3018AGL6U2iAAAA="
+        }
+      ],
+      "_source": {
+        "sourceFolder": "WWE UNITED STATES CHAMPION 4MM CNC 24K GOLD HAND MATE LEATHER $400",
+        "sourceImages": 5,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates"
+      ]
+    },
+    {
+      "id": "ma-017",
+      "visibility": {
+        "shop": true,
+        "customGallery": false,
+        "reason": "Live in the shop by client decision. Photos show third-party marks — tracked in PLACEHOLDER-IMAGES.md."
+      },
+      "name": "Hardcore World Heavyweight Championship Belt",
+      "slug": "hardcore-world-heavyweight-championship-belt",
+      "category": "wrestling",
+      "collections": [
+        "wrestling",
+        "replica-style",
+        "cnc-premium",
+        "24k-gold"
+      ],
+      "materialTier": "hd-cnc-premium",
+      "price": 400,
+      "originalPrice": 460,
+      "salePrice": null,
+      "currency": "USD",
+      "inStock": true,
+      "featured": false,
+      "rating": null,
+      "reviewCount": 0,
+      "shortDescription": "A barbed-wire and brick centre plate over a blue enamel globe — the most raw-edged design in the range.",
+      "description": "Built to look battered rather than polished. The rounded centre plate sets a blue enamel globe behind barbed wire and a brick-wall field, with red lettering running across it. Four square side plates repeat the globe and wire motif. Machined in 4mm CNC and 24k gold plated, with hand-mated leather work and a sealed edge on black cowhide.",
+      "specs": {
+        "plateMaterial": "TODO: confirm — CNC-machined (brass or zinc core?)",
+        "plateThickness": "4mm",
+        "plating": "24k gold plating with blue and red enamel",
+        "leatherType": "Genuine cowhide, sealed edge (upgraded strap)",
+        "leatherColour": "Black",
+        "plateCount": 5,
+        "weight": "TODO: confirm",
+        "size": "TODO: confirm — adult standard strap length",
+        "stones": "None"
+      },
+      "images": [
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-01.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt laid flat, showing the centre plate and side plates on a black leather strap",
+          "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoMAAkAAwBSJZQAAp/Gw+ABAAD94g7ZC0Ng0+53iRS+Mxchm7XC5dHtR2Iu7/NXHa65yPFH5PwAAA=="
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-02.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 2",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoMAAkAAwBSJYwC7ADbqsXDwAD+WtgLzO9cDVEU0FzVKnsSRIgLhuTW8zOcJNqCdBBuw8ipndO7Dw4B1OAAAA=="
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-03.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 3",
+          "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoMAAkAAwBSJYgC7AD0mWZ1uWAA/liUFptIUhjOdwYUIsvWn6+hKPtIJpJaeXn1iwHjhctLNp8lvjZEJFOAAA=="
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-04.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 4",
+          "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoMAAkAAwBSJYgC7AEWUNoWeAAA99+uHqW2pTRGfaZ0wp0N0NZ8VKzsij1J7wAjVAc0aoKWNqYQGAAA"
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-05.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 5",
+          "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoMAAYAAwBSJQBdgBuJsGrgAAD44pW0sYedMMpu8feACTzMHzEy7oSKuI274QAA"
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-06.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 6",
+          "blurDataURL": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADwAwCdASoMABkAPt1cpkyopSOiMAgBEBuJQBdgA3a9Tmaz8qNMsq+YAPxdJICY64cfYEASu+05tIjZHP9AHtT8kzx3fx5junCNNsxkS8YmYOeGE0ye+wdvPh1iyHQDTr/K+gzIzBoT0KdwkqiDh1KDepqu1/Khji4O2JUd/BOVKe/t32TJcgAA"
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-07.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 7",
+          "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoMAAQAAwBSJQBWACHXYLHAAP6EHMv92cjsE9VP/N82BcB7lQ8ZSGz312YP1AAA"
+        },
+        {
+          "src": "/products/hardcore-world-heavyweight-championship-belt-08.jpg",
+          "alt": "Hardcore World Heavyweight Championship Belt — detail view 8",
+          "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAQCdASoMABAAAwBSJQBdgBmbUFnH0AAA/gJMJVM+gjIg74CzkV6ksctPQoEyuJNijdXRIf8iWECZzqON51ufWgXI/Eay1e+yI20T/4ZMv1ccTVMgYAAA"
+        }
+      ],
+      "_source": {
+        "sourceFolder": "ECW WORLD HEAVYWEIGHT 4MM CNC 24K GOLD HAND MATE LEATHER WORK SEALED EDGE $400",
+        "sourceImages": 8,
+        "trademarkInSourceName": true,
+        "trademarkVisibleInPhotos": true
+      },
+      "_todo": [
+        "Confirm plate base metal",
+        "Confirm finished weight",
+        "Confirm strap length / available sizes",
+        "Plate count of 5 inferred from photos — confirm",
+        "Photos show a live promotion mark cast into the plates",
+        "One side plate carries a manufacturer mark and phone number — reshoot or retouch"
       ]
     }
   ]

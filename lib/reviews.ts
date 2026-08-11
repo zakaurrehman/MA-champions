@@ -7,6 +7,7 @@
  */
 
 import raw from '@/data/reviews.json';
+import { db } from './db';
 
 export interface Review {
   id: string;
@@ -21,8 +22,50 @@ export interface Review {
   photo?: string;
 }
 
+interface ReviewRow {
+  id: number | string;
+  author_name: string;
+  rating: number;
+  title: string | null;
+  body: string;
+  verified: boolean;
+  product_slug: string;
+  created_at: string | Date;
+}
+
+/**
+ * Reviews come from Postgres when DATABASE_URL is set, and fall back to the
+ * JSON seed otherwise so local and preview builds still work. Only APPROVED
+ * rows are ever read — pending submissions are invisible until moderated.
+ */
 async function loadReviews(): Promise<Review[]> {
-  return raw.reviews as unknown as Review[];
+  const sql = db();
+  if (!sql) return raw.reviews as unknown as Review[];
+
+  try {
+    const rows = (await sql`
+      SELECT id, product_slug, author_name, rating, title, body, verified, created_at
+      FROM reviews
+      WHERE status = 'approved'
+      ORDER BY created_at DESC
+      LIMIT 500
+    `) as unknown as ReviewRow[];
+
+    return rows.map((r) => ({
+      id: String(r.id),
+      name: r.author_name,
+      rating: r.rating,
+      date: new Date(r.created_at).toISOString().slice(0, 10),
+      title: r.title ?? '',
+      body: r.body,
+      productSlug: r.product_slug,
+      verified: r.verified,
+    }));
+  } catch (error) {
+    // A database blip must not take the product page down with it.
+    console.error('[reviews] database read failed, falling back to seed:', error);
+    return raw.reviews as unknown as Review[];
+  }
 }
 
 export async function getReviews(limit?: number): Promise<Review[]> {

@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { whatsAppHref, mailtoHref } from '@/lib/site';
+import { whatsAppHref } from '@/lib/site';
 import { StarIcon } from '@/components/ui/Icons';
 
 interface Props {
@@ -12,19 +11,18 @@ interface Props {
 
 const MAX_BODY = 1200;
 
+type Status = 'idle' | 'sending' | 'done' | 'error';
+
 /**
  * Write-a-review form.
  *
- * SUBMISSION PATH: this project has no database and no server runtime — the
- * whole site is statically exported. Rather than POST to an endpoint that
- * cannot store anything, or fake persistence in localStorage where it would be
- * invisible to everyone else, the review is composed and sent through the same
- * WhatsApp/email channel every other enquiry uses. We publish it against the
- * order once verified, which is also what keeps ratings honest.
+ * Posts to /api/reviews, which validates the product, rate-limits by a hashed
+ * submitter key and stores the review as `pending`. Nothing appears on the site
+ * until it is approved — a public form with no login would otherwise be an open
+ * door for spam and fake ratings.
  *
- * TODO: when a database is connected, swap the send handler for a POST to
- * `/api/reviews`. Every field below already matches the Review model in
- * lib/reviews.ts, so nothing about this form needs to change.
+ * If the API reports no database configured (503), it falls back to sending via
+ * WhatsApp so a customer's writing is never simply discarded.
  */
 export default function ReviewForm({ productName, productSlug }: Props) {
   const [open, setOpen] = useState(false);
@@ -33,11 +31,12 @@ export default function ReviewForm({ productName, productSlug }: Props) {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [touched, setTouched] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const [message, setMessage] = useState('');
 
   const valid = rating > 0 && name.trim().length > 1 && body.trim().length > 9;
 
-  const message = [
+  const asText = [
     `PRODUCT REVIEW — ${productName}`,
     `Product: /products/${productSlug}`,
     '',
@@ -50,9 +49,47 @@ export default function ReviewForm({ productName, productSlug }: Props) {
     .filter(Boolean)
     .join('\n');
 
-  const wa = whatsAppHref(message);
-  const mail = mailtoHref(`Review: ${productName}`);
-  const mailWithBody = mail ? `${mail}&body=${encodeURIComponent(message)}` : null;
+  const submit = async () => {
+    if (!valid || status === 'sending') return;
+    setStatus('sending');
+    setMessage('');
+
+    try {
+      const res = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productSlug, name, title, body, rating }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        message?: string;
+        error?: string;
+      };
+
+      if (res.ok) {
+        setStatus('done');
+        setMessage(data.message ?? 'Thank you. Your review will appear once we have checked it.');
+        return;
+      }
+
+      // No database configured — hand off rather than lose what they wrote.
+      if (res.status === 503) {
+        const wa = whatsAppHref(asText);
+        if (wa) {
+          window.open(wa, '_blank', 'noopener,noreferrer');
+          setStatus('done');
+          setMessage('Thanks — send that message and we will add your review.');
+          return;
+        }
+      }
+
+      setStatus('error');
+      setMessage(data.error ?? 'Something went wrong. Please try again.');
+    } catch {
+      setStatus('error');
+      setMessage('Could not reach the server. Please check your connection and try again.');
+    }
+  };
 
   const field =
     'w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-4 py-3 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none';
@@ -71,15 +108,26 @@ export default function ReviewForm({ productName, productSlug }: Props) {
     );
   }
 
+  if (status === 'done') {
+    return (
+      <div role="status" className="max-w-xl rounded-[--radius-plate] border border-line p-6">
+        <p className="font-body text-base font-semibold text-ink">Review received</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{message}</p>
+      </div>
+    );
+  }
+
   return (
     <form
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={(e) => {
+        e.preventDefault();
+        void submit();
+      }}
       aria-label={`Write a review for ${productName}`}
       className="max-w-xl rounded-[--radius-plate] border border-line p-6"
     >
       <h3 className="font-body text-base font-semibold text-ink">Write a review</h3>
 
-      {/* Rating */}
       <fieldset className="mt-5">
         <legend className={label}>Your rating</legend>
         <div className="flex items-center gap-1" onMouseLeave={() => setHovered(0)}>
@@ -100,9 +148,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
               </button>
             );
           })}
-          {rating > 0 && (
-            <span className="ml-2 font-body text-sm text-muted">{rating} of 5</span>
-          )}
+          {rating > 0 && <span className="ml-2 font-body text-sm text-muted">{rating} of 5</span>}
         </div>
       </fieldset>
 
@@ -114,6 +160,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
           <input
             id="rv-name"
             type="text"
+            maxLength={80}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={field}
@@ -126,6 +173,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
           <input
             id="rv-title"
             type="text"
+            maxLength={120}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className={field}
@@ -148,7 +196,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
         />
         <div className="mt-2 flex justify-between gap-4">
           <span className="text-2xs text-muted">
-            Reviews are published once we match them to an order.
+            Reviews are checked before they appear on the site.
           </span>
           <span className="shrink-0 text-2xs tabular-nums text-subtle">
             {body.length}/{MAX_BODY}
@@ -156,47 +204,20 @@ export default function ReviewForm({ productName, productSlug }: Props) {
         </div>
       </div>
 
-      {touched && !valid && (
+      {status === 'error' && message && (
         <p role="alert" className="mt-3 text-sm text-link">
-          Please add a star rating, your name, and at least a sentence of review.
+          {message}
         </p>
       )}
 
-      <div className="mt-6 flex flex-col gap-3">
-        {wa ? (
-          <a
-            href={valid ? wa : undefined}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => {
-              if (!valid) {
-                e.preventDefault();
-                setTouched(true);
-              }
-            }}
-            aria-disabled={!valid}
-            className={`inline-flex w-full items-center justify-center rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover ${
-              valid ? '' : 'opacity-50'
-            }`}
-          >
-            Submit review
-          </a>
-        ) : mailWithBody ? (
-          <a
-            href={mailWithBody}
-            className="inline-flex w-full items-center justify-center rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
-          >
-            Submit review
-          </a>
-        ) : (
-          <Link
-            href="/contact"
-            className="inline-flex w-full items-center justify-center rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
-          >
-            Send via contact page
-          </Link>
-        )}
-
+      <div className="mt-6 flex items-center gap-4">
+        <button
+          type="submit"
+          disabled={!valid || status === 'sending'}
+          className="rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover disabled:opacity-40"
+        >
+          {status === 'sending' ? 'Sending…' : 'Submit review'}
+        </button>
         <button
           type="button"
           onClick={() => setOpen(false)}

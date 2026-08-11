@@ -215,6 +215,52 @@ moving to Shopify Storefront or Sanity touches only the function bodies:
 
 No component, page or call site changes.
 
+## Reviews database (Neon Postgres)
+
+Reviews are the only part of the site backed by a database. Everything else is
+static JSON.
+
+**Setup, once:**
+
+1. Copy `.env.example` to `.env.local` and paste your `DATABASE_URL` from the
+   Vercel Storage tab (the `.env.local` quickstart snippet).
+2. Create the table:
+   ```bash
+   node --env-file=.env.local scripts/migrate.mjs
+   ```
+   Safe to re-run — it drops nothing.
+3. Add the same `DATABASE_URL` to your Vercel project's environment variables.
+
+**Moderation.** Submitted reviews are stored as `pending` and are invisible on
+the site until approved. The form is public with no login, so auto-publishing
+would be an open door for spam and fake ratings.
+
+```sql
+-- see what is waiting
+SELECT id, product_slug, author_name, rating, title, body, created_at
+FROM reviews WHERE status = 'pending' ORDER BY created_at DESC;
+
+-- publish one
+UPDATE reviews SET status = 'approved', updated_at = NOW() WHERE id = 1;
+
+-- mark it as a confirmed purchase (shows a "Verified buyer" badge)
+UPDATE reviews SET verified = TRUE WHERE id = 1;
+
+-- reject
+UPDATE reviews SET status = 'rejected', updated_at = NOW() WHERE id = 1;
+```
+
+Approved reviews appear within 5 minutes — product pages use
+`revalidate = 300`. Ratings and counts recompute automatically.
+
+**Abuse controls** in `app/api/reviews/route.ts`: the product slug must match a
+real shop-visible product; one review per submitter per product; three per
+submitter per 24h. The submitter key is a SHA-256 hash of IP + user agent — the
+raw address is never stored.
+
+**Without `DATABASE_URL`** the site still builds. Reads fall back to the JSON
+seed and the form hands off to WhatsApp rather than discarding what was typed.
+
 ### SEO and structured data
 
 All JSON-LD is built in `lib/seo.ts` and rendered through

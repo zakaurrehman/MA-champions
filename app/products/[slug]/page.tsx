@@ -23,6 +23,13 @@ interface Params {
   params: Promise<{ slug: string }>;
 }
 
+/*
+ * Rebuilt at most every 5 minutes. Product data is static, but reviews come
+ * from Postgres — without this, a review you approve would not appear until
+ * the next deploy.
+ */
+export const revalidate = 300;
+
 /**
  * Only shop-visible products get a route. Anything scoped to the custom
  * gallery 404s here rather than leaking a purchasable-looking page.
