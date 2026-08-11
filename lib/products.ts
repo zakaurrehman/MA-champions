@@ -39,9 +39,23 @@ export async function getShopProducts(): Promise<Product[]> {
   return all.filter((p) => p.visibility.shop);
 }
 
-export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
+/**
+ * Products for the homepage rail.
+ *
+ * Anything flagged `featured` leads, then everything else follows. Filtering
+ * on the flag alone meant the homepage showed only the three products someone
+ * had remembered to tick, while eleven others sat invisible — a curation field
+ * should reorder the shelf, not empty it.
+ *
+ * Omit `limit` to return the whole catalogue.
+ */
+export async function getFeaturedProducts(limit?: number): Promise<Product[]> {
   const shop = await getShopProducts();
-  return shop.filter((p) => p.featured).slice(0, limit);
+  const ordered = [
+    ...shop.filter((p) => p.featured),
+    ...shop.filter((p) => !p.featured),
+  ];
+  return typeof limit === 'number' ? ordered.slice(0, limit) : ordered;
 }
 
 /** Resolves only shop-visible products, so hidden slugs 404 rather than leak. */

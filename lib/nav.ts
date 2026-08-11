@@ -20,6 +20,11 @@ export interface NavGroup {
 
 /** Mirrors data/tiers.json. Kept as links so nav never needs an async read. */
 export const TIER_LINKS: NavLink[] = [
+  {
+    label: 'All Belts',
+    href: '/collections/all-championship-belts',
+    hint: 'Everything we build',
+  },
   { label: 'Brass', href: '/collections/brass-championship-belts', hint: 'Entry tier' },
   { label: 'Boxing', href: '/collections/boxing-championship-belts', hint: 'Round plate' },
   { label: 'Zinc', href: '/collections/zinc-championship-belts', hint: 'Deep etched' },

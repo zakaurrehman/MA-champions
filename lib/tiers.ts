@@ -33,6 +33,12 @@ export async function hasUnconfirmedPricing(): Promise<boolean> {
  * League/sport collections. These are navigational routes that exist ahead of
  * inventory — each renders an honest empty state until products land.
  */
+/**
+ * The catch-all shelf listing every purchasable belt. Lives here rather than in
+ * the route file so components can link to it without importing a page module.
+ */
+export const ALL_BELTS_SLUG = 'all-championship-belts';
+
 export const LEAGUE_COLLECTIONS: LeagueCollection[] = [
   { id: 'nfl', name: 'Football', slug: 'football-championship-belts', blurb: 'Gridiron league and fantasy title belts' },
   { id: 'nba', name: 'Basketball', slug: 'basketball-championship-belts', blurb: 'Court championship and league belts' },

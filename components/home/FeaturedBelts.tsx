@@ -3,29 +3,38 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import EmptyState from '@/components/ui/EmptyState';
 import ProductCard from '@/components/product/ProductCard';
 import { getFeaturedProducts } from '@/lib/products';
+import { ALL_BELTS_SLUG } from '@/lib/tiers';
 
 /**
- * Featured belts — capped at 8. Horizontal-scroll rail on mobile, grid above.
+ * The shop, on the homepage.
  *
- * Every product currently supplied is scoped to the custom gallery, so this
- * renders its empty state. It becomes a real rail the moment a shop-visible
- * product exists — no code change needed.
+ * Shows the ENTIRE catalogue rather than a curated handful: a visitor should
+ * be able to see everything we sell without a second click, which is the whole
+ * point of putting products directly under the hero. Products flagged
+ * `featured` sort to the front.
+ *
+ * Mobile keeps the horizontal rail so a long catalogue does not turn into an
+ * endless scroll on a phone.
  */
 export default async function FeaturedBelts() {
-  const products = await getFeaturedProducts(8);
+  const products = await getFeaturedProducts();
 
   return (
     <section className="border-t border-line py-16 sm:py-20" aria-labelledby="featured-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Featured"
+          eyebrow="Shop"
           title="Belts on the bench"
           titleId="featured-title"
-          intro="A rotating selection of builds ready to ship or reorder."
+          intro={
+            products.length > 0
+              ? `${products.length} builds ready to order, every one made in-house.`
+              : 'A rotating selection of builds ready to ship or reorder.'
+          }
           action={
             products.length > 0 ? (
               <Link
-                href="/collections"
+                href={`/collections/${ALL_BELTS_SLUG}`}
                 className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
               >
                 Shop all belts →

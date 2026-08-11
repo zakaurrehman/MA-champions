@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
-import { getMaterialTiers } from '@/lib/tiers';
-import { LEAGUE_COLLECTIONS } from '@/lib/tiers';
-import { formatPrice } from '@/lib/products';
+import { getMaterialTiers, LEAGUE_COLLECTIONS, ALL_BELTS_SLUG } from '@/lib/tiers';
+import { formatPrice, getShopProducts } from '@/lib/products';
 
 export const metadata: Metadata = {
   title: 'All Collections — Championship Belts by Material & Sport',
@@ -14,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function CollectionsPage() {
   const tiers = await getMaterialTiers();
+  const productCount = (await getShopProducts()).length;
 
   return (
     <PageShell
@@ -21,6 +21,23 @@ export default async function CollectionsPage() {
       title="Every belt we build"
       intro="Shop by the metal it is made from, or by the sport it is for."
     >
+      {/* The catch-all shelf leads: browsing by material only helps someone who
+          already knows which metal they want. */}
+      <Link
+        href={`/collections/${ALL_BELTS_SLUG}`}
+        className="border-plate mb-14 flex flex-wrap items-center justify-between gap-4 rounded-[--radius-plate] bg-surface px-6 py-5 transition-colors hover:border-primary/40"
+      >
+        <span>
+          <span className="block font-display text-xl uppercase text-ink">All belts</span>
+          <span className="mt-1 block font-body text-sm text-muted">
+            {productCount} builds, filterable by material, price and sport
+          </span>
+        </span>
+        <span className="font-body text-2xs font-semibold uppercase tracking-[0.16em] text-link">
+          Browse all →
+        </span>
+      </Link>
+
       <section aria-labelledby="by-material">
         <h2 id="by-material" className="text-2xl text-ink">
           By material
