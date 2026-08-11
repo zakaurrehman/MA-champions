@@ -16,9 +16,13 @@ interface Props {
  * (they describe method, not our product), but the length column must be
  * filled in before launch. It renders as "TBC" rather than a guessed number.
  */
+/*
+ * Strap length only. Plate thickness is a separate, PRICED choice made in the
+ * Build selector — listing "Adult 2mm" here implied thickness was a size, and
+ * put a second thickness control on the page that did not affect the price.
+ */
 const SIZES = [
-  { name: 'Adult 2mm', length: null, note: 'Standard adult strap' },
-  { name: 'Adult 4mm', length: null, note: 'Heavier plates, same strap length' },
+  { name: 'Adult', length: null, note: 'Standard adult strap, any build' },
   { name: 'Kids', length: null, note: 'Scaled for children' },
   { name: 'Mini', length: null, note: 'Display / desk size, not wearable' },
 ] as const;

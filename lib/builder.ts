@@ -20,7 +20,8 @@ export type SilhouetteId =
 
 export type PlateMaterialId = 'brass' | 'zinc' | '24k-gold' | 'cnc';
 export type PlateCount = 1 | 3 | 5;
-export type BuildSizeId = 'adult-2mm' | 'adult-4mm' | 'kids' | 'mini';
+/** Strap size only. Plate thickness is chosen via plateMaterial/build, not here. */
+export type BuildSizeId = 'adult' | 'kids' | 'mini';
 export type LeatherId = 'black' | 'oxblood' | 'brown' | 'white' | 'blue' | 'red';
 export type StitchId = 'matching' | 'gold' | 'white' | 'black' | 'red';
 
@@ -54,8 +55,7 @@ export const PLATE_COUNTS: { id: PlateCount; name: string; blurb: string }[] = [
 ];
 
 export const BUILD_SIZES: Option<BuildSizeId>[] = [
-  { id: 'adult-2mm', name: 'Adult 2mm', blurb: 'Standard adult strap' },
-  { id: 'adult-4mm', name: 'Adult 4mm', blurb: 'Heavier plates, more relief' },
+  { id: 'adult', name: 'Adult', blurb: 'Standard adult strap' },
   { id: 'kids', name: 'Kids', blurb: 'Scaled for children' },
   { id: 'mini', name: 'Mini', blurb: 'Display size, not wearable' },
 ];
@@ -103,7 +103,7 @@ export const DEFAULT_BUILD: BuildState = {
   silhouette: 'classic-oval',
   plateMaterial: 'zinc',
   plateCount: 3,
-  size: 'adult-2mm',
+  size: 'adult',
   leather: 'black',
   stitch: 'matching',
   artwork: null,
@@ -139,7 +139,7 @@ export function basePriceFor(material: PlateMaterialId): number {
  */
 export const BUILD_MODIFIERS = {
   plateCount: { 1: 0, 3: 0, 5: 0 } as Record<PlateCount, number>,
-  size: { 'adult-2mm': 0, 'adult-4mm': 0, kids: 0, mini: 0 } as Record<BuildSizeId, number>,
+  size: { adult: 0, kids: 0, mini: 0 } as Record<BuildSizeId, number>,
   engraving: 0,
   artwork: 0,
   confirmed: false,
