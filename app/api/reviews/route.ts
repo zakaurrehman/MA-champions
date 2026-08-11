@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createHash } from 'node:crypto';
 import { db, hasDatabase } from '@/lib/db';
+import { ensureReviewsTable, reviewsTableExists } from '@/lib/reviewsSchema';
 import { getShopProducts } from '@/lib/products';
 
 export const runtime = 'nodejs';
@@ -29,11 +30,22 @@ function clean(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
+/** Postgres "relation does not exist". */
+const UNDEFINED_TABLE = '42P01';
+
+const isUndefinedTable = (error: unknown): boolean =>
+  (error as { code?: string })?.code === UNDEFINED_TABLE;
+
 export async function POST(request: Request) {
   const sql = db();
   if (!sql) {
+    // DATABASE_URL is not set in this environment. Distinct from a missing
+    // table, and only fixable in the hosting dashboard.
     return NextResponse.json(
-      { error: 'Reviews are not available yet. Please try again later.' },
+      {
+        error: 'Reviews are not available yet. Please send it to us on WhatsApp instead.',
+        reason: 'no-database-url',
+      },
       { status: 503 }
     );
   }
@@ -118,29 +130,46 @@ export async function POST(request: Request) {
       VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key})
     `;
 
+
     // Deliberately does NOT return the review: it is not public until approved.
     return NextResponse.json(
       { ok: true, message: 'Thank you. Your review will appear once we have checked it.' },
       { status: 201 }
     );
   } catch (error) {
-    // Log the real cause; never send database internals to the browser.
-    console.error('[api/reviews] insert failed:', error);
+    /*
+     * The table does not exist yet. Rather than making someone SSH in and run
+     * a migration before a single review can be left, create it and retry
+     * once. The DDL is idempotent, so a race between two submissions is safe.
+     */
+    if (isUndefinedTable(error)) {
+      try {
+        console.warn('[api/reviews] reviews table missing — creating it now');
+        await ensureReviewsTable(sql);
 
-    // 42P01 = undefined_table. The migration has not been run against this
-    // database, which is otherwise indistinguishable from a generic failure.
-    const code = (error as { code?: string })?.code;
-    if (code === '42P01') {
-      return NextResponse.json(
-        {
-          error:
-            'Reviews are not set up on this site yet. Please send it to us on WhatsApp instead.',
-          setup: 'run scripts/migrate.mjs against DATABASE_URL',
-        },
-        { status: 503 }
-      );
+        await sql`
+          INSERT INTO reviews (product_slug, author_name, rating, title, body, submitter_key)
+          VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key})
+        `;
+
+        return NextResponse.json(
+          { ok: true, message: 'Thank you. Your review will appear once we have checked it.' },
+          { status: 201 }
+        );
+      } catch (retryError) {
+        console.error('[api/reviews] table creation or retry failed:', retryError);
+        return NextResponse.json(
+          {
+            error: 'We could not save your review just now. Please try again shortly.',
+            reason: 'migration-failed',
+          },
+          { status: 500 }
+        );
+      }
     }
 
+    // Log the real cause; never send database internals to the browser.
+    console.error('[api/reviews] insert failed:', error);
     return NextResponse.json(
       { error: 'We could not save your review just now. Please try again shortly.' },
       { status: 500 }
@@ -149,10 +178,57 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
+  const params = new URL(request.url).searchParams;
+
+  /*
+   * Health check: GET /api/reviews?diagnose=1
+   *
+   * Reports only booleans and a count — no connection string, no credentials,
+   * no review content. Enough to tell "no DATABASE_URL" apart from "table not
+   * created", which are the two causes of a 503 and are otherwise
+   * indistinguishable from the browser.
+   */
+  if (params.get('diagnose')) {
+    const sql = db();
+    if (!sql) {
+      return NextResponse.json({
+        databaseUrl: false,
+        tableExists: false,
+        fix: 'Set DATABASE_URL in the hosting environment and redeploy.',
+      });
+    }
+
+    try {
+      const exists = await reviewsTableExists(sql);
+      const counts = exists
+        ? ((await sql`
+            SELECT
+              COUNT(*)::int AS total,
+              COUNT(*) FILTER (WHERE status = 'pending')::int AS pending,
+              COUNT(*) FILTER (WHERE status = 'approved')::int AS approved
+            FROM reviews
+          `) as unknown as { total: number; pending: number; approved: number }[])[0]
+        : null;
+
+      return NextResponse.json({
+        databaseUrl: true,
+        tableExists: exists,
+        counts,
+        fix: exists ? null : 'The table is created automatically on the next submission.',
+      });
+    } catch (error) {
+      console.error('[api/reviews] diagnose failed:', error);
+      return NextResponse.json(
+        { databaseUrl: true, tableExists: null, error: 'Could not reach the database.' },
+        { status: 500 }
+      );
+    }
+  }
+
   if (!hasDatabase()) return NextResponse.json({ reviews: [] });
 
   const sql = db()!;
-  const slug = new URL(request.url).searchParams.get('product');
+  const slug = params.get('product');
   if (!slug) return NextResponse.json({ error: 'Missing product.' }, { status: 400 });
 
   try {

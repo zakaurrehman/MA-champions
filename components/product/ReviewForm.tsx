@@ -33,6 +33,8 @@ export default function ReviewForm({ productName, productSlug }: Props) {
   const [body, setBody] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
+  /** Set when we fall back to WhatsApp, so a blocked popup still has a link. */
+  const [fallbackHref, setFallbackHref] = useState<string | null>(null);
 
   const valid = rating > 0 && name.trim().length > 1 && body.trim().length > 9;
 
@@ -72,13 +74,22 @@ export default function ReviewForm({ productName, productSlug }: Props) {
         return;
       }
 
-      // No database configured — hand off rather than lose what they wrote.
+      /*
+       * Reviews are not wired up on this deployment. Hand off to WhatsApp so
+       * what they wrote is not lost. Popup blockers can stop window.open, so
+       * fall through to a visible link rather than assuming it worked.
+       */
       if (res.status === 503) {
         const wa = whatsAppHref(asText);
         if (wa) {
-          window.open(wa, '_blank', 'noopener,noreferrer');
+          const opened = window.open(wa, '_blank', 'noopener,noreferrer');
           setStatus('done');
-          setMessage('Thanks — send that message and we will add your review.');
+          setMessage(
+            opened
+              ? 'Thanks — send that message and we will add your review.'
+              : 'Reviews are not connected yet. Please send it to us on WhatsApp and we will add it.'
+          );
+          setFallbackHref(wa);
           return;
         }
       }
@@ -111,8 +122,20 @@ export default function ReviewForm({ productName, productSlug }: Props) {
   if (status === 'done') {
     return (
       <div role="status" className="max-w-xl rounded-[--radius-plate] border border-line p-6">
-        <p className="font-body text-base font-semibold text-ink">Review received</p>
+        <p className="font-body text-base font-semibold text-ink">
+          {fallbackHref ? 'Almost there' : 'Review received'}
+        </p>
         <p className="mt-2 text-sm leading-relaxed text-muted">{message}</p>
+        {fallbackHref && (
+          <a
+            href={fallbackHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex rounded-[--radius-plate] bg-primary px-5 py-3 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
+          >
+            Send on WhatsApp
+          </a>
+        )}
       </div>
     );
   }

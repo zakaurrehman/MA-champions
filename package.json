@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "blur": "node scripts/generate-blur.mjs",
     "test:pricing": "node --experimental-strip-types --no-warnings scripts/test-pricing.ts",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "migrate": "node --env-file=.env.local --experimental-strip-types --no-warnings scripts/migrate.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
