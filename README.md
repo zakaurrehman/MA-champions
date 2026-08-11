@@ -93,6 +93,67 @@ Then:
    Skip it and the product ships without a blur placeholder.
 3. Write **real** `alt` text. It is not optional and it is not decorative.
 
+### Pricing: compare-at and discounts
+
+Two fields drive every price on the site:
+
+```jsonc
+"price": 450,            // charged to the customer (legacy field, still works)
+"salePrice": null,       // if set, overrides `price`
+"originalPrice": 520,    // compare-at only — NEVER charged
+```
+
+The frontend computes the discount itself — **never hardcode a percentage**:
+
+```
+((520 - 450) / 520) * 100  →  13% OFF
+```
+
+`originalPrice` is `null` on every product today, so nothing shows a
+struck-through price. **Only set it to a price the belt genuinely sold at.**
+Inventing a higher "was" price to manufacture a discount is a false discount
+claim and is unlawful under UK CPRs, the US FTC Act and the EU UCPD. The code
+will happily display whatever you enter — the restraint has to come from you.
+
+### Pricing: variants (4mm / 6mm / 8mm …)
+
+Add a `variants` array and the product page grows a picker. Each variant
+carries its own pricing and overrides the product price completely:
+
+```jsonc
+"variantLabel": "Plate thickness",
+"variants": [
+  { "id": "4mm",  "name": "4mm",  "originalPrice": 520,  "salePrice": 450, "stock": null, "inStock": true },
+  { "id": "6mm",  "name": "6mm",  "originalPrice": 600,  "salePrice": 500, "stock": 3,    "inStock": true },
+  { "id": "8mm",  "name": "8mm",  "originalPrice": null, "salePrice": 550, "stock": 0,    "inStock": false }
+]
+```
+
+- Selecting a variant updates the price, the compare-at price and the discount
+  badge instantly, with no reload.
+- The selected variant is stored on the cart line and shown in the cart.
+- `stock: null` means not inventory-tracked; a number caps the quantity picker.
+- A product with variants **cannot** be added to the cart without one — see
+  `authoritativeLineTotal()` in `lib/pricing.ts`.
+
+Products with no `variants` key keep working exactly as before.
+
+Run `npm run test:pricing` after changing anything here. It covers variant
+resolution, discount maths, backward compatibility and price tampering.
+
+### Processing, shipping and warranty
+
+Global defaults live in `lib/site.ts` and apply to every product:
+
+```ts
+fulfilment: { processingTime: '7–8 days', shippingTime: '4–5 business days after dispatch' }
+warranty:   { available: true, duration: null, replacement: true, exchange: true, description: '…' }
+```
+
+Change them once there and every product page updates. A single product can
+override either with its own `fulfilment` or `warranty` block, but almost none
+should need to.
+
 ### The `visibility` flag
 
 `visibility.shop` controls whether a product is publicly purchasable. A product

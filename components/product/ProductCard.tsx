@@ -1,26 +1,37 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Product } from '@/lib/types';
-import { formatPrice } from '@/lib/products';
+import { resolvePrice } from '@/lib/pricing';
 import StarRating from '@/components/ui/StarRating';
 import WishlistButton from './WishlistButton';
+import ProductCardActions from './ProductCardActions';
+import PriceDisplay from './PriceDisplay';
 
 interface Props {
   product: Product;
   /** Rails need a fixed width; grids should stretch. */
   fixedWidth?: boolean;
   priority?: boolean;
+  /** Rails hide the buy controls to keep the card compact. */
+  compact?: boolean;
 }
 
 /**
- * Shop product card. Second-image hover swap, strikethrough sale pricing and
- * rating are all driven by real data — a product with no reviews renders no
- * star row rather than a fake five stars.
+ * Shop product card.
+ *
+ * Rating, pricing and discount are all driven by real data — a product with no
+ * reviews renders "No reviews yet" rather than a fake five stars, and the
+ * discount badge only appears when lib/pricing.ts finds a genuine saving.
  */
-export default function ProductCard({ product, fixedWidth = false, priority = false }: Props) {
+export default function ProductCard({
+  product,
+  fixedWidth = false,
+  priority = false,
+  compact = false,
+}: Props) {
   const primary = product.images[0];
   const secondary = product.images[1];
-  const onSale = product.salePrice !== null && product.salePrice < product.price;
+  const price = resolvePrice(product);
 
   return (
     <article
@@ -57,9 +68,10 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
             />
           )}
 
-          {onSale && (
-            <span className="bg-plated absolute left-3 top-3 px-2 py-1 font-body text-2xs font-bold uppercase tracking-wider text-on-accent">
-              Sale
+          {/* Only ever shown for a real saving — see lib/pricing.ts. */}
+          {price.discountPercent !== null && (
+            <span className="absolute left-3 top-3 rounded-[--radius-plate] bg-primary px-2 py-1 font-body text-2xs font-bold uppercase tracking-wider text-on-primary">
+              −{price.discountPercent}%
             </span>
           )}
         </div>
@@ -69,24 +81,26 @@ export default function ProductCard({ product, fixedWidth = false, priority = fa
             {product.name}
           </h3>
 
-          {product.rating !== null && product.reviewCount > 0 && (
-            <div className="mt-2">
+          <div className="mt-2">
+            {product.rating !== null && product.reviewCount > 0 ? (
               <StarRating rating={product.rating} count={product.reviewCount} />
-            </div>
-          )}
-
-          <p className="mt-2.5 flex items-baseline gap-2">
-            {onSale && (
-              <span className="text-sm text-subtle line-through">
-                {formatPrice(product.price, product.currency)}
+            ) : (
+              <span className="font-body text-2xs uppercase tracking-[0.14em] text-subtle">
+                No reviews yet
               </span>
             )}
-            <span className="font-display text-lg text-plated">
-              {formatPrice(product.salePrice ?? product.price, product.currency)}
-            </span>
-          </p>
+          </div>
         </div>
       </Link>
+
+      {/* Outside the Link: buttons inside an <a> are invalid HTML and every
+          click would navigate instead of acting. Compact rails show price only;
+          the whole card is already a link to the product. */}
+      {compact ? (
+        <PriceDisplay price={price} size="sm" className="mt-3" />
+      ) : (
+        <ProductCardActions product={product} />
+      )}
     </article>
   );
 }

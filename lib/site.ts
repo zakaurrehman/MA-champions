@@ -51,6 +51,19 @@ export interface SiteConfig {
     worldwide: boolean;
   };
 
+  fulfilment: {
+    processingTime: string;
+    shippingTime: string;
+  };
+
+  warranty: {
+    available: boolean;
+    duration: string | null;
+    replacement: boolean;
+    exchange: boolean;
+    description: string;
+  };
+
   /**
    * Marketing claims that are only true if you say they are. Each is null
    * until confirmed, and every surface that would state one checks first.
@@ -118,6 +131,30 @@ export const site: SiteConfig = {
     // Safe to state: supplied by the client in the project brief.
     freeTo: ['USA', 'Canada', 'UK'],
     worldwide: true,
+  },
+
+  /**
+   * Global fulfilment terms shown on every product page. A product can override
+   * either value via its own `fulfilment` block; almost none should need to.
+   * Change these once here and every product updates.
+   */
+  fulfilment: {
+    processingTime: '7–8 days',
+    shippingTime: '4–5 business days after dispatch',
+  },
+
+  /**
+   * Default warranty terms. A product can override with its own `warranty`.
+   * `replacement` and `exchange` drive what the product page tells the customer
+   * is available, so only set them true where you will honour them.
+   */
+  warranty: {
+    available: true,
+    duration: null, // TODO: confirm the period, e.g. "30 days from delivery"
+    replacement: true,
+    exchange: true,
+    description:
+      'We stand behind how these belts are made. If a belt reaches you with a manufacturing fault — a plate defect, a plating flaw or a fault in the strap — contact us with photographs and we will arrange a replacement or exchange under the terms of our warranty.',
   },
 
   claims: {
@@ -192,6 +229,47 @@ export function socialLinks(): SocialLink[] {
 /** Profile URLs for Organization JSON-LD `sameAs`. */
 export function sameAs(): string[] {
   return socialLinks().map((s) => s.href);
+}
+
+/**
+ * Fulfilment terms for a product: its own overrides if present, otherwise the
+ * global defaults. Every product therefore always has an answer.
+ */
+export function fulfilmentFor(product?: {
+  fulfilment?: { processingTime?: string | null; shippingTime?: string | null };
+}): { processingTime: string; shippingTime: string } {
+  return {
+    processingTime: product?.fulfilment?.processingTime ?? site.fulfilment.processingTime,
+    shippingTime: product?.fulfilment?.shippingTime ?? site.fulfilment.shippingTime,
+  };
+}
+
+/** Warranty terms for a product, falling back to the site default. */
+export function warrantyFor(product?: {
+  warranty?: {
+    available: boolean;
+    duration: string | null;
+    replacement: boolean;
+    exchange: boolean;
+    description: string | null;
+  } | null;
+}): {
+  available: boolean;
+  duration: string | null;
+  replacement: boolean;
+  exchange: boolean;
+  description: string;
+} {
+  const w = product?.warranty;
+  if (!w) return site.warranty;
+
+  return {
+    available: w.available,
+    duration: w.duration ?? site.warranty.duration,
+    replacement: w.replacement,
+    exchange: w.exchange,
+    description: w.description ?? site.warranty.description,
+  };
 }
 
 /** Human lead-time string, or null if we cannot state one honestly. */

@@ -4,8 +4,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Product } from '@/lib/types';
 import type { Review } from '@/lib/reviews';
-import { site, leadTimeLabel } from '@/lib/site';
+import { site, leadTimeLabel, fulfilmentFor, warrantyFor } from '@/lib/site';
 import StarRating from '@/components/ui/StarRating';
+import ReviewForm from './ReviewForm';
 
 interface Props {
   product: Product;
@@ -15,7 +16,8 @@ interface Props {
 const TABS = [
   { id: 'description', label: 'Description' },
   { id: 'specifications', label: 'Specifications' },
-  { id: 'shipping', label: 'Shipping & Lead Time' },
+  { id: 'shipping', label: 'Processing & Shipping' },
+  { id: 'warranty', label: 'Warranty & Coverage' },
   { id: 'reviews', label: 'Reviews' },
 ] as const;
 
@@ -41,7 +43,9 @@ function specRows(product: Product): [string, string][] {
 export default function ProductTabs({ product, reviews }: Props) {
   const [tab, setTab] = useState<TabId>('description');
   const rows = specRows(product);
-  const stockLead = leadTimeLabel('stock');
+  const stockLead = leadTimeLabel('custom');
+  const fulfilment = fulfilmentFor(product);
+  const warranty = warrantyFor(product);
 
   return (
     <div className="border-t border-line pt-10">
@@ -104,29 +108,44 @@ export default function ProductTabs({ product, reviews }: Props) {
       </div>
 
       <div role="tabpanel" id="panel-shipping" aria-labelledby="tab-shipping" hidden={tab !== 'shipping'} className="py-8">
-        <dl className="flex max-w-2xl flex-col gap-5">
-          <div>
-            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
-              Build time
+        {/* Headline summary — the single sentence buyers actually look for. */}
+        <p className="max-w-2xl text-base leading-relaxed text-ink">
+          This belt is processed in <strong>{fulfilment.processingTime}</strong> and arrives{' '}
+          <strong>{fulfilment.shippingTime}</strong>.
+        </p>
+
+        <dl className="mt-7 grid max-w-2xl gap-5 sm:grid-cols-2">
+          <div className="rounded-[--radius-plate] border border-line p-5">
+            <dt className="font-body text-2xs font-semibold uppercase tracking-[0.18em] text-subtle">
+              Processing time
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-muted">
-              {stockLead
-                ? `${stockLead}, before shipping.`
-                : /* No confirmed lead time — say so plainly rather than guess one. */
-                  'Confirmed in writing on your quote before you pay. We do not quote a build time we cannot hold.'}
+            <dd className="mt-2 font-display text-2xl text-ink">{fulfilment.processingTime}</dd>
+            <dd className="mt-1.5 text-2xs leading-relaxed text-muted">
+              From order confirmation to dispatch.
             </dd>
           </div>
 
-          <div>
-            <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
-              Shipping
+          <div className="rounded-[--radius-plate] border border-line p-5">
+            <dt className="font-body text-2xs font-semibold uppercase tracking-[0.18em] text-subtle">
+              Shipping time
             </dt>
-            <dd className="mt-1.5 text-sm leading-relaxed text-muted">
+            <dd className="mt-2 font-display text-2xl text-ink">{fulfilment.shippingTime}</dd>
+            <dd className="mt-1.5 text-2xs leading-relaxed text-muted">
               Free to {site.shipping.freeTo.join(', ')}.
-              {site.shipping.worldwide && ' We ship worldwide.'}
-              {site.leadTimes.shippingDays && ` Transit is typically ${site.leadTimes.shippingDays}.`}
+              {site.shipping.worldwide && ' Worldwide shipping available.'}
             </dd>
           </div>
+        </dl>
+
+        <dl className="mt-7 flex max-w-2xl flex-col gap-5">
+          {stockLead && (
+            <div>
+              <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
+                Custom builds
+              </dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-muted">{stockLead}.</dd>
+            </div>
+          )}
 
           <div>
             <dt className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
@@ -143,7 +162,92 @@ export default function ProductTabs({ product, reviews }: Props) {
         </dl>
       </div>
 
+      {/* Warranty & Coverage */}
+      <div role="tabpanel" id="panel-warranty" aria-labelledby="tab-warranty" hidden={tab !== 'warranty'} className="py-8">
+        {warranty.available ? (
+          <div className="max-w-2xl">
+            <p className="text-base leading-relaxed text-muted">{warranty.description}</p>
+
+            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+              {warranty.duration && (
+                <li className="rounded-[--radius-plate] border border-line p-4">
+                  <span className="block font-body text-2xs font-semibold uppercase tracking-[0.18em] text-subtle">
+                    Warranty period
+                  </span>
+                  <span className="mt-1.5 block font-body text-sm font-semibold text-ink">
+                    {warranty.duration}
+                  </span>
+                </li>
+              )}
+              {warranty.replacement && (
+                <li className="rounded-[--radius-plate] border border-line p-4">
+                  <span className="block font-body text-2xs font-semibold uppercase tracking-[0.18em] text-subtle">
+                    Replacement
+                  </span>
+                  <span className="mt-1.5 block font-body text-sm font-semibold text-ink">
+                    Available on qualifying faults
+                  </span>
+                </li>
+              )}
+              {warranty.exchange && (
+                <li className="rounded-[--radius-plate] border border-line p-4">
+                  <span className="block font-body text-2xs font-semibold uppercase tracking-[0.18em] text-subtle">
+                    Exchange
+                  </span>
+                  <span className="mt-1.5 block font-body text-sm font-semibold text-ink">
+                    Available on qualifying faults
+                  </span>
+                </li>
+              )}
+            </ul>
+
+            <div className="mt-7 rounded-[--radius-plate] border border-line p-5">
+              <h3 className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
+                How to claim
+              </h3>
+              <ol className="mt-3 flex list-decimal flex-col gap-1.5 pl-5 text-sm leading-relaxed text-muted">
+                <li>Message us with your order details and photographs of the fault.</li>
+                <li>We assess the claim against the warranty terms and confirm in writing.</li>
+                <li>Where it qualifies, we arrange a replacement or exchange.</li>
+              </ol>
+              <Link
+                href="/contact"
+                className="mt-4 inline-block font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link hover:text-link-hover"
+              >
+                Start a warranty claim →
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <p className="max-w-2xl text-sm leading-relaxed text-muted">
+            This belt is not covered by our standard warranty. See our{' '}
+            <Link href="/policies/refund" className="text-link underline-offset-4 hover:underline">
+              refund policy
+            </Link>{' '}
+            for what applies.
+          </p>
+        )}
+      </div>
+
       <div role="tabpanel" id="panel-reviews" aria-labelledby="tab-reviews" hidden={tab !== 'reviews'} className="py-8">
+        {/* Aggregate — only rendered when there is something real to average. */}
+        {reviews.length > 0 && (
+          <div className="mb-8 flex flex-wrap items-center gap-4 border-b border-line pb-6">
+            <span className="font-display text-4xl text-plated">
+              {(reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)}
+            </span>
+            <div>
+              <StarRating
+                rating={reviews.reduce((s, r) => s + r.rating, 0) / reviews.length}
+                size="md"
+              />
+              <p className="mt-1 font-body text-2xs uppercase tracking-[0.14em] text-subtle">
+                Based on {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
+              </p>
+            </div>
+          </div>
+        )}
+
         {reviews.length === 0 ? (
           <p className="max-w-2xl text-sm leading-relaxed text-muted">
             No reviews for this belt yet. We publish reviews only from verified customers, so
@@ -166,6 +270,10 @@ export default function ProductTabs({ product, reviews }: Props) {
             ))}
           </ul>
         )}
+
+        <div className="mt-9 border-t border-line pt-8">
+          <ReviewForm productName={product.name} productSlug={product.slug} />
+        </div>
       </div>
     </div>
   );

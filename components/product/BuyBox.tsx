@@ -13,15 +13,26 @@ import {
 } from '@/lib/variants';
 import { useCart } from '@/lib/cart';
 import { useToasts } from '@/lib/toast';
+import { resolvePrice, getVariants, defaultVariant } from '@/lib/pricing';
 import { site, whatsAppHref } from '@/lib/site';
+import PriceDisplay from './PriceDisplay';
+import ProductVariantPicker from './ProductVariantPicker';
 import VariantSelector from './VariantSelector';
 import SizeGuideModal from './SizeGuideModal';
 import { WhatsAppIcon } from '@/components/ui/Icons';
+
+/** Keeps quantity within 1..stock, where stock is tracked. */
+function clampQty(value: number, max: number | null): number {
+  const atLeastOne = Math.max(1, value);
+  return max === null ? atLeastOne : Math.min(atLeastOne, max);
+}
 
 export default function BuyBox({ product }: { product: Product }) {
   const groups = getVariantGroups();
   const engravingCfg = getEngravingConfig();
 
+  const productVariants = getVariants(product);
+  const [variantId, setVariantId] = useState(() => defaultVariant(product)?.id ?? null);
   const [selection, setSelection] = useState(() => defaultSelection());
   const [engraving, setEngraving] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -32,18 +43,41 @@ export default function BuyBox({ product }: { product: Product }) {
   const openCart = useCart((s) => s.openCart);
   const pushToast = useToasts((s) => s.push);
 
-  const basePrice = product.salePrice ?? product.price;
+  /*
+   * All pricing goes through lib/pricing.ts, so a selected variant's price
+   * overrides the product's. Recomputing on variantId is what makes the figure
+   * update instantly, with no reload.
+   */
+  const resolved = useMemo(() => resolvePrice(product, variantId), [product, variantId]);
+
+  const variantPrice = resolved.current;
   const unitPrice = useMemo(
-    () => computePrice(basePrice, selection, engraving),
-    [basePrice, selection, engraving]
-  );
-  const specLines = useMemo(
-    () => describeSelection(selection, engraving),
-    [selection, engraving]
+    () => computePrice(variantPrice, selection, engraving),
+    [variantPrice, selection, engraving]
   );
 
-  const onSale = product.salePrice !== null && product.salePrice < product.price;
+  const specLines = useMemo(() => {
+    const lines = describeSelection(selection, engraving);
+    if (resolved.variant) {
+      lines.unshift(`${product.variantLabel ?? 'Size'}: ${resolved.variant.name}`);
+    }
+    return lines;
+  }, [selection, engraving, resolved.variant, product.variantLabel]);
+
+  const maxQty = resolved.variant?.stock ?? null;
+  const soldOut = resolved.variant ? !resolved.variant.inStock : !product.inStock;
   const indicative = hasUnconfirmedModifiers();
+
+  /* Displayed price includes any option modifiers, so rebuild the shape
+     PriceDisplay expects rather than showing a stale variant-only figure. */
+  const displayPrice = {
+    ...resolved,
+    current: unitPrice,
+    discountPercent:
+      resolved.original !== null && resolved.original > unitPrice
+        ? Math.round(((resolved.original - unitPrice) / resolved.original) * 100)
+        : null,
+  };
 
   const handleAdd = () => {
     const image = product.images[0];
@@ -82,25 +116,28 @@ export default function BuyBox({ product }: { product: Product }) {
 
   return (
     <div>
-      {/* Live price */}
-      <div className="flex flex-wrap items-baseline gap-3">
-        {onSale && (
-          <span className="text-lg text-subtle line-through">
-            {formatPrice(product.price, product.currency)}
-          </span>
-        )}
-        <span
-          aria-live="polite"
-          className="font-display text-4xl text-plated"
-        >
-          {formatPrice(unitPrice, product.currency)}
-        </span>
+      {/* Live price — announced so the change is not silent to screen readers */}
+      <div aria-live="polite" className="flex flex-wrap items-baseline gap-3">
+        <PriceDisplay price={displayPrice} size="lg" />
         {product.priceIncludesShipping && (
           <span className="font-body text-2xs uppercase tracking-[0.14em] text-subtle">
             Shipping included
           </span>
         )}
       </div>
+
+      {/* Priced variants drive the figure above */}
+      {productVariants.length > 0 && (
+        <div className="mt-7">
+          <ProductVariantPicker
+            label={product.variantLabel ?? 'Size'}
+            variants={productVariants}
+            value={variantId}
+            currency={product.currency}
+            onChange={setVariantId}
+          />
+        </div>
+      )}
 
       {indicative && (
         <p className="mt-2 text-2xs leading-relaxed text-subtle">
@@ -178,19 +215,28 @@ export default function BuyBox({ product }: { product: Product }) {
               id="quantity"
               type="number"
               min={1}
+              max={maxQty ?? undefined}
               value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
+              onChange={(e) =>
+                setQuantity(
+                  clampQty(Math.max(1, Number(e.target.value) || 1), maxQty)
+                )
+              }
               className="h-11 w-14 border-x border-subtle/25 bg-transparent text-center font-body text-sm tabular-nums text-ink focus:outline-none"
             />
             <button
               type="button"
-              onClick={() => setQuantity((q) => q + 1)}
+              onClick={() => setQuantity((q) => clampQty(q + 1, maxQty))}
+              disabled={maxQty !== null && quantity >= maxQty}
               aria-label="Increase quantity"
-              className="grid h-11 w-11 place-items-center text-ink hover:text-link"
+              className="grid h-11 w-11 place-items-center text-ink disabled:opacity-30 hover:text-link"
             >
               +
             </button>
           </div>
+          {maxQty !== null && (
+            <p className="mt-2 text-2xs text-muted">{maxQty} in stock</p>
+          )}
         </div>
       </div>
 
@@ -199,9 +245,10 @@ export default function BuyBox({ product }: { product: Product }) {
         <button
           type="button"
           onClick={handleAdd}
-          className="bg-primary plate-sheen w-full rounded-[--radius-plate] px-7 py-4 font-display text-base uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover"
+          disabled={soldOut}
+          className="bg-primary plate-sheen w-full rounded-[--radius-plate] px-7 py-4 font-display text-base uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover disabled:opacity-40"
         >
-          {added ? 'Added to cart' : 'Add to cart'}
+          {soldOut ? 'Sold out' : added ? 'Added to cart' : 'Add to cart'}
         </button>
 
         {waHref ? (

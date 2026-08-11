@@ -20,8 +20,14 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <MaterialTiers />
+      {/*
+        Products come FIRST, directly under the hero. A shopper landing here is
+        looking for belts, not for our manufacturing story — making them scroll
+        past three explainer sections to reach a product is the main thing wrong
+        with the sites we are competing against.
+      */}
       <FeaturedBelts />
+      <MaterialTiers />
       <LeagueGrid />
       <WhyUs />
       <CustomShowcase />

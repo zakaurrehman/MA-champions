@@ -64,6 +64,44 @@ export interface ProductVisibility {
   reason?: string;
 }
 
+/**
+ * A priced product variant — e.g. plate thickness 4mm / 6mm / 8mm.
+ *
+ * Variants carry their OWN pricing. When one is selected it overrides the
+ * product-level price entirely, which is what stops a customer being charged
+ * the base price for a more expensive option.
+ *
+ * `originalPrice` is a compare-at figure and is nullable: a product that has
+ * never sold higher must not display a struck-through price, because that is a
+ * false discount claim under UK CPRs, the FTC Act and the EU UCPD.
+ */
+export interface ProductVariant {
+  id: string;
+  /** Customer-facing label, e.g. "6mm". */
+  name: string;
+  /** Compare-at price. null = no discount shown for this variant. */
+  originalPrice: number | null;
+  /** The price actually charged. */
+  salePrice: number;
+  /** null = not inventory-tracked. */
+  stock: number | null;
+  inStock: boolean;
+}
+
+/** Per-product overrides for the global fulfilment defaults in lib/site.ts. */
+export interface ProductFulfilment {
+  processingTime?: string | null;
+  shippingTime?: string | null;
+}
+
+export interface ProductWarranty {
+  available: boolean;
+  duration: string | null;
+  replacement: boolean;
+  exchange: boolean;
+  description: string | null;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -91,6 +129,24 @@ export interface Product {
    * size range until a product says otherwise.
    */
   availableSizes?: string[];
+
+  /**
+   * Compare-at price for the product as a whole. Optional and nullable so
+   * every existing product keeps working untouched — see lib/pricing.ts.
+   */
+  originalPrice?: number | null;
+
+  /**
+   * Priced variants. Absent or empty means this is a simple product and the
+   * product-level price applies.
+   */
+  variants?: ProductVariant[];
+
+  /** What the variants represent, e.g. "Plate thickness". Defaults to "Size". */
+  variantLabel?: string;
+
+  fulfilment?: ProductFulfilment;
+  warranty?: ProductWarranty | null;
 }
 
 /**

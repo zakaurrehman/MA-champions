@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "blur": "node scripts/generate-blur.mjs",
+    "test:pricing": "node --experimental-strip-types --no-warnings scripts/test-pricing.ts",
     "postbuild": "next-sitemap"
   },
   "dependencies": {

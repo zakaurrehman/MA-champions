@@ -19,5 +19,8 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  // scripts/ runs under Node's native type stripping, which requires explicit
+  // .ts import extensions — the opposite of what the bundler resolver allows.
+  // It is not part of the app build, so it is typechecked separately.
+  "exclude": ["node_modules", "scripts"]
 }
