@@ -6,6 +6,14 @@ import { getMaterialTiers, hasUnconfirmedPricing } from '@/lib/tiers';
 import { formatPrice } from '@/lib/format';
 import type { TierCompare } from '@/lib/types';
 
+/*
+ * Products come from the database, so a statically rendered page would keep
+ * serving a build-time snapshot forever. The admin API also revalidates these
+ * paths on demand; this is the fallback.
+ */
+export const revalidate = 300;
+
+
 export const metadata: Metadata = {
   title: 'Championship Belt Pricing — Six Material Tiers Compared',
   description:

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { ensureProductsTable } from '@/lib/db-schema';
 import { isAdmin } from '@/lib/adminAuth';
+import { revalidateCatalogue } from '@/lib/revalidate';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -134,6 +135,10 @@ export async function POST(request: Request) {
         updated_at        = NOW()
     `;
 
+    // The storefront is statically rendered — without this the change is
+    // invisible until the next deploy.
+    revalidateCatalogue();
+
     return NextResponse.json({ ok: true, slug, created: !isUpdate });
   } catch (error) {
     console.error('[api/admin/products] save failed:', error);
@@ -156,6 +161,11 @@ export async function DELETE(request: Request) {
 
   try {
     await sql`DELETE FROM products WHERE slug = ${slug}`;
+
+    // Especially important on delete: a removed belt must stop being
+    // purchasable immediately, not in five minutes.
+    revalidateCatalogue();
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error('[api/admin/products] delete failed:', error);

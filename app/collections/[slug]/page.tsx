@@ -7,6 +7,14 @@ import { getProductsByCollection, getProductsByTier, getShopProducts } from '@/l
 import JsonLd from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/seo';
 
+/*
+ * Products come from the database, so a statically rendered page would keep
+ * serving a build-time snapshot forever. The admin API also revalidates these
+ * paths on demand; this is the fallback.
+ */
+export const revalidate = 300;
+
+
 /**
  * Collection page. Stays statically rendered; CollectionView reads filter
  * state from the URL on the client, which is why it needs a Suspense boundary.

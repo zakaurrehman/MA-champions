@@ -3,6 +3,7 @@ import raw from '@/data/products.json';
 import { db } from '@/lib/db';
 import { ensureAllTables } from '@/lib/db-schema';
 import { isAdmin } from '@/lib/adminAuth';
+import { revalidateCatalogue } from '@/lib/revalidate';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -79,6 +80,8 @@ export async function POST() {
              COUNT(*) FILTER (WHERE shop_visible)::int AS visible
       FROM products
     `) as unknown as { total: number; visible: number }[];
+
+    revalidateCatalogue();
 
     return NextResponse.json({
       ok: true,

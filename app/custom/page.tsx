@@ -4,6 +4,14 @@ import PageShell from '@/components/ui/PageShell';
 import Button from '@/components/ui/Button';
 import { getCustomGalleryProducts } from '@/lib/products';
 
+/*
+ * Products come from the database, so a statically rendered page would keep
+ * serving a build-time snapshot forever. The admin API also revalidates these
+ * paths on demand; this is the fallback.
+ */
+export const revalidate = 300;
+
+
 export const metadata: Metadata = {
   title: 'Custom Championship Belts — Built To Your Design',
   description:
