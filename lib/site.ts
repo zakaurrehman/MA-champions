@@ -200,7 +200,22 @@ export const site: SiteConfig = {
     lastUpdated: null, // TODO: set the date you approved them
   },
 
-  cryptoWallets: [],
+  /*
+   * Supplied by the client 2026-08-15. The base58check checksum was decoded and
+   * verified before use — 25 bytes, prefix 0x41 (TRON mainnet), checksum match
+   * — so this is not a mistyped address. That check matters because a crypto
+   * transfer cannot be reversed.
+   *
+   * Re-verify the checksum before ever changing this, and copy from the wallet
+   * rather than retyping.
+   */
+  cryptoWallets: [
+    {
+      label: 'USDT (TRC-20)',
+      network: 'Tron (TRC-20)',
+      address: 'TXAxgXnGDrhEucujwBeEh1DkLiYJ9awrYC',
+    },
+  ],
 
   /**
    * Default warranty terms. A product can override with its own `warranty`.
