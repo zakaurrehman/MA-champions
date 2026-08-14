@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     adminNote?: unknown;
     trackingCarrier?: unknown;
     trackingNumber?: unknown;
+    paymentVerified?: unknown;
   };
   try {
     body = (await request.json()) as typeof body;
@@ -64,6 +65,9 @@ export async function POST(request: Request) {
           tracking_carrier = ${trim(body.trackingCarrier, 60)},
           tracking_number  = ${trim(body.trackingNumber, 120)},
           admin_note       = COALESCE(${trim(body.adminNote, 2000)}, admin_note),
+          -- Only ever set true here. Verification is a human decision and is
+          -- never cleared as a side effect of a status change.
+          payment_verified = payment_verified OR ${body.paymentVerified === true},
           updated_at       = NOW()
       WHERE id = ${id}
     `;

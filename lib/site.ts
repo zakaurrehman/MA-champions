@@ -56,6 +56,24 @@ export interface SiteConfig {
     shippingTime: string;
   };
 
+  /**
+   * Crypto wallets shown at checkout.
+   *
+   * NEVER invent or guess an address. A crypto transfer is irreversible: one
+   * wrong character and a customer's money is gone permanently, with no
+   * chargeback, no support line and no way back. Every value here must be
+   * copied from the client's own wallet and checked character by character.
+   *
+   * An empty array hides crypto checkout entirely.
+   */
+  cryptoWallets: {
+    /** Display name, e.g. "USDT (TRC-20)". */
+    label: string;
+    /** Network, shown prominently — sending on the wrong chain loses funds. */
+    network: string;
+    address: string;
+  }[];
+
   warranty: {
     available: boolean;
     duration: string | null;
@@ -145,6 +163,16 @@ export const site: SiteConfig = {
     processingTime: '7–8 days',
     shippingTime: '4–5 business days after dispatch',
   },
+
+  /*
+   * TODO: client to supply. Copy each address directly from your wallet — do
+   * not retype it. Crypto transfers cannot be reversed, so a single wrong
+   * character permanently loses a customer's payment.
+   *
+   * Example of the shape once filled in:
+   *   { label: 'USDT (TRC-20)', network: 'Tron (TRC-20)', address: 'T...' }
+   */
+  cryptoWallets: [],
 
   /**
    * Default warranty terms. A product can override with its own `warranty`.

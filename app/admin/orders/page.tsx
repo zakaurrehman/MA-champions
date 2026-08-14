@@ -25,6 +25,11 @@ interface Row {
   currency: string;
   tracking_carrier: string | null;
   tracking_number: string | null;
+  payment_method: string | null;
+  payment_reference: string | null;
+  payment_network: string | null;
+  payment_proof_url: string | null;
+  payment_verified: boolean;
   created_at: string;
 }
 
@@ -37,7 +42,9 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
       SELECT id, reference, kind, channel, status,
              customer_name, customer_email, customer_note,
              items, build_spec, subtotal, currency,
-             tracking_carrier, tracking_number, created_at
+             tracking_carrier, tracking_number,
+             payment_method, payment_reference, payment_network,
+             payment_proof_url, payment_verified, created_at
       FROM orders
       -- Open work first, then newest. This page exists to clear a queue.
       ORDER BY (status IN ('completed','cancelled')) ASC, created_at DESC
@@ -59,6 +66,11 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
       currency: r.currency,
       trackingCarrier: r.tracking_carrier,
       trackingNumber: r.tracking_number,
+      paymentMethod: r.payment_method,
+      paymentReference: r.payment_reference,
+      paymentNetwork: r.payment_network,
+      paymentProofUrl: r.payment_proof_url,
+      paymentVerified: Boolean(r.payment_verified),
       createdAt: new Date(r.created_at).toISOString(),
     }));
   } catch {

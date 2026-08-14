@@ -149,6 +149,19 @@ export async function ensureOrdersTable(sql: SqlTag) {
   await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_carrier TEXT`;
   await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_number TEXT`;
 
+  /*
+   * Crypto payments are settled off-site and verified by hand: the customer
+   * pays, submits the transaction reference and a screenshot, and an admin
+   * confirms it on-chain. payment_verified stays false until a human has
+   * actually checked — a screenshot proves nothing on its own and is trivial
+   * to fake.
+   */
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_reference TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_proof_url TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_network TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_verified BOOLEAN NOT NULL DEFAULT FALSE`;
+
   // Customer lookups hit this on every /track-order submission.
   await sql`CREATE INDEX IF NOT EXISTS orders_reference_idx ON orders (reference)`;
 

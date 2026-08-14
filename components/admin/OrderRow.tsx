@@ -28,6 +28,11 @@ export interface AdminOrder {
   currency: string;
   trackingCarrier: string | null;
   trackingNumber: string | null;
+  paymentMethod: string | null;
+  paymentReference: string | null;
+  paymentNetwork: string | null;
+  paymentProofUrl: string | null;
+  paymentVerified: boolean;
   createdAt: string;
 }
 
@@ -60,7 +65,7 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
 
   /* Status and tracking save together, so setting a status never silently
      discards a tracking number typed just above it. */
-  const setStatus = async (status: string) => {
+  const setStatus = async (status: string, verifyPayment?: boolean) => {
     setBusy(true);
     try {
       const res = await fetch('/api/admin/orders', {
@@ -71,6 +76,7 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
           status,
           trackingCarrier: carrier,
           trackingNumber: tracking,
+          ...(verifyPayment ? { paymentVerified: true } : {}),
         }),
       });
       if (res.ok) router.refresh();
@@ -168,6 +174,52 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
         <p className="mt-3 whitespace-pre-wrap rounded-[--radius-plate] border border-line px-4 py-3 text-sm leading-relaxed text-muted">
           {order.customerNote}
         </p>
+      )}
+
+      {/* Crypto payment claim — unverified until a human checks the chain. */}
+      {order.paymentMethod === 'crypto' && (
+        <div
+          className={`mt-4 rounded-[--radius-plate] border p-4 ${
+            order.paymentVerified ? 'border-line' : 'border-primary/50'
+          }`}
+        >
+          <p className="font-body text-2xs font-semibold uppercase tracking-[0.16em] text-subtle">
+            Crypto payment {order.paymentNetwork ? `· ${order.paymentNetwork}` : ''}
+            {order.paymentVerified ? ' · verified' : ' · NOT YET VERIFIED'}
+          </p>
+
+          <p className="mt-2 break-all font-body text-sm text-ink">{order.paymentReference}</p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            {order.paymentProofUrl && (
+              <a
+                href={order.paymentProofUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link hover:text-link-hover"
+              >
+                View screenshot →
+              </a>
+            )}
+            {!order.paymentVerified && (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => setStatus('paid', true)}
+                className="rounded-[--radius-plate] bg-primary px-4 py-2 font-body text-2xs font-semibold uppercase tracking-[0.14em] text-on-primary disabled:opacity-40"
+              >
+                Confirm payment received
+              </button>
+            )}
+          </div>
+
+          {!order.paymentVerified && (
+            <p className="mt-3 text-2xs leading-relaxed text-muted">
+              Check this transaction on a block explorer before confirming. A screenshot proves
+              nothing on its own — it takes seconds to fake one.
+            </p>
+          )}
+        </div>
       )}
 
       {/* Tracking — what the customer sees on /track-order once shipped. */}
