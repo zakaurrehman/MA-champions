@@ -7,9 +7,10 @@ import { formatPrice } from '@/lib/format';
 import { useHydrated } from '@/lib/useHydrated';
 import { site, whatsAppHref } from '@/lib/site';
 import EmptyState from '@/components/ui/EmptyState';
+import PayPalCheckout from './PayPalCheckout';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
-export default function CartView() {
+export default function CartView({ paypalClientId }: { paypalClientId: string | null }) {
   const items = useCart((s) => s.items);
   const notes = useCart((s) => s.notes);
   const setNotes = useCart((s) => s.setNotes);
@@ -142,10 +143,20 @@ export default function CartView() {
             <span className="font-display text-3xl text-plated">{formatPrice(subtotal)}</span>
           </div>
           <p className="mt-2 text-2xs leading-relaxed text-muted">
-            {/* No payment integration in v1 — say so rather than implying checkout. */}
-            Shipping and your final price are confirmed on a written quote. Nothing is charged
-            through this website.
+            {paypalClientId
+              ? 'Free shipping to the USA, Canada and the UK. Custom work is quoted before anything is charged.'
+              : /* No card payment configured — say so rather than implying checkout. */
+                'Shipping and your final price are confirmed on a written quote. Nothing is charged through this website.'}
           </p>
+
+          {paypalClientId && (
+            <div className="mt-6">
+              <PayPalCheckout clientId={paypalClientId} />
+              <p className="mt-3 text-center text-2xs uppercase tracking-[0.14em] text-subtle">
+                or
+              </p>
+            </div>
+          )}
 
           <div className="mt-6 flex flex-col gap-2.5">
             {wa ? (
