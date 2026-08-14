@@ -11,7 +11,14 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 import { useCart, selectCount } from '@/lib/cart';
 import { useWishlist } from '@/lib/wishlist';
 import { useHydrated } from '@/lib/useHydrated';
-import { CartIcon, ChevronDownIcon, HeartIcon, MenuIcon, SearchIcon } from '@/components/ui/Icons';
+import {
+  CartIcon,
+  ChevronDownIcon,
+  HeartIcon,
+  MenuIcon,
+  SearchIcon,
+  UserIcon,
+} from '@/components/ui/Icons';
 
 /** Count bubble on the cart and wishlist icons. */
 function Badge({ children }: { children: React.ReactNode }) {
@@ -137,6 +144,13 @@ export default function Header() {
               className="grid h-10 w-10 place-items-center text-ink transition-colors hover:text-link"
             >
               <SearchIcon className="h-5 w-5" />
+            </Link>
+            <Link
+              href="/account"
+              aria-label="Your account"
+              className="hidden h-10 w-10 place-items-center text-ink transition-colors hover:text-link sm:grid"
+            >
+              <UserIcon className="h-5 w-5" />
             </Link>
             <Link
               href="/wishlist"

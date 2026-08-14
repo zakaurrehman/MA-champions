@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { ensureOrdersTable } from '@/lib/db-schema';
 import { getAllProducts } from '@/lib/products';
 import { authoritativeLineTotal } from '@/lib/pricing';
+import { getSessionUser } from '@/lib/session';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -77,6 +78,13 @@ export async function POST(request: Request) {
 
   const key = submitterKey(request);
 
+  /*
+   * If the customer happens to be signed in, attach their identity so the
+   * order shows up in their history. Guests are unaffected — this never
+   * requires or prompts a sign-in.
+   */
+  const user = await getSessionUser();
+
   try {
     await ensureOrdersTable(sql);
 
@@ -144,8 +152,8 @@ export async function POST(request: Request) {
         ${reference},
         ${kind},
         ${channel},
-        ${text(body.customerName, 120) || null},
-        ${text(body.customerEmail, 160) || null},
+        ${text(body.customerName, 120) || user?.name || null},
+        ${text(body.customerEmail, 160) || user?.email || null},
         ${text(body.note, 2000) || null},
         ${JSON.stringify(items)},
         ${body.buildSpec ? JSON.stringify(body.buildSpec) : null},

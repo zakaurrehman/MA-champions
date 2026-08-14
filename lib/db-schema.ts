@@ -174,9 +174,35 @@ export async function ensureOrdersTable(sql: SqlTag) {
   `;
 }
 
+export async function ensureCustomersTable(sql: SqlTag) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS customers (
+      id         BIGSERIAL PRIMARY KEY,
+      -- Google's subject id. Stable even if the customer changes their email,
+      -- which is why identity keys on this and not on the address.
+      google_sub TEXT        NOT NULL UNIQUE,
+      email      TEXT        NOT NULL,
+      name       TEXT,
+      picture    TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_seen  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS customers_email_idx ON customers (LOWER(email))`;
+
+  /*
+   * Orders are matched to a customer by email, because most arrive through
+   * WhatsApp or crypto with no session attached. Indexed case-insensitively:
+   * people type their address inconsistently and would otherwise not see
+   * their own order history.
+   */
+  await sql`CREATE INDEX IF NOT EXISTS orders_email_idx ON orders (LOWER(customer_email))`;
+}
+
 export async function ensureAllTables(sql: SqlTag) {
   await ensureReviewsTable(sql);
   await ensureProductsTable(sql);
   await ensureOrdersTable(sql);
+  await ensureCustomersTable(sql);
 }
 
