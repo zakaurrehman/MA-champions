@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { getMaterialTiers, hasUnconfirmedPricing } from '@/lib/tiers';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 
 /**
  * Shop by material — the six tiers presented as a real comparison rather than

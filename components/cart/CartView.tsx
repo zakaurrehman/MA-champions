@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart, selectSubtotal } from '@/lib/cart';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import { useHydrated } from '@/lib/useHydrated';
 import { site, whatsAppHref } from '@/lib/site';
 import EmptyState from '@/components/ui/EmptyState';

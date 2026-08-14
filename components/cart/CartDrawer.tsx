@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart, selectSubtotal, selectCount } from '@/lib/cart';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import { site, whatsAppHref } from '@/lib/site';
 import { useHydrated } from '@/lib/useHydrated';
 import { CloseIcon, WhatsAppIcon } from '@/components/ui/Icons';

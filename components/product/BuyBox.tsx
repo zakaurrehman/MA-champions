@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { Product } from '@/lib/types';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import {
   computePrice,
   defaultSelection,

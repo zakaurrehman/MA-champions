@@ -16,7 +16,7 @@ import {
   saveBuild,
   type BuildState,
 } from '@/lib/builder';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import BeltPreview from './BeltPreview';
 import OptionGrid from './OptionGrid';
 import ArtworkUpload from './ArtworkUpload';

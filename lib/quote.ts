@@ -16,7 +16,10 @@
 
 import type { BuildState } from './builder';
 import { describeBuild } from './builder';
-import { formatPrice } from './products';
+// From lib/format, not lib/products: quote.ts is reached from the Belt Builder,
+// which is a client component. Importing the data boundary here would drag
+// server-only into the browser bundle.
+import { formatPrice } from './format';
 import { site, whatsAppHref, mailtoHref } from './site';
 
 export interface QuotePayload {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Product } from '@/lib/types';
 import { resolvePrice, getVariants, defaultVariant } from '@/lib/pricing';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import { useCart } from '@/lib/cart';
 import { useToasts } from '@/lib/toast';
 import PriceDisplay from './PriceDisplay';

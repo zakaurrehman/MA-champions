@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  getProductBySlug,
-  getShopProducts,
-  getRelatedProducts,
-  formatPrice,
-} from '@/lib/products';
+import { getProductBySlug, getShopProducts, getRelatedProducts } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import { getReviewsForProduct } from '@/lib/reviews';
 import ProductGallery from '@/components/product/ProductGallery';
 import BuyBox from '@/components/product/BuyBox';

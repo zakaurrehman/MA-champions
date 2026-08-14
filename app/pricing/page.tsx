@@ -3,7 +3,7 @@ import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
 import Button from '@/components/ui/Button';
 import { getMaterialTiers, hasUnconfirmedPricing } from '@/lib/tiers';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import type { TierCompare } from '@/lib/types';
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 import type { ResolvedPrice } from '@/lib/pricing';
 
 interface Props {

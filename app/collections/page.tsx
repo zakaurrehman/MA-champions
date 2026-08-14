@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
 import { getMaterialTiers, LEAGUE_COLLECTIONS, ALL_BELTS_SLUG } from '@/lib/tiers';
-import { formatPrice, getShopProducts } from '@/lib/products';
+import { getShopProducts } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 
 export const metadata: Metadata = {
   title: 'All Collections — Championship Belts by Material & Sport',

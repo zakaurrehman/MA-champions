@@ -1,7 +1,7 @@
 'use client';
 
 import type { ProductVariant } from '@/lib/types';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/format';
 
 interface Props {
   label: string;
