@@ -66,6 +66,27 @@ export interface SiteConfig {
    *
    * An empty array hides crypto checkout entirely.
    */
+  policies: {
+    /**
+     * Days from delivery in which a return can be requested.
+     *
+     * This is the one number in the policies that creates a binding legal
+     * commitment, so it is never guessed. While null, the refund page says the
+     * window is confirmed in writing with the order rather than stating a
+     * figure we might not honour.
+     */
+    refundWindowDays: number | null;
+    /** Registered company name and number, if the client has one. */
+    businessRegistration: string | null;
+    /**
+     * Flip to true only once the client has actually read the policies. Until
+     * then every policy page carries a visible "in draft" notice — being seen
+     * as unfinished is far cheaper than being bound by terms nobody read.
+     */
+    approved: boolean;
+    lastUpdated: string | null;
+  };
+
   cryptoWallets: {
     /** Display name, e.g. "USDT (TRC-20)". */
     label: string;
@@ -172,6 +193,13 @@ export const site: SiteConfig = {
    * Example of the shape once filled in:
    *   { label: 'USDT (TRC-20)', network: 'Tron (TRC-20)', address: 'T...' }
    */
+  policies: {
+    refundWindowDays: null, // TODO: 30 is the industry norm — confirm yours
+    businessRegistration: null, // TODO
+    approved: false, // TODO: set true once you have read the policy pages
+    lastUpdated: null, // TODO: set the date you approved them
+  },
+
   cryptoWallets: [],
 
   /**
