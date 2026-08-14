@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
-import PageShell from '@/components/ui/PageShell';
-import AdminLogin from '@/components/admin/AdminLogin';
 import ReviewRow, { type AdminReview } from '@/components/admin/ReviewRow';
-import AdminSignOut from '@/components/admin/AdminSignOut';
-import { adminConfigured, isAdmin } from '@/lib/adminAuth';
+import AdminShell from '@/components/admin/AdminShell';
+import { isAdmin } from '@/lib/adminAuth';
 import { db } from '@/lib/db';
 import { reviewsTableExists } from '@/lib/reviewsSchema';
 
@@ -55,27 +53,15 @@ async function loadReviews(): Promise<AdminReview[] | null> {
 }
 
 export default async function AdminReviewsPage() {
-  if (!(await isAdmin())) {
-    return (
-      <PageShell
-        eyebrow="Admin"
-        title="Review moderation"
-        intro="Sign in to publish or reject customer reviews."
-      >
-        <AdminLogin configured={adminConfigured()} />
-      </PageShell>
-    );
-  }
-
-  const reviews = await loadReviews();
+  // AdminShell owns the auth gate and the nav, so this page cannot ship
+  // unprotected and the two admin sections stay navigable from each other.
+  const reviews = (await isAdmin()) ? await loadReviews() : [];
 
   if (reviews === null) {
     return (
-      <PageShell eyebrow="Admin" title="Review moderation">
-        <p className="text-sm text-muted">
-          No database is configured on this deployment.
-        </p>
-      </PageShell>
+      <AdminShell title="Reviews">
+        <p className="text-sm text-muted">No database is configured on this deployment.</p>
+      </AdminShell>
     );
   }
 
@@ -83,17 +69,14 @@ export default async function AdminReviewsPage() {
   const rest = reviews.filter((r) => r.status !== 'pending');
 
   return (
-    <PageShell
-      eyebrow="Admin"
-      title="Review moderation"
+    <AdminShell
+      title="Reviews"
       intro={
         pending.length > 0
           ? `${pending.length} review${pending.length === 1 ? '' : 's'} waiting for you.`
           : 'Nothing waiting. Published reviews are listed below.'
       }
     >
-      <AdminSignOut />
-
       {reviews.length === 0 ? (
         <p className="mt-8 text-sm leading-relaxed text-muted">
           No reviews have been submitted yet.
@@ -127,6 +110,6 @@ export default async function AdminReviewsPage() {
           )}
         </div>
       )}
-    </PageShell>
+    </AdminShell>
   );
 }
