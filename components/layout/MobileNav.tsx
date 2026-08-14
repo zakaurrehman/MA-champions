@@ -79,6 +79,33 @@ export default function MobileNav({ open, onClose }: Props) {
               </ul>
             </div>
           ))}
+
+          {/*
+            The header's account and wishlist icons are hidden below 640px, so
+            without these a phone user has no route to either page at all.
+          */}
+          <div className="mb-7 border-t border-line pt-6">
+            <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
+              Your account
+            </p>
+            <ul className="flex flex-col gap-0.5">
+              {[
+                { href: '/account', label: 'Orders & account' },
+                { href: '/wishlist', label: 'Wishlist' },
+                { href: '/track-order', label: 'Track your order' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    className="block py-2 font-body text-base text-ink transition-colors hover:text-link"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </nav>
 
         <div className="shrink-0 border-t border-line p-5">

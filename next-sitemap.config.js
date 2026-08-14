@@ -11,14 +11,30 @@ module.exports = {
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   // Private/transactional routes stay out of the index.
-  exclude: ['/cart', '/wishlist', '/search', '/track-order', '/404', '/admin', '/admin/*'],
+  exclude: [
+    '/cart',
+    '/wishlist',
+    '/search',
+    '/track-order',
+    '/404',
+    '/admin',
+    '/admin/*',
+    // Per-customer, so nothing here is meaningful to a crawler.
+    '/account',
+    /*
+     * Policy pages are NOT excluded. They should be indexed once approved, and
+     * a sitemap exclusion here would be permanent. The draft state is handled
+     * where it belongs — the page itself sets noindex until
+     * site.policies.approved is true, so it corrects itself on approval.
+     */
+  ],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
         // /admin is token-gated, but there is no reason to advertise it.
-        disallow: ['/cart', '/wishlist', '/search', '/track-order', '/admin'],
+        disallow: ['/cart', '/wishlist', '/search', '/track-order', '/admin', '/account'],
       },
     ],
   },
