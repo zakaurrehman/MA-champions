@@ -6,7 +6,8 @@ import DeleteProductButton from '@/components/admin/DeleteProductButton';
 import { getAllProducts } from '@/lib/products';
 import { resolvePrice } from '@/lib/pricing';
 import { formatPrice } from '@/lib/format';
-import { hasDatabase } from '@/lib/db';
+import { db, hasDatabase } from '@/lib/db';
+import SeedButton from '@/components/admin/SeedButton';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
@@ -14,9 +15,30 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true },
 };
 
+/**
+ * Counts rows in the products table directly, rather than via getAllProducts —
+ * that helper falls back to the JSON seed, so it can never tell us whether the
+ * database itself is populated.
+ */
+async function countDbProducts(): Promise<number | null> {
+  const sql = db();
+  if (!sql) return null;
+
+  try {
+    const rows = (await sql`
+      SELECT COUNT(*)::int AS total FROM products
+    `) as unknown as { total: number }[];
+    return rows[0]?.total ?? 0;
+  } catch {
+    // Table not created yet — same practical state as empty.
+    return 0;
+  }
+}
+
 export default async function AdminProductsPage() {
   const products = await getAllProducts();
   const dbReady = hasDatabase();
+  const dbCount = await countDbProducts();
 
   return (
     <AdminShell
@@ -34,10 +56,11 @@ export default async function AdminProductsPage() {
       {!dbReady && (
         <p className="mb-6 rounded-[--radius-plate] border border-line px-5 py-4 text-sm leading-relaxed text-muted">
           <strong className="text-ink">Read-only.</strong> No DATABASE_URL is configured, so this
-          list is coming from the JSON seed and edits cannot be saved. Add the variable and run{' '}
-          <code>npm run migrate</code>.
+          list is coming from the JSON seed and edits cannot be saved.
         </p>
       )}
+
+      {dbReady && dbCount === 0 && <SeedButton count={products.length} />}
 
       <ul className="flex flex-col gap-3">
         {products.map((product) => {
