@@ -22,23 +22,69 @@ npm run dev          # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run blur` | Regenerate blur placeholders for product images |
+| `npm run migrate` | Create database tables and seed products from JSON |
+| `npm run test:pricing` | 28 assertions on variant pricing, discounts and tampering |
+
+---
+
+## What this is
+
+A storefront **plus a back office**. The shop is statically rendered for speed;
+products, orders, reviews and customers live in Postgres, and the owner manages
+everything from `/admin` without touching code.
+
+| Area | Where |
+| --- | --- |
+| Storefront | 17 belts, four build options each, cart, wishlist, fuzzy search |
+| Belt Builder | `/build` — six-step visual configurator, live price, quote submission |
+| Payments | Crypto (live) · PayPal (needs credentials) · WhatsApp handoff |
+| Orders | Captured before every handoff, statuses, courier tracking |
+| Customer accounts | Google sign-in, order history. Checkout never requires one |
+| Admin | `/admin` — dashboard, products, orders, reviews |
+| Content | Pricing table, FAQs, about, MDX blog, policy pages |
+
+### Services it depends on
+
+| Service | Env var | Without it |
+| --- | --- | --- |
+| Neon Postgres | `DATABASE_URL` | Falls back to the JSON seed; admin is read-only |
+| Vercel Blob | `BLOB_READ_WRITE_TOKEN` | Image upload disabled, everything else works |
+| Google OAuth | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `AUTH_SECRET` | Sign-in hidden; guest checkout unaffected |
+| PayPal | `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | Card checkout hidden |
+| Admin access | `ADMIN_TOKEN` (min 16 chars) | `/admin` stays closed |
+
+**Every one degrades to a working site rather than an error.** That is
+deliberate: a missing credential should never take the shop down.
+
+---
+
+## Admin panel
+
+Sign in at `/admin` with `ADMIN_TOKEN`.
+
+- **Dashboard** — orders to action, crypto payments to verify, reviews to
+  moderate, weekly figures.
+- **Products** — create, edit, delete, upload photos, set prices with a live
+  discount preview. Saving is blocked if an image has no alt text.
+- **Orders** — every WhatsApp intent, crypto payment and build request.
+  Statuses, courier tracking, on-chain payment confirmation.
+- **Reviews** — approve, reject, mark as verified buyer.
+
+Product changes revalidate the storefront immediately (see `lib/revalidate.ts`).
+Without that call a statically rendered page keeps serving its build-time
+snapshot — including a deleted belt.
+
+### First-time setup
+
+1. Set `DATABASE_URL` and `ADMIN_TOKEN` in the host, then redeploy.
+2. Go to `/admin/products` and press **Import belts**. That creates the tables
+   and seeds from `data/products.json`.
+
+`npm run migrate` does the same locally.
 
 ---
 
 ## Project status
-
-All six build phases are complete:
-
-| Phase | What it covers |
-| --- | --- |
-| 1 | Foundation, design tokens, header/footer, homepage |
-| 2 | Collection filtering, product pages, gallery zoom + lightbox |
-| 3 | The Belt Builder (`/build`) — six-step visual configurator |
-| 4 | Pricing table, FAQs, about, contact, reviews, MDX blog, policies |
-| 5 | Cart drawer, wishlist, fuzzy search, recently viewed, toasts |
-| 6 | SEO, JSON-LD, sitemap, OG images, error pages, a11y + responsive QA |
-
-Plus a light/dark theme redesign with an oxblood-led palette.
 
 Live at **https://www.mawrestlingbelts.com**. `site.url` in `lib/site.ts` and
 `siteUrl` in `next-sitemap.config.js` both read `SITE_URL` first and fall back
