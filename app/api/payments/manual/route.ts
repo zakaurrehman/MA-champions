@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { ensureOrdersTable } from '@/lib/db-schema';
 import { getAllProducts } from '@/lib/products';
 import { authoritativeLineTotal } from '@/lib/pricing';
+import { getSessionUser } from '@/lib/session';
 import { site } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -14,6 +15,8 @@ const MAX_PROOF_BYTES = 6 * 1024 * 1024;
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
 const RATE_WINDOW_HOURS = 1;
 const RATE_MAX = 5;
+
+type Method = 'crypto' | 'paypal';
 
 function makeReference(): string {
   const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -30,22 +33,25 @@ function submitterKey(request: Request): string {
   return createHash('sha256').update(ip).digest('hex').slice(0, 32);
 }
 
+function methodEnabled(method: Method): boolean {
+  return method === 'crypto'
+    ? site.cryptoWallets.length > 0
+    : Boolean(site.paypalManual.email);
+}
+
 /**
- * Records a crypto payment claim.
+ * Records a manual payment claim — crypto or PayPal.
  *
- * This endpoint does NOT confirm payment. It stores what the customer says
- * they sent, plus a screenshot, and marks the order as awaiting verification.
- * A screenshot is trivial to fabricate, so nothing here may be treated as
- * proof — an admin checks the transaction on-chain and confirms it manually.
+ * Both work the same way: the customer pays outside the site, then tells us
+ * the reference and optionally attaches a screenshot. This endpoint does NOT
+ * confirm payment. A screenshot is trivial to fabricate, so the order is
+ * stored unverified and an admin checks the real account before anything is
+ * built.
  *
- * The order total is still recomputed from the catalogue, so the amount we
- * expect is ours, not whatever the page claimed.
+ * The order total is recomputed from the catalogue, so the amount we expect is
+ * ours rather than whatever the page claimed.
  */
 export async function POST(request: Request) {
-  if (site.cryptoWallets.length === 0) {
-    return NextResponse.json({ error: 'Crypto payment is not enabled.' }, { status: 503 });
-  }
-
   const sql = db();
   if (!sql) {
     return NextResponse.json(
@@ -57,6 +63,14 @@ export async function POST(request: Request) {
   const form = await request.formData().catch(() => null);
   if (!form) return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
 
+  const method = (String(form.get('method') ?? 'crypto') as Method) === 'paypal'
+    ? 'paypal'
+    : 'crypto';
+
+  if (!methodEnabled(method)) {
+    return NextResponse.json({ error: 'That payment method is not enabled.' }, { status: 503 });
+  }
+
   const reference = String(form.get('txReference') ?? '').trim();
   const network = String(form.get('network') ?? '').trim();
   const name = String(form.get('name') ?? '').trim();
@@ -65,7 +79,12 @@ export async function POST(request: Request) {
 
   if (reference.length < 6) {
     return NextResponse.json(
-      { error: 'Please paste the transaction ID or hash from your wallet.' },
+      {
+        error:
+          method === 'paypal'
+            ? 'Please paste the PayPal transaction ID from your receipt.'
+            : 'Please paste the transaction ID or hash from your wallet.',
+      },
       { status: 400 }
     );
   }
@@ -84,6 +103,7 @@ export async function POST(request: Request) {
   }
 
   const key = submitterKey(request);
+  const user = await getSessionUser();
 
   try {
     await ensureOrdersTable(sql);
@@ -102,7 +122,7 @@ export async function POST(request: Request) {
       );
     }
 
-    /* ---- rebuild the cart server-side ---- */
+    /* ---- rebuild the cart from the catalogue ---- */
 
     const products = await getAllProducts();
     const lines: Record<string, unknown>[] = [];
@@ -154,17 +174,16 @@ export async function POST(request: Request) {
       if (file.size > MAX_PROOF_BYTES) {
         return NextResponse.json({ error: 'That file is over 6MB.' }, { status: 400 });
       }
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        // Not fatal: the transaction reference is the part that actually
-        // matters, and it is verifiable on-chain without the screenshot.
-        console.warn('[payments/crypto] no blob token; proof not stored');
-      } else {
+      if (process.env.BLOB_READ_WRITE_TOKEN) {
         const ext = file.type === 'application/pdf' ? 'pdf' : file.type.split('/')[1] ?? 'jpg';
-        const blob = await put(`payment-proofs/${Date.now()}.${ext}`, file, {
+        const blob = await put(`payment-proofs/${method}-${Date.now()}.${ext}`, file, {
           access: 'public',
           addRandomSuffix: true,
         });
         proofUrl = blob.url;
+      } else {
+        // Not fatal — the transaction reference is the verifiable part.
+        console.warn('[payments/manual] no blob token; proof not stored');
       }
     }
 
@@ -177,15 +196,17 @@ export async function POST(request: Request) {
         items, subtotal, currency, submitter_key,
         payment_method, payment_reference, payment_network, payment_proof_url, payment_verified
       ) VALUES (
-        ${orderRef}, 'cart', 'crypto', 'new',
-        ${name || null}, ${email}, ${note || null},
+        ${orderRef}, 'cart', ${method}, 'new',
+        ${name || user?.name || null},
+        ${email},
+        ${note || null},
         ${JSON.stringify(lines)},
         ${Math.round(subtotal * 100) / 100},
         ${currency},
         ${key},
-        'crypto',
+        ${method},
         ${reference.slice(0, 200)},
-        ${network.slice(0, 60) || null},
+        ${method === 'paypal' ? 'PayPal' : network.slice(0, 60) || null},
         ${proofUrl},
         FALSE
       )
@@ -198,7 +219,7 @@ export async function POST(request: Request) {
       currency,
     });
   } catch (error) {
-    console.error('[payments/crypto] failed:', error);
+    console.error('[payments/manual] failed:', error);
     return NextResponse.json(
       { error: 'Could not record your payment. Please message us on WhatsApp.' },
       { status: 500 }

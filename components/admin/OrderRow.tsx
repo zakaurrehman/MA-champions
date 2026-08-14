@@ -176,15 +176,18 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
         </p>
       )}
 
-      {/* Crypto payment claim — unverified until a human checks the chain. */}
-      {order.paymentMethod === 'crypto' && (
+      {/* Manual payment claim — unverified until a human checks the account. */}
+      {(order.paymentMethod === 'crypto' || order.paymentMethod === 'paypal') && (
         <div
           className={`mt-4 rounded-[--radius-plate] border p-4 ${
             order.paymentVerified ? 'border-line' : 'border-primary/50'
           }`}
         >
           <p className="font-body text-2xs font-semibold uppercase tracking-[0.16em] text-subtle">
-            Crypto payment {order.paymentNetwork ? `· ${order.paymentNetwork}` : ''}
+            {order.paymentMethod === 'paypal' ? 'PayPal payment' : 'Crypto payment'}
+            {order.paymentNetwork && order.paymentMethod !== 'paypal'
+              ? ` · ${order.paymentNetwork}`
+              : ''}
             {order.paymentVerified ? ' · verified' : ' · NOT YET VERIFIED'}
           </p>
 
@@ -215,8 +218,9 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
 
           {!order.paymentVerified && (
             <p className="mt-3 text-2xs leading-relaxed text-muted">
-              Check this transaction on a block explorer before confirming. A screenshot proves
-              nothing on its own — it takes seconds to fake one.
+              {order.paymentMethod === 'paypal'
+                ? 'Check this transaction in your PayPal account before confirming. A screenshot proves nothing on its own — it takes seconds to fake one.'
+                : 'Check this transaction on a block explorer before confirming. A screenshot proves nothing on its own — it takes seconds to fake one.'}
             </p>
           )}
         </div>

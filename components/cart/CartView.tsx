@@ -8,7 +8,7 @@ import { useHydrated } from '@/lib/useHydrated';
 import { site, whatsAppHref } from '@/lib/site';
 import EmptyState from '@/components/ui/EmptyState';
 import PayPalCheckout from './PayPalCheckout';
-import CryptoCheckout from './CryptoCheckout';
+import ManualPayment from './ManualPayment';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
 export default function CartView({ paypalClientId }: { paypalClientId: string | null }) {
@@ -156,13 +156,20 @@ export default function CartView({ paypalClientId }: { paypalClientId: string | 
             </div>
           )}
 
-          {site.cryptoWallets.length > 0 && (
+          {/* Manual routes: the customer pays outside the site and proves it. */}
+          {site.paypalManual.email && !paypalClientId && (
             <div className="mt-4">
-              <CryptoCheckout wallets={site.cryptoWallets} />
+              <ManualPayment method="paypal" paypalEmail={site.paypalManual.email} />
             </div>
           )}
 
-          {(paypalClientId || site.cryptoWallets.length > 0) && (
+          {site.cryptoWallets.length > 0 && (
+            <div className="mt-4">
+              <ManualPayment method="crypto" wallets={site.cryptoWallets} />
+            </div>
+          )}
+
+          {(paypalClientId || site.paypalManual.email || site.cryptoWallets.length > 0) && (
             <p className="mt-4 text-center text-2xs uppercase tracking-[0.14em] text-subtle">
               or
             </p>

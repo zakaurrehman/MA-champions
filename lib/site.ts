@@ -95,6 +95,18 @@ export interface SiteConfig {
     address: string;
   }[];
 
+  /**
+   * PayPal received by hand rather than through the API.
+   *
+   * The customer sends to this address themselves and submits the transaction
+   * ID plus a screenshot, which an admin verifies against the real PayPal
+   * account. Used because the automated integration needs a Business account
+   * in a country PayPal supports.
+   *
+   * null hides the option entirely.
+   */
+  paypalManual: { email: string | null };
+
   warranty: {
     available: boolean;
     duration: string | null;
@@ -216,6 +228,11 @@ export const site: SiteConfig = {
       address: 'TXAxgXnGDrhEucujwBeEh1DkLiYJ9awrYC',
     },
   ],
+
+  // Supplied by the client 2026-08-15. This is the PayPal account address that
+  // receives payment — it is NOT the site's public contact address, and must
+  // not be used as one.
+  paypalManual: { email: 'Arslanwaris72@gmail.com' },
 
   /**
    * Default warranty terms. A product can override with its own `warranty`.
