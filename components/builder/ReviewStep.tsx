@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { BuildState } from '@/lib/builder';
 import { describeBuild } from '@/lib/builder';
 import { buildQuoteText, quoteChannels } from '@/lib/quote';
+import { recordOrder } from '@/lib/recordOrder';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
 interface Props {
@@ -20,6 +21,22 @@ export default function ReviewStep({ build, price }: Props) {
 
   const payload = { build, price, contactName, contactEmail, notes };
   const channels = quoteChannels(payload);
+
+  /*
+   * Persist the full build spec before handing off. A configurator submission
+   * is the most valuable lead on the site — losing it because the customer
+   * never pressed send in WhatsApp would be the worst possible outcome.
+   */
+  const logBuild = (channel: 'whatsapp' | 'email' | 'copy') => {
+    void recordOrder({
+      kind: 'build',
+      channel,
+      buildSpec: { ...build, describedAs: describeBuild(build) },
+      customerName: contactName,
+      customerEmail: contactEmail,
+      note: notes,
+    });
+  };
 
   const copySpec = async () => {
     try {
@@ -93,6 +110,7 @@ export default function ReviewStep({ build, price }: Props) {
             href={channels.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => logBuild('whatsapp')}
             className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] bg-primary px-7 py-4 font-display text-base uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover"
           >
             <WhatsAppIcon className="h-5 w-5" />
@@ -103,6 +121,7 @@ export default function ReviewStep({ build, price }: Props) {
         {channels.email && (
           <a
             href={channels.email}
+            onClick={() => logBuild('email')}
             className="inline-flex w-full items-center justify-center rounded-[--radius-plate] border border-subtle/40 px-7 py-4 font-display text-base uppercase tracking-wide text-ink transition-colors hover:border-primary hover:text-link"
           >
             Send by email

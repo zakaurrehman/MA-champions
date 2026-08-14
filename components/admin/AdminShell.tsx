@@ -4,6 +4,7 @@ import AdminLogin from './AdminLogin';
 import AdminSignOut from './AdminSignOut';
 
 const NAV = [
+  { href: '/admin/orders', label: 'Orders' },
   { href: '/admin/products', label: 'Products' },
   { href: '/admin/reviews', label: 'Reviews' },
 ] as const;

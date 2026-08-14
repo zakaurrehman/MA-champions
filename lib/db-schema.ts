@@ -102,8 +102,54 @@ export async function ensureProductsTable(sql: SqlTag) {
   `;
 }
 
+export async function ensureOrdersTable(sql: SqlTag) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS orders (
+      id             BIGSERIAL PRIMARY KEY,
+      -- Short human reference for quoting over WhatsApp: "MA-7QK2F".
+      reference      TEXT        NOT NULL UNIQUE,
+
+      -- Where it came from: a cart checkout, a single product, or the builder.
+      kind           TEXT        NOT NULL DEFAULT 'cart'
+                     CHECK (kind IN ('cart', 'product', 'build')),
+      -- How the customer was handed off. WhatsApp cannot confirm delivery, so
+      -- this records intent, never payment.
+      channel        TEXT        NOT NULL DEFAULT 'whatsapp',
+
+      status         TEXT        NOT NULL DEFAULT 'new'
+                     CHECK (status IN ('new','quoted','paid','production','shipped','completed','cancelled')),
+
+      customer_name  TEXT,
+      customer_email TEXT,
+      customer_note  TEXT,
+
+      items          JSONB       NOT NULL DEFAULT '[]'::jsonb,
+      build_spec     JSONB,
+
+      -- Recomputed on the server from the catalogue, never trusted from the
+      -- browser. See authoritativeLineTotal() in lib/pricing.ts.
+      subtotal       NUMERIC(10,2) NOT NULL DEFAULT 0,
+      currency       TEXT        NOT NULL DEFAULT 'USD',
+
+      submitter_key  TEXT,
+      admin_note     TEXT,
+      created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
+  // The admin list is "newest first, open ones first".
+  await sql`
+    CREATE INDEX IF NOT EXISTS orders_status_idx ON orders (status, created_at DESC)
+  `;
+  await sql`
+    CREATE INDEX IF NOT EXISTS orders_submitter_idx ON orders (submitter_key, created_at DESC)
+  `;
+}
+
 export async function ensureAllTables(sql: SqlTag) {
   await ensureReviewsTable(sql);
   await ensureProductsTable(sql);
+  await ensureOrdersTable(sql);
 }
 

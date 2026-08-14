@@ -7,6 +7,7 @@ import { useCart, selectSubtotal, selectCount } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
 import { site, whatsAppHref } from '@/lib/site';
 import { useHydrated } from '@/lib/useHydrated';
+import { recordOrder } from '@/lib/recordOrder';
 import { CloseIcon, WhatsAppIcon } from '@/components/ui/Icons';
 
 export default function CartDrawer() {
@@ -51,6 +52,25 @@ export default function CartDrawer() {
   ].join('\n');
 
   const wa = whatsAppHref(message);
+
+  /*
+   * Log the intent before the tab leaves for WhatsApp. We cannot read the
+   * conversation afterwards, so without this an order only exists if the
+   * customer actually sends the message. Never blocks the handoff.
+   */
+  const logIntent = () => {
+    void recordOrder({
+      kind: 'cart',
+      channel: wa ? 'whatsapp' : 'copy',
+      note: notes,
+      items: items.map((i) => ({
+        slug: i.slug,
+        variantId: typeof i.selection.variant === 'string' ? i.selection.variant : null,
+        quantity: i.quantity,
+        specLines: i.specLines,
+      })),
+    });
+  };
 
   return (
     <div className="fixed inset-0 z-[75]">
@@ -186,6 +206,7 @@ export default function CartDrawer() {
                     href={wa}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={logIntent}
                     className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
                   >
                     <WhatsAppIcon className="h-5 w-5" />

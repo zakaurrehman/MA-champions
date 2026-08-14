@@ -15,6 +15,7 @@ import { useCart } from '@/lib/cart';
 import { useToasts } from '@/lib/toast';
 import { resolvePrice, getVariants, defaultVariant } from '@/lib/pricing';
 import { site, whatsAppHref } from '@/lib/site';
+import { recordOrder } from '@/lib/recordOrder';
 import PriceDisplay from './PriceDisplay';
 import ProductVariantPicker from './ProductVariantPicker';
 import VariantSelector from './VariantSelector';
@@ -256,6 +257,19 @@ export default function BuyBox({ product }: { product: Product }) {
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              void recordOrder({
+                kind: 'product',
+                items: [
+                  {
+                    slug: product.slug,
+                    variantId: resolved.variant?.id ?? null,
+                    quantity,
+                    specLines,
+                  },
+                ],
+              })
+            }
             className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-subtle/40 px-7 py-4 font-display text-base uppercase tracking-wide text-ink transition-colors hover:border-primary hover:text-link-hover"
           >
             <WhatsAppIcon className="h-5 w-5" />
