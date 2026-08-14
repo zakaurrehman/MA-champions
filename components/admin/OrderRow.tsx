@@ -26,6 +26,8 @@ export interface AdminOrder {
   buildSpec: Record<string, unknown> | null;
   subtotal: number;
   currency: string;
+  trackingCarrier: string | null;
+  trackingNumber: string | null;
   createdAt: string;
 }
 
@@ -49,15 +51,27 @@ const KIND_LABEL: Record<AdminOrder['kind'], string> = {
 export default function OrderRow({ order }: { order: AdminOrder }) {
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);
+  const [carrier, setCarrier] = useState(order.trackingCarrier ?? '');
+  const [tracking, setTracking] = useState(order.trackingNumber ?? '');
   const router = useRouter();
 
+  const dirty =
+    carrier !== (order.trackingCarrier ?? '') || tracking !== (order.trackingNumber ?? '');
+
+  /* Status and tracking save together, so setting a status never silently
+     discards a tracking number typed just above it. */
   const setStatus = async (status: string) => {
     setBusy(true);
     try {
       const res = await fetch('/api/admin/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: order.id, status }),
+        body: JSON.stringify({
+          id: order.id,
+          status,
+          trackingCarrier: carrier,
+          trackingNumber: tracking,
+        }),
       });
       if (res.ok) router.refresh();
     } finally {
@@ -155,6 +169,48 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
           {order.customerNote}
         </p>
       )}
+
+      {/* Tracking — what the customer sees on /track-order once shipped. */}
+      <div className="mt-4 flex flex-wrap items-end gap-2">
+        <div className="min-w-0 flex-1">
+          <label
+            htmlFor={`carrier-${order.id}`}
+            className="mb-1 block font-body text-2xs font-semibold uppercase tracking-[0.16em] text-subtle"
+          >
+            Carrier
+          </label>
+          <input
+            id={`carrier-${order.id}`}
+            value={carrier}
+            onChange={(e) => setCarrier(e.target.value)}
+            placeholder="DHL"
+            className="w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-3 py-2 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none"
+          />
+        </div>
+        <div className="min-w-0 flex-[2]">
+          <label
+            htmlFor={`tracking-${order.id}`}
+            className="mb-1 block font-body text-2xs font-semibold uppercase tracking-[0.16em] text-subtle"
+          >
+            Tracking number
+          </label>
+          <input
+            id={`tracking-${order.id}`}
+            value={tracking}
+            onChange={(e) => setTracking(e.target.value)}
+            placeholder="Visible to the customer on /track-order"
+            className="w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-3 py-2 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none"
+          />
+        </div>
+        <button
+          type="button"
+          disabled={busy || !dirty}
+          onClick={() => setStatus(order.status)}
+          className="shrink-0 rounded-[--radius-plate] border border-subtle/40 px-4 py-2 font-body text-2xs font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:border-primary hover:text-link disabled:opacity-30"
+        >
+          {busy ? 'Saving…' : 'Save tracking'}
+        </button>
+      </div>
 
       {/* Status */}
       <div className="mt-4 flex flex-wrap items-center gap-1.5">

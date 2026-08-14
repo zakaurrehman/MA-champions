@@ -131,12 +131,26 @@ export async function ensureOrdersTable(sql: SqlTag) {
       subtotal       NUMERIC(10,2) NOT NULL DEFAULT 0,
       currency       TEXT        NOT NULL DEFAULT 'USD',
 
+      -- Filled in by the admin once the belt ships.
+      tracking_carrier TEXT,
+      tracking_number  TEXT,
+
       submitter_key  TEXT,
       admin_note     TEXT,
       created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at     TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+
+  /*
+   * Added after the table shipped, so they must be applied to existing
+   * databases too. IF NOT EXISTS makes this safe to run every time.
+   */
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_carrier TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_number TEXT`;
+
+  // Customer lookups hit this on every /track-order submission.
+  await sql`CREATE INDEX IF NOT EXISTS orders_reference_idx ON orders (reference)`;
 
   // The admin list is "newest first, open ones first".
   await sql`

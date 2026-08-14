@@ -1,35 +1,37 @@
 import type { Metadata } from 'next';
 import PageShell from '@/components/ui/PageShell';
+import TrackOrderLookup from '@/components/contact/TrackOrderLookup';
 import ContactForm from '@/components/contact/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Track Your Order',
-  description: 'Check the status of your M.A Champions Belts order.',
+  description: 'Check the status of your M.A Champions Belts order using your order reference.',
   alternates: { canonical: '/track-order' },
   robots: { index: false, follow: true },
 };
 
-/**
- * There is no order database in v1, so this is an assisted lookup rather than
- * a fake tracking widget. A form that returns invented statuses would be worse
- * than one that reaches a human.
- *
- * TODO: when orders are stored, replace this with a real lookup by order
- * number + email.
- */
 export default function TrackOrderPage() {
   return (
     <PageShell
       eyebrow="Orders"
       title="Track your order"
-      intro="Send us your order number and we will come back with your current build stage and, once it has shipped, your tracking number."
+      intro="Enter the reference we sent you and we will show you exactly where your belt is."
     >
-      <ContactForm
-        subject="Order status request"
-        referenceLabel="Order number"
-        messageLabel="Anything else?"
-        messagePlaceholder="Date ordered, name on the order, or anything that helps us find it…"
-      />
+      <TrackOrderLookup />
+
+      <section className="mt-16 border-t border-line pt-10">
+        <h2 className="text-2xl text-ink">Lost your reference?</h2>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
+          No problem — send us the name you ordered under and roughly when, and we will find it.
+        </p>
+        <div className="mt-7">
+          <ContactForm
+            subject="Order status request"
+            messageLabel="Anything else?"
+            messagePlaceholder="Date ordered, name on the order, or anything that helps us find it…"
+          />
+        </div>
+      </section>
     </PageShell>
   );
 }

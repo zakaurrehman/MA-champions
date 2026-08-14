@@ -23,6 +23,8 @@ interface Row {
   build_spec: Record<string, unknown> | null;
   subtotal: string | number;
   currency: string;
+  tracking_carrier: string | null;
+  tracking_number: string | null;
   created_at: string;
 }
 
@@ -34,7 +36,8 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
     const rows = (await sql`
       SELECT id, reference, kind, channel, status,
              customer_name, customer_email, customer_note,
-             items, build_spec, subtotal, currency, created_at
+             items, build_spec, subtotal, currency,
+             tracking_carrier, tracking_number, created_at
       FROM orders
       -- Open work first, then newest. This page exists to clear a queue.
       ORDER BY (status IN ('completed','cancelled')) ASC, created_at DESC
@@ -54,6 +57,8 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
       buildSpec: r.build_spec,
       subtotal: Number(r.subtotal),
       currency: r.currency,
+      trackingCarrier: r.tracking_carrier,
+      trackingNumber: r.tracking_number,
       createdAt: new Date(r.created_at).toISOString(),
     }));
   } catch {

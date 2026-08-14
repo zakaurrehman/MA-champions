@@ -26,7 +26,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No database configured.' }, { status: 503 });
   }
 
-  let body: { id?: unknown; status?: unknown; adminNote?: unknown };
+  let body: {
+    id?: unknown;
+    status?: unknown;
+    adminNote?: unknown;
+    trackingCarrier?: unknown;
+    trackingNumber?: unknown;
+  };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -43,16 +49,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unknown status.' }, { status: 400 });
   }
 
+  // Empty strings clear the field rather than storing "", so /track-order
+  // shows no tracking block instead of an empty one.
+  const trim = (v: unknown, max: number): string | null => {
+    if (typeof v !== 'string') return null;
+    const s = v.trim().slice(0, max);
+    return s.length > 0 ? s : null;
+  };
+
   try {
-    if (typeof body.adminNote === 'string') {
-      await sql`
-        UPDATE orders
-        SET status = ${status}, admin_note = ${body.adminNote.slice(0, 2000)}, updated_at = NOW()
-        WHERE id = ${id}
-      `;
-    } else {
-      await sql`UPDATE orders SET status = ${status}, updated_at = NOW() WHERE id = ${id}`;
-    }
+    await sql`
+      UPDATE orders
+      SET status           = ${status},
+          tracking_carrier = ${trim(body.trackingCarrier, 60)},
+          tracking_number  = ${trim(body.trackingNumber, 120)},
+          admin_note       = COALESCE(${trim(body.adminNote, 2000)}, admin_note),
+          updated_at       = NOW()
+      WHERE id = ${id}
+    `;
     return NextResponse.json({ ok: true, id, status });
   } catch (error) {
     console.error('[api/admin/orders] update failed:', error);
