@@ -53,6 +53,14 @@ export default function CartDrawer() {
 
   const wa = whatsAppHref(message);
 
+  /* Shown under the buttons so people know card and crypto exist before they
+     commit to the WhatsApp route. */
+  const payMethods = [
+    site.paypalManual.email ? 'PayPal' : null,
+    site.cryptoWallets.length > 0 ? 'Crypto' : null,
+    wa ? 'WhatsApp' : null,
+  ].filter(Boolean) as string[];
+
   /*
    * Log the intent before the tab leaves for WhatsApp. We cannot read the
    * conversation afterwards, so without this an order only exists if the
@@ -197,45 +205,54 @@ export default function CartDrawer() {
                 <span className="font-display text-2xl text-plated">{formatPrice(subtotal)}</span>
               </div>
               <p className="mt-1 text-2xs text-muted">
-                Shipping and final price confirmed on your quote.
+                {payMethods.length > 1
+                  ? `Free shipping to ${site.shipping.freeTo.join(', ')}.`
+                  : 'Shipping and final price confirmed on your quote.'}
               </p>
 
+              {/*
+                Checkout leads, not WhatsApp. PayPal and crypto need a form
+                that does not belong in a 28rem drawer, so the drawer's job is
+                to summarise and hand off to /cart where every method lives.
+                Previously WhatsApp was the only visible way to pay from here.
+              */}
               <div className="mt-4 flex flex-col gap-2.5">
+                <Link
+                  href="/cart"
+                  onClick={close}
+                  className="inline-flex w-full items-center justify-center rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
+                >
+                  Checkout
+                </Link>
+
                 {wa ? (
                   <a
                     href={wa}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={logIntent}
-                    className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
+                    className="inline-flex w-full items-center justify-center gap-2.5 rounded-[--radius-plate] border border-subtle/40 px-6 py-3.5 font-display text-sm uppercase tracking-wide text-ink hover:border-primary hover:text-link"
                   >
                     <WhatsAppIcon className="h-5 w-5" />
-                    Checkout on WhatsApp
+                    Order on WhatsApp
                   </a>
                 ) : (
-                  // No number configured — route to a page that can actually help.
                   <Link
                     href="/contact"
                     onClick={close}
-                    className="inline-flex w-full items-center justify-center rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary hover:bg-primary-hover"
+                    className="inline-flex w-full items-center justify-center rounded-[--radius-plate] border border-subtle/40 px-6 py-3.5 font-display text-sm uppercase tracking-wide text-ink hover:border-primary hover:text-link"
                   >
                     Request a quote
                   </Link>
                 )}
-                <Link
-                  href="/cart"
-                  onClick={close}
-                  className="inline-flex w-full items-center justify-center rounded-[--radius-plate] border border-subtle/40 px-6 py-3.5 font-display text-sm uppercase tracking-wide text-ink hover:border-primary hover:text-link"
-                >
-                  View full cart
-                </Link>
               </div>
 
-              {site.shipping.freeTo.length > 0 && (
+              {payMethods.length > 0 && (
                 <p className="mt-3 text-center text-2xs uppercase tracking-[0.14em] text-subtle">
-                  Free shipping to {site.shipping.freeTo.join(', ')}
+                  {payMethods.join(' · ')}
                 </p>
               )}
+
             </footer>
           </>
         )}
