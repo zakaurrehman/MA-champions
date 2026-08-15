@@ -174,6 +174,24 @@ export async function ensureOrdersTable(sql: SqlTag) {
   `;
 }
 
+/**
+ * Failed sign-in attempts, for rate limiting. Shared by customer sign-in and
+ * the admin panel — the `key` is already a hash, so one table serves both
+ * without either being able to read the other's identifiers.
+ */
+export async function ensureAuthAttemptsTable(sql: SqlTag) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS auth_attempts (
+      id         BIGSERIAL PRIMARY KEY,
+      key        TEXT        NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE INDEX IF NOT EXISTS auth_attempts_idx ON auth_attempts (key, created_at DESC)
+  `;
+}
+
 export async function ensureCustomersTable(sql: SqlTag) {
   await sql`
     CREATE TABLE IF NOT EXISTS customers (
@@ -205,17 +223,7 @@ export async function ensureCustomersTable(sql: SqlTag) {
     CREATE UNIQUE INDEX IF NOT EXISTS customers_email_idx ON customers (LOWER(email))
   `;
 
-  // Rate limiting for sign-in attempts.
-  await sql`
-    CREATE TABLE IF NOT EXISTS auth_attempts (
-      id         BIGSERIAL PRIMARY KEY,
-      key        TEXT        NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE INDEX IF NOT EXISTS auth_attempts_idx ON auth_attempts (key, created_at DESC)
-  `;
+  await ensureAuthAttemptsTable(sql);
 
   /*
    * Orders are matched to a customer by email, because most arrive through

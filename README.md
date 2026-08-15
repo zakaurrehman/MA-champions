@@ -49,9 +49,10 @@ everything from `/admin` without touching code.
 | --- | --- | --- |
 | Neon Postgres | `DATABASE_URL` | Falls back to the JSON seed; admin is read-only |
 | Vercel Blob | `BLOB_READ_WRITE_TOKEN` | Image upload disabled, everything else works |
-| Google OAuth | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `AUTH_SECRET` | Sign-in hidden; guest checkout unaffected |
+| Customer accounts | `AUTH_SECRET` | Sign-in hidden; guest checkout unaffected |
+| Google sign-in | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Email and password sign-in still works |
 | PayPal | `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | Card checkout hidden |
-| Admin access | `ADMIN_TOKEN` (min 16 chars) | `/admin` stays closed |
+| Admin access | `ADMIN_USERNAME`, `ADMIN_PASSWORD` (min 12 chars) | `/admin` stays closed |
 
 **Every one degrades to a working site rather than an error.** That is
 deliberate: a missing credential should never take the shop down.
@@ -60,7 +61,12 @@ deliberate: a missing credential should never take the shop down.
 
 ## Admin panel
 
-Sign in at `/admin` with `ADMIN_TOKEN`.
+Sign in at `/admin` with `ADMIN_USERNAME` and `ADMIN_PASSWORD`. The username
+defaults to `admin`; `ADMIN_TOKEN` is still accepted as the password so older
+deployments keep working.
+
+The password is never stored in the cookie — the session is a signed token, so
+changing `ADMIN_PASSWORD` immediately signs out every existing session.
 
 - **Dashboard** — orders to action, crypto payments to verify, reviews to
   moderate, weekly figures.
@@ -76,7 +82,7 @@ snapshot — including a deleted belt.
 
 ### First-time setup
 
-1. Set `DATABASE_URL` and `ADMIN_TOKEN` in the host, then redeploy.
+1. Set `DATABASE_URL` and `ADMIN_PASSWORD` in the host, then redeploy.
 2. Go to `/admin/products` and press **Import belts**. That creates the tables
    and seeds from `data/products.json`.
 
