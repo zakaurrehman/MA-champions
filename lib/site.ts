@@ -146,7 +146,9 @@ export const site: SiteConfig = {
   // Supplied by the client. wa.me requires digits only — no +, spaces or
   // dashes — so this is stored in link form. Displayed as +92 302 4057417.
   whatsapp: '923024057417',
-  email: null, // TODO: client to supply
+  // Public contact address. Distinct from paypalManual.email, which is the
+  // account that receives payment and must never be published.
+  email: 'mawrestlingbelts@gmail.com',
   phone: null, // TODO: client to supply (optional if WhatsApp covers it)
 
   address: {
