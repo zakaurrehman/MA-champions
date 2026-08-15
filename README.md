@@ -52,6 +52,7 @@ everything from `/admin` without touching code.
 | Customer accounts | `AUTH_SECRET` | Sign-in hidden; guest checkout unaffected |
 | Google sign-in | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Email and password sign-in still works |
 | PayPal | `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | Card checkout hidden |
+| Resend | `RESEND_API_KEY`, `EMAIL_FROM` | Reset links are created but not emailed — issue them from `/admin/settings` |
 | Admin access | `ADMIN_USERNAME`, `ADMIN_PASSWORD` (min 12 chars) | `/admin` stays closed |
 
 **Every one degrades to a working site rather than an error.** That is
@@ -75,6 +76,13 @@ changing `ADMIN_PASSWORD` immediately signs out every existing session.
 - **Orders** — every WhatsApp intent, crypto payment and build request.
   Statuses, courier tracking, on-chain payment confirmation.
 - **Reviews** — approve, reject, mark as verified buyer.
+- **Settings** — change your own password; issue a reset link for a locked-out
+  customer.
+
+Changing the admin password from Settings stores it (hashed) in `admin_auth`,
+which then takes precedence over the environment. **Delete `ADMIN_PASSWORD` and
+`ADMIN_TOKEN` from the host afterwards** — until you do, the old password still
+works as a fallback for when the database is unreachable.
 
 Product changes revalidate the storefront immediately (see `lib/revalidate.ts`).
 Without that call a statically rendered page keeps serving its build-time

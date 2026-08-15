@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
 import SignOutButton from '@/components/account/SignOutButton';
 import AuthForm from '@/components/account/AuthForm';
+import PasswordChangeForm from '@/components/ui/PasswordChangeForm';
 import { getSessionUser, sessionConfigured, googleConfigured } from '@/lib/session';
 import { db } from '@/lib/db';
 import { formatPrice } from '@/lib/format';
@@ -22,6 +23,25 @@ interface OrderRow {
   currency: string;
   tracking_number: string | null;
   created_at: string;
+}
+
+/**
+ * Whether this account already has a password. A Google customer does not, so
+ * they are offered "Set a password" with no current-password field — asking
+ * them to confirm one they have never had would make it impossible to add one.
+ */
+async function hasPassword(email: string): Promise<boolean> {
+  const sql = db();
+  if (!sql) return false;
+
+  try {
+    const rows = (await sql`
+      SELECT password_hash FROM customers WHERE LOWER(email) = LOWER(${email}) LIMIT 1
+    `) as unknown as { password_hash: string | null }[];
+    return Boolean(rows[0]?.password_hash);
+  } catch {
+    return false;
+  }
 }
 
 /** Orders are matched by email, so WhatsApp and crypto orders appear too. */
@@ -99,13 +119,32 @@ export default async function AccountPage({
     );
   }
 
-  const orders = await loadOrders(user.email);
+  const [orders, passwordSet] = await Promise.all([
+    loadOrders(user.email),
+    hasPassword(user.email),
+  ]);
 
   return (
     <PageShell eyebrow="Account" title={`Hello, ${user.name.split(' ')[0]}`} intro={user.email}>
       <div className="mb-10">
         <SignOutButton />
       </div>
+
+      <section className="mb-12 rounded-[--radius-plate] border border-line p-6">
+        <h2 className="text-2xl text-ink">
+          {passwordSet ? 'Change your password' : 'Set a password'}
+        </h2>
+        <p className="mt-2 mb-6 max-w-2xl text-sm leading-relaxed text-muted">
+          {passwordSet
+            ? 'Choose something you do not use on other sites.'
+            : 'You signed in with Google. Add a password if you would also like to sign in without it.'}
+        </p>
+        <PasswordChangeForm
+          endpoint="/api/auth/password/change"
+          requireCurrent={passwordSet}
+          submitLabel={passwordSet ? 'Change password' : 'Set password'}
+        />
+      </section>
 
       <h2 className="text-2xl text-ink">Your orders</h2>
 

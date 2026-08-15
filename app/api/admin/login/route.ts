@@ -61,7 +61,7 @@ async function recordFailure(key: string): Promise<void> {
 }
 
 export async function POST(request: Request) {
-  if (!adminConfigured()) {
+  if (!(await adminConfigured())) {
     return NextResponse.json(
       { error: 'Admin access is not configured on this deployment.' },
       { status: 503 }
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!checkCredentials(username, password)) {
+  if (!(await checkCredentials(username, password))) {
     await recordFailure(key);
     // A uniform delay on every failure, so a wrong password cannot be told
     // apart from a wrong username by response time.
@@ -95,7 +95,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Incorrect username or password.' }, { status: 401 });
   }
 
-  const session = createAdminSession();
+  const session = await createAdminSession();
   if (!session) {
     return NextResponse.json({ error: 'Admin access is not configured.' }, { status: 503 });
   }

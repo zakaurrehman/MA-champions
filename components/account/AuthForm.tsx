@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { site } from '@/lib/site';
+import ForgotPassword from './ForgotPassword';
 
 type Mode = 'login' | 'register';
 
 export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) {
   const [mode, setMode] = useState<Mode>('login');
+  const [forgot, setForgot] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +48,14 @@ export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) 
     'w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-4 py-2.5 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none';
   const label =
     'mb-1.5 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle';
+
+  if (forgot) {
+    return (
+      <div className="max-w-md">
+        <ForgotPassword onBack={() => setForgot(false)} />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md">
@@ -144,17 +153,13 @@ export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) 
         </button>
 
         {mode === 'login' && (
-          <p className="text-2xs leading-relaxed text-muted">
-            {/*
-              Honest about the limitation rather than shipping a reset link that
-              goes nowhere. Removed once a transactional email service exists.
-            */}
-            Forgotten your password? Email{' '}
-            <a href={`mailto:${site.email}`} className="text-link hover:underline">
-              {site.email}
-            </a>{' '}
-            and we will reset it for you.
-          </p>
+          <button
+            type="button"
+            onClick={() => setForgot(true)}
+            className="self-start font-body text-2xs font-semibold uppercase tracking-[0.14em] text-subtle hover:text-link"
+          >
+            Forgotten your password?
+          </button>
         )}
       </form>
 

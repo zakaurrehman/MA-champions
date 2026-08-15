@@ -234,10 +234,58 @@ export async function ensureCustomersTable(sql: SqlTag) {
   await sql`CREATE INDEX IF NOT EXISTS orders_email_idx ON orders (LOWER(customer_email))`;
 }
 
+/**
+ * The admin password, once it has been changed from the panel.
+ *
+ * A single row, enforced by the CHECK: there is one operator, and a table that
+ * can hold two admin passwords is a table that will eventually hold a forgotten
+ * one. Only the scrypt hash is stored — the panel can change the password but
+ * can never display it.
+ */
+export async function ensureAdminAuthTable(sql: SqlTag) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS admin_auth (
+      id            INT         PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+      username      TEXT        NOT NULL,
+      password_hash TEXT        NOT NULL,
+      updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+}
+
+/**
+ * One-time password reset links.
+ *
+ * The token is stored as a SHA-256 hash, never in the clear, so a leaked
+ * backup cannot be replayed into account takeovers. `delivered` records whether
+ * we managed to email the link — when no email service is configured it stays
+ * false and the admin panel can issue a fresh link to send by hand.
+ */
+export async function ensurePasswordResetsTable(sql: SqlTag) {
+  await sql`
+    CREATE TABLE IF NOT EXISTS password_resets (
+      id         BIGSERIAL   PRIMARY KEY,
+      email      TEXT        NOT NULL,
+      token_hash TEXT        NOT NULL,
+      expires_at TIMESTAMPTZ NOT NULL,
+      used_at    TIMESTAMPTZ,
+      delivered  BOOLEAN     NOT NULL DEFAULT FALSE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS password_resets_token_idx ON password_resets (token_hash)`;
+  await sql`
+    CREATE INDEX IF NOT EXISTS password_resets_pending_idx
+    ON password_resets (used_at, created_at DESC)
+  `;
+}
+
 export async function ensureAllTables(sql: SqlTag) {
   await ensureReviewsTable(sql);
   await ensureProductsTable(sql);
   await ensureOrdersTable(sql);
   await ensureCustomersTable(sql);
+  await ensureAdminAuthTable(sql);
+  await ensurePasswordResetsTable(sql);
 }
 

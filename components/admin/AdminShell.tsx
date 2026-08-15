@@ -8,6 +8,7 @@ const NAV = [
   { href: '/admin/orders', label: 'Orders' },
   { href: '/admin/products', label: 'Products' },
   { href: '/admin/reviews', label: 'Reviews' },
+  { href: '/admin/settings', label: 'Settings' },
 ] as const;
 
 interface Props {
@@ -34,7 +35,7 @@ export default async function AdminShell({ title, intro, action, children }: Pro
           This area is for M.A Champions Belts staff.
         </p>
         <div className="mt-8">
-          <AdminLogin configured={adminConfigured()} />
+          <AdminLogin configured={await adminConfigured()} />
         </div>
       </div>
     );
