@@ -188,7 +188,34 @@ export async function ensureCustomersTable(sql: SqlTag) {
       last_seen  TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
-  await sql`CREATE INDEX IF NOT EXISTS customers_email_idx ON customers (LOWER(email))`;
+  /*
+   * Customers can now arrive two ways: Google, or email and password. So
+   * google_sub must be nullable — Postgres allows many NULLs under a UNIQUE
+   * constraint, so the uniqueness of real Google ids is unaffected.
+   */
+  await sql`ALTER TABLE customers ALTER COLUMN google_sub DROP NOT NULL`;
+  await sql`ALTER TABLE customers ADD COLUMN IF NOT EXISTS password_hash TEXT`;
+
+  /*
+   * Email is the identity for password accounts, so it must be unique — and
+   * case-insensitively, or Bob@x.com and bob@x.com become two accounts and
+   * whichever one you signed up with is a coin toss.
+   */
+  await sql`
+    CREATE UNIQUE INDEX IF NOT EXISTS customers_email_idx ON customers (LOWER(email))
+  `;
+
+  // Rate limiting for sign-in attempts.
+  await sql`
+    CREATE TABLE IF NOT EXISTS auth_attempts (
+      id         BIGSERIAL PRIMARY KEY,
+      key        TEXT        NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`
+    CREATE INDEX IF NOT EXISTS auth_attempts_idx ON auth_attempts (key, created_at DESC)
+  `;
 
   /*
    * Orders are matched to a customer by email, because most arrive through

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { authConfigured, randomToken, OAUTH_STATE_COOKIE } from '@/lib/session';
+import { googleConfigured, randomToken, OAUTH_STATE_COOKIE } from '@/lib/session';
 import { site } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 /** Starts the Google sign-in redirect. */
 export async function GET(request: Request) {
-  if (!authConfigured()) {
+  if (!googleConfigured()) {
     return NextResponse.redirect(new URL('/account?error=not-configured', site.url));
   }
 

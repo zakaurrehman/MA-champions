@@ -38,7 +38,17 @@ function secret(): string | null {
   return value && value.length >= 32 ? value : null;
 }
 
-export function authConfigured(): boolean {
+/**
+ * Sessions work with nothing but AUTH_SECRET — that is all email and password
+ * sign-in needs. Google is a separate, optional capability on top, so the two
+ * checks are separate: a missing Google client must not disable the whole
+ * account system.
+ */
+export function sessionConfigured(): boolean {
+  return Boolean(secret());
+}
+
+export function googleConfigured(): boolean {
   return Boolean(
     secret() && process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
   );

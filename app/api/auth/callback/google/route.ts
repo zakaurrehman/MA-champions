@@ -3,7 +3,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { db } from '@/lib/db';
 import { ensureCustomersTable } from '@/lib/db-schema';
 import {
-  authConfigured,
+  googleConfigured,
   createSessionToken,
   sessionCookieOptions,
   OAUTH_STATE_COOKIE,
@@ -37,7 +37,7 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 export async function GET(request: Request) {
-  if (!authConfigured()) return fail('not-configured');
+  if (!googleConfigured()) return fail('not-configured');
 
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
@@ -103,15 +103,31 @@ export async function GET(request: Request) {
   if (sql) {
     try {
       await ensureCustomersTable(sql);
-      await sql`
-        INSERT INTO customers (google_sub, email, name, picture)
-        VALUES (${claims.sub}, ${claims.email}, ${claims.name ?? null}, ${claims.picture ?? null})
-        ON CONFLICT (google_sub) DO UPDATE SET
-          email     = EXCLUDED.email,
-          name      = EXCLUDED.name,
-          picture   = EXCLUDED.picture,
-          last_seen = NOW()
-      `;
+
+      /*
+       * Match on the Google id *or* the email address, because the same person
+       * can arrive both ways: sign up with a password on Monday, click
+       * "Continue with Google" on Tuesday. Matching on google_sub alone would
+       * try to insert a second row and collide with the unique email index.
+       *
+       * COALESCE, so an account that already has a google_sub keeps it.
+       */
+      const linked = (await sql`
+        UPDATE customers SET
+          google_sub = COALESCE(google_sub, ${claims.sub}),
+          name       = COALESCE(name, ${claims.name ?? null}),
+          picture    = ${claims.picture ?? null},
+          last_seen  = NOW()
+        WHERE google_sub = ${claims.sub} OR LOWER(email) = LOWER(${claims.email})
+        RETURNING id
+      `) as unknown as { id: number }[];
+
+      if (linked.length === 0) {
+        await sql`
+          INSERT INTO customers (google_sub, email, name, picture)
+          VALUES (${claims.sub}, ${claims.email}, ${claims.name ?? null}, ${claims.picture ?? null})
+        `;
+      }
     } catch (error) {
       // Sign-in still succeeds: the session is self-contained and the customer
       // should not be locked out because our bookkeeping failed.

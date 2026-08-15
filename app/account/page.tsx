@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
 import SignOutButton from '@/components/account/SignOutButton';
-import { getSessionUser, authConfigured } from '@/lib/session';
+import AuthForm from '@/components/account/AuthForm';
+import { getSessionUser, sessionConfigured, googleConfigured } from '@/lib/session';
 import { db } from '@/lib/db';
 import { formatPrice } from '@/lib/format';
 
@@ -72,19 +73,18 @@ export default async function AccountPage({
           </p>
         )}
 
-        {authConfigured() ? (
-          <a
-            href="/api/auth/google"
-            className="inline-flex items-center gap-3 rounded-[--radius-plate] border border-subtle/40 px-6 py-3.5 font-body text-sm font-semibold text-ink transition-colors hover:border-primary hover:text-link"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="#4285F4" d="M21.6 12.2c0-.6-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.2Z" />
-              <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z" />
-              <path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2L6.4 14Z" />
-              <path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1Z" />
-            </svg>
-            Continue with Google
-          </a>
+        {sessionConfigured() ? (
+          <>
+            <AuthForm googleEnabled={googleConfigured()} />
+            <p className="mt-8 max-w-md text-2xs leading-relaxed text-muted">
+              Ordered on WhatsApp and have no account? Look your order up with its reference on
+              the{' '}
+              <Link href="/track-order" className="text-link hover:underline">
+                track order page
+              </Link>
+              .
+            </p>
+          </>
         ) : (
           <p className="max-w-md text-sm leading-relaxed text-muted">
             Accounts are not switched on yet. You can still track any order using its reference
