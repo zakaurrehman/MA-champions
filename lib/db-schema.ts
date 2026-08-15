@@ -150,6 +150,14 @@ export async function ensureOrdersTable(sql: SqlTag) {
   await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS tracking_number TEXT`;
 
   /*
+   * The custom order form: a phone number to reach them on, and the artwork
+   * they uploaded. design_url points at Vercel Blob — the file itself is never
+   * put in the database.
+   */
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS customer_phone TEXT`;
+  await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS design_url TEXT`;
+
+  /*
    * Crypto payments are settled off-site and verified by hand: the customer
    * pays, submits the transaction reference and a screenshot, and an admin
    * confirms it on-chain. payment_verified stays false until a human has

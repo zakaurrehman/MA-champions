@@ -18,7 +18,9 @@ interface Row {
   status: string;
   customer_name: string | null;
   customer_email: string | null;
+  customer_phone: string | null;
   customer_note: string | null;
+  design_url: string | null;
   items: AdminOrder['items'];
   build_spec: Record<string, unknown> | null;
   subtotal: string | number;
@@ -40,8 +42,8 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
   try {
     const rows = (await sql`
       SELECT id, reference, kind, channel, status,
-             customer_name, customer_email, customer_note,
-             items, build_spec, subtotal, currency,
+             customer_name, customer_email, customer_phone, customer_note,
+             items, build_spec, subtotal, currency, design_url,
              tracking_carrier, tracking_number,
              payment_method, payment_reference, payment_network,
              payment_proof_url, payment_verified, created_at
@@ -59,7 +61,9 @@ async function loadOrders(): Promise<AdminOrder[] | null> {
       status: r.status,
       customerName: r.customer_name,
       customerEmail: r.customer_email,
+      customerPhone: r.customer_phone,
       customerNote: r.customer_note,
+      designUrl: r.design_url,
       items: r.items ?? [],
       buildSpec: r.build_spec,
       subtotal: Number(r.subtotal),

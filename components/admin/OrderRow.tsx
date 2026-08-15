@@ -13,7 +13,10 @@ export interface AdminOrder {
   status: string;
   customerName: string | null;
   customerEmail: string | null;
+  customerPhone: string | null;
   customerNote: string | null;
+  /** Artwork uploaded through the custom order form. */
+  designUrl: string | null;
   items: {
     slug: string;
     name: string;
@@ -112,7 +115,7 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
         </p>
       </div>
 
-      {(order.customerName || order.customerEmail) && (
+      {(order.customerName || order.customerEmail || order.customerPhone) && (
         <p className="mt-3 font-body text-sm text-ink">
           {order.customerName}
           {order.customerEmail && (
@@ -123,7 +126,39 @@ export default function OrderRow({ order }: { order: AdminOrder }) {
               </a>
             </>
           )}
+          {order.customerPhone && (
+            <>
+              {' · '}
+              {/* wa.me needs digits only — strip spaces, dashes and the plus. */}
+              <a
+                href={`https://wa.me/${order.customerPhone.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link hover:underline"
+              >
+                {order.customerPhone}
+              </a>
+            </>
+          )}
         </p>
+      )}
+
+      {/* Budget the customer named. Their ceiling, not our price. */}
+      {typeof order.buildSpec?.budget === 'string' && (
+        <p className="mt-2 font-body text-sm text-muted">
+          Budget: <span className="text-ink">{order.buildSpec.budget}</span>
+        </p>
+      )}
+
+      {order.designUrl && (
+        <a
+          href={order.designUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-block rounded-[--radius-plate] border border-subtle/40 px-4 py-2 font-body text-2xs font-semibold uppercase tracking-[0.14em] text-ink hover:border-primary hover:text-link"
+        >
+          View their design →
+        </a>
       )}
 
       {/* Lines */}
