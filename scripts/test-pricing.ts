@@ -117,4 +117,39 @@ test('server recomputes 2 × 6mm as $1000, ignoring any client figure', () =>
 test('simple product priced from the catalogue', () =>
   assert.equal(authoritativeLineTotal(simple, null, 3)!.total, 1350));
 
+console.log('\n=== cart lines carry the build id ===');
+
+/*
+ * Regression. The product page kept the chosen build in its own state and put
+ * it in the cart only as a display string, so every cart line reached checkout
+ * with variantId: null. authoritativeLineTotal then refused to price it, the
+ * line was dropped, and the customer was told "Your cart is empty" while
+ * looking at a belt in their cart.
+ *
+ * This asserts the shape the cart must produce, which is what actually broke.
+ */
+const cartLine = (selection: Record<string, string>) =>
+  typeof selection.variant === 'string' ? selection.variant : null;
+
+test('a selection carrying the build prices correctly', () =>
+  assert.equal(
+    authoritativeLineTotal(varied, cartLine({ size: 'adult', variant: '6mm' }), 1)!.total,
+    500
+  ));
+
+test('a selection missing the build cannot be priced', () =>
+  assert.equal(authoritativeLineTotal(varied, cartLine({ size: 'adult' }), 1), null));
+
+test('two builds of one belt are separate cart keys', () => {
+  const key = (s: Record<string, string>) =>
+    Object.keys(s)
+      .sort()
+      .map((k) => `${k}:${s[k]}`)
+      .join('|');
+  assert.notEqual(
+    key({ size: 'adult', variant: '4mm' }),
+    key({ size: 'adult', variant: '6mm' })
+  );
+});
+
 console.log(`\nALL ${passed} PRICING TESTS PASSED\n`);

@@ -91,7 +91,20 @@ export default function BuyBox({ product }: { product: Product }) {
         imageAlt: image?.alt ?? product.name,
         unitPrice,
         currency: product.currency,
-        selection,
+        /*
+         * The chosen build has to go INTO the selection, not just into the
+         * spec lines. Two things depend on it:
+         *
+         *  - Checkout recomputes every price from the catalogue by variant id.
+         *    Without it the server cannot price a build-priced belt at all and
+         *    drops the line — which read as "Your cart is empty".
+         *  - makeCartKey is derived from the selection, so without it 4mm CNC
+         *    and 6mm CNC of the same belt collapse into one line at whichever
+         *    price was added first.
+         */
+        selection: resolved.variant
+          ? { ...selection, variant: resolved.variant.id }
+          : selection,
         engraving,
         specLines,
       },

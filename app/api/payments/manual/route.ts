@@ -156,6 +156,25 @@ export async function POST(request: Request) {
     }
 
     if (lines.length === 0) {
+      /*
+       * "Empty" and "sent lines we could not price" are different failures and
+       * must not share a message. Saying "your cart is empty" to someone
+       * looking at a belt in their cart tells them the site is broken and
+       * tells us nothing about why.
+       */
+      if (items.length > 0) {
+        console.error(
+          '[payments/manual] no line could be priced. Sent:',
+          JSON.stringify(items.slice(0, 10))
+        );
+        return NextResponse.json(
+          {
+            error:
+              'We could not confirm the price of what is in your cart. Please remove the item, add it again choosing a build, and retry.',
+          },
+          { status: 400 }
+        );
+      }
       return NextResponse.json({ error: 'Your cart is empty.' }, { status: 400 });
     }
 

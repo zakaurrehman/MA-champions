@@ -102,6 +102,22 @@ export const useCart = create<CartState>()(
       storage: createJSONStorage(() => localStorage),
       // Never persist UI state — a reload should not reopen the drawer.
       partialize: (state) => ({ items: state.items, notes: state.notes }),
+
+      /*
+       * v2: lines added from a product page were saved without their build id
+       * in `selection`, so checkout could not price them and refused the whole
+       * order. Those lines cannot be repaired here — the store has no access to
+       * the catalogue — so they are dropped and the customer re-adds.
+       *
+       * Dropping a stale line is not nice, but it is far better than a cart
+       * that looks fine and cannot be paid for.
+       */
+      version: 2,
+      migrate: (persisted, fromVersion) => {
+        const state = persisted as { items?: CartItem[]; notes?: string } | undefined;
+        if (fromVersion >= 2) return state;
+        return { items: [], notes: state?.notes ?? '' };
+      },
     }
   )
 );
