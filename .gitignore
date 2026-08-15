@@ -1,7 +1,11 @@
 node_modules/
 .next/
-out/
-build/
+# Anchored with a leading slash so these only match a build output directory at
+# the repo root. Unanchored, "build/" matches at ANY depth — which silently
+# excluded app/build/page.tsx, our Belt Builder route, and made /build a 404 in
+# production while every local build worked fine.
+/out/
+/build/
 .DS_Store
 *.pem
 npm-debug.log*
