@@ -28,6 +28,78 @@ function money(value: unknown): number | null {
   return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : null;
 }
 
+interface VariantInput {
+  id?: unknown;
+  name?: unknown;
+  salePrice?: unknown;
+  originalPrice?: unknown;
+  stock?: unknown;
+  inStock?: unknown;
+  isDefault?: unknown;
+}
+
+/**
+ * Normalises the build ladder before it is stored.
+ *
+ * These prices are what customers are actually charged — lib/pricing.ts reads
+ * them back as authoritative — so a slip in the admin form must not become a
+ * NaN, a negative price or a nameless build on the live product page.
+ *
+ * Builds with no name or no price are dropped rather than rejected: a
+ * half-filled row is almost always one the admin added and abandoned, and
+ * failing the whole save over it would lose the rest of their work.
+ */
+function normaliseVariants(raw: unknown): {
+  variants: Record<string, unknown>[];
+  error?: string;
+} {
+  if (!Array.isArray(raw)) return { variants: [] };
+
+  const variants: Record<string, unknown>[] = [];
+  const seenIds = new Set<string>();
+
+  for (const entry of (raw as VariantInput[]).slice(0, 20)) {
+    const name = String(entry.name ?? '').trim().slice(0, 80);
+    const salePrice = money(entry.salePrice);
+    if (!name || salePrice === null || salePrice <= 0) continue;
+
+    const originalPrice = entry.originalPrice == null ? null : money(entry.originalPrice);
+    if (originalPrice !== null && originalPrice <= salePrice) {
+      return {
+        variants: [],
+        error: `“${name}”: the compare-at price must be higher than the price charged, or left blank.`,
+      };
+    }
+
+    // Ids are referenced by carts and saved orders. A duplicate would make one
+    // build unreachable and could price a line at the wrong variant.
+    let id = String(entry.id ?? '').trim() || name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    while (seenIds.has(id)) id = `${id}-2`;
+    seenIds.add(id);
+
+    variants.push({
+      id,
+      name,
+      salePrice,
+      originalPrice,
+      stock: typeof entry.stock === 'number' ? entry.stock : null,
+      inStock: entry.inStock !== false,
+      isDefault: entry.isDefault === true,
+    });
+  }
+
+  // Exactly one default, or the product page has no build to lead with and
+  // falls back to the cheapest — headlining every belt at the entry price.
+  const defaults = variants.filter((v) => v.isDefault);
+  if (variants.length > 0 && defaults.length !== 1) {
+    for (const v of variants) v.isDefault = false;
+    const lead = variants.find((v) => v.inStock) ?? variants[0]!;
+    lead.isDefault = true;
+  }
+
+  return { variants };
+}
+
 /** Create or update. `slug` present means update, absent means create. */
 export async function POST(request: Request) {
   if (!(await isAdmin())) {
@@ -65,6 +137,11 @@ export async function POST(request: Request) {
       { error: 'The compare-at price must be higher than the selling price, or left blank.' },
       { status: 400 }
     );
+  }
+
+  const { variants, error: variantError } = normaliseVariants(body.variants);
+  if (variantError) {
+    return NextResponse.json({ error: variantError }, { status: 400 });
   }
 
   const slug = body.slug ? String(body.slug) : toSlug(name);
@@ -110,7 +187,7 @@ export async function POST(request: Request) {
         ${String(body.description ?? '')},
         ${body.variantLabel ? String(body.variantLabel) : null},
         ${JSON.stringify(body.specs ?? {})},
-        ${JSON.stringify(body.variants ?? [])},
+        ${JSON.stringify(variants)},
         ${JSON.stringify(images)}
       )
       ON CONFLICT (slug) DO UPDATE SET

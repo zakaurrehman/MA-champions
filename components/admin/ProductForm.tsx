@@ -6,7 +6,9 @@ import Link from 'next/link';
 import type { Product, ProductVariant } from '@/lib/types';
 import { formatPrice } from '@/lib/format';
 import { discountPercent } from '@/lib/pricing';
+import { DEFAULT_VARIANT_LABEL } from '@/lib/buildLadder';
 import ImageUploader, { type EditableImage } from './ImageUploader';
+import VariantEditor from './VariantEditor';
 
 const TIERS = [
   'brass',
@@ -56,7 +58,8 @@ export default function ProductForm({ product }: { product: Product | null }) {
   const [images, setImages] = useState<EditableImage[]>(
     (product?.images ?? []).map((i) => ({ src: i.src, alt: i.alt }))
   );
-  const [variants] = useState<ProductVariant[]>(product?.variants ?? []);
+  const [variants, setVariants] = useState<ProductVariant[]>(product?.variants ?? []);
+  const [variantLabel, setVariantLabel] = useState(product?.variantLabel ?? '');
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -91,7 +94,7 @@ export default function ProductForm({ product }: { product: Product | null }) {
           shopVisible,
           images,
           variants,
-          variantLabel: product?.variantLabel,
+          variantLabel: variantLabel.trim() || DEFAULT_VARIANT_LABEL,
           specs: product?.specs ?? {},
           currency: product?.currency ?? 'USD',
         }),
@@ -227,13 +230,36 @@ export default function ProductForm({ product }: { product: Product | null }) {
           </p>
         </div>
 
-        {variants.length > 0 && (
-          <p className="mt-4 text-2xs leading-relaxed text-muted">
-            This belt has {variants.length} priced builds ({variants.map((v) => v.name).join(', ')}
-            ), which override the price above. Edit those in <code>data/products.json</code> for
-            now — variant editing lands next.
-          </p>
-        )}
+        <p className="mt-4 text-2xs leading-relaxed text-muted">
+          {variants.length > 0
+            ? 'Used only where no build is selected — the build prices below are what customers are charged.'
+            : 'This belt sells at one price. Add builds below to price each plate thickness separately.'}
+        </p>
+      </section>
+
+      {/* Builds */}
+      <section className="rounded-[--radius-plate] border border-line p-5">
+        <h2 className="font-body text-sm font-semibold uppercase tracking-wide text-ink">
+          Builds &amp; prices
+        </h2>
+        <p className="mb-4 mt-1.5 text-2xs leading-relaxed text-muted">
+          What the customer picks under “{variantLabel || 'Build'}” on the product page.
+        </p>
+
+        <div className="mb-5 max-w-xs">
+          <label htmlFor="p-variant-label" className={label}>
+            What are they choosing?
+          </label>
+          <input
+            id="p-variant-label"
+            value={variantLabel}
+            onChange={(e) => setVariantLabel(e.target.value)}
+            placeholder={DEFAULT_VARIANT_LABEL}
+            className={field}
+          />
+        </div>
+
+        <VariantEditor variants={variants} onChange={setVariants} />
       </section>
 
       {/* Images */}
