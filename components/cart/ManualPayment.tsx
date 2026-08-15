@@ -37,6 +37,7 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
   const [email, setEmail] = useState('');
   const [note, setNote] = useState('');
   const [proof, setProof] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState<{ reference: string } | null>(null);
@@ -215,17 +216,71 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
           </div>
         </div>
 
+        {/*
+          A bare file input is easy to miss entirely, and this is the step that
+          makes verification quick. Drop zone, thumbnail and filename so it
+          reads as a real part of the flow rather than an afterthought.
+        */}
         <div>
-          <label htmlFor={`mp-proof-${method}`} className={label}>
-            Screenshot of your payment
-          </label>
+          <span className={label}>Screenshot of your payment</span>
+
           <input
             id={`mp-proof-${method}`}
             type="file"
             accept="image/jpeg,image/png,image/webp,application/pdf"
-            onChange={(e) => setProof(e.target.files?.[0] ?? null)}
-            className="w-full font-body text-sm text-muted file:mr-3 file:rounded-[--radius-plate] file:border file:border-subtle/40 file:bg-transparent file:px-4 file:py-2 file:font-body file:text-2xs file:uppercase file:tracking-[0.14em] file:text-ink"
+            className="sr-only"
+            onChange={(e) => {
+              const file = e.target.files?.[0] ?? null;
+              setProof(file);
+              // Object URLs keep large files out of React state.
+              setPreview(file && file.type.startsWith('image/') ? URL.createObjectURL(file) : null);
+            }}
           />
+
+          {proof ? (
+            <div className="flex items-center gap-3 rounded-[--radius-plate] border border-line p-3">
+              {preview ? (
+                // eslint-disable-next-line @next/next/no-img-element -- local blob: URL, not a remote asset
+                <img
+                  src={preview}
+                  alt=""
+                  className="h-14 w-14 shrink-0 rounded-[--radius-plate] object-cover"
+                />
+              ) : (
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-[--radius-plate] border border-line font-body text-2xs uppercase text-subtle">
+                  PDF
+                </span>
+              )}
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-body text-sm text-ink">{proof.name}</span>
+                <span className="block text-2xs text-muted">
+                  {(proof.size / 1024 / 1024).toFixed(1)} MB
+                </span>
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setProof(null);
+                  setPreview(null);
+                }}
+                className="shrink-0 font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link hover:text-link-hover"
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label
+              htmlFor={`mp-proof-${method}`}
+              className="flex cursor-pointer flex-col items-center rounded-[--radius-plate] border-2 border-dashed border-subtle/30 px-4 py-6 text-center transition-colors hover:border-primary"
+            >
+              <span className="font-body text-sm font-semibold text-ink">
+                Attach your payment screenshot
+              </span>
+              <span className="mt-1 text-2xs text-muted">
+                JPG, PNG or PDF · optional, but it speeds up confirmation
+              </span>
+            </label>
+          )}
         </div>
 
         <div>
