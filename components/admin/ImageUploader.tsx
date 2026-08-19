@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { prepareImageForUpload } from '@/lib/prepareImage';
 
 export interface EditableImage {
   src: string;
@@ -32,7 +33,15 @@ export default function ImageUploader({ slug, images, onChange }: Props) {
 
     const added: EditableImage[] = [];
 
-    for (const file of Array.from(files)) {
+    for (const original of Array.from(files)) {
+      /*
+       * Shrink to web size here rather than uploading a 6MB phone photo and
+       * asking Vercel to resize it on every request. That resizing is metered,
+       * and running out of it returns 402 for every image on the site — which
+       * is exactly what happened.
+       */
+      const file = await prepareImageForUpload(original);
+
       const form = new FormData();
       form.append('file', file);
       form.append('slug', slug || 'belt');
@@ -42,7 +51,7 @@ export default function ImageUploader({ slug, images, onChange }: Props) {
         const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
 
         if (!res.ok || !data.url) {
-          setError(data.error ?? `Could not upload ${file.name}.`);
+          setError(data.error ?? `Could not upload ${original.name}.`);
           continue;
         }
         // Alt text starts empty on purpose: the save endpoint rejects blanks,
