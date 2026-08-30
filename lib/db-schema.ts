@@ -1,5 +1,4 @@
 import 'server-only';
-import { ensureReviewsTable } from './reviewsSchema';
 
 /**
  * Structural type for the pieces of Neon's tag we actually use.
@@ -13,14 +12,63 @@ import { ensureReviewsTable } from './reviewsSchema';
 type SqlTag = (strings: TemplateStringsArray, ...values: unknown[]) => Promise<unknown>;
 
 /*
- * The reviews table lives in lib/reviewsSchema.ts and is re-exported here.
+ * The reviews table was once defined in both this file and lib/reviewsSchema.ts.
+ * Two copies of one CREATE TABLE is a bug waiting to happen — add a column to
+ * one and not the other and the schema depends on which code path created the
+ * table first. It now lives here only.
  *
- * It was previously defined in BOTH files. Two copies of one CREATE TABLE is a
- * bug waiting to happen — adding a column to one and not the other gives you a
- * schema that depends on which code path created the table first. One
- * definition, re-exported, so every caller gets the same thing.
+ * Re-exporting it from a second module was the obvious fix and the wrong one:
+ * scripts/migrate.ts is run by bare Node, whose type-stripping needs explicit
+ * .ts extensions on relative imports, so the extensionless re-export broke
+ * `npm run migrate` outright. One file, no indirection, nothing to resolve.
  */
-export { ensureReviewsTable } from './reviewsSchema';
+export async function ensureReviewsTable(sql: SqlTag): Promise<void> {
+  await sql`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id            BIGSERIAL PRIMARY KEY,
+      product_slug  TEXT        NOT NULL,
+      author_name   TEXT        NOT NULL,
+      rating        SMALLINT    NOT NULL CHECK (rating BETWEEN 1 AND 5),
+      title         TEXT,
+      body          TEXT        NOT NULL,
+      -- Held for moderation. A public form with no login will be spammed;
+      -- nothing reaches the site until it is approved.
+      status        TEXT        NOT NULL DEFAULT 'pending'
+                    CHECK (status IN ('pending', 'approved', 'rejected')),
+      verified      BOOLEAN     NOT NULL DEFAULT FALSE,
+      -- Customer photo URLs (Vercel Blob). URLs only — never image bytes, which
+      -- would bloat every row this table is read from.
+      photos        JSONB       NOT NULL DEFAULT '[]'::jsonb,
+      -- Hashed, never the raw address. Used only for rate limiting.
+      submitter_key TEXT,
+      created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+
+  // Added after the table shipped, so existing databases need it too.
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS photos JSONB NOT NULL DEFAULT '[]'::jsonb`;
+
+  // Product pages only ever read approved reviews for one slug.
+  await sql`
+    CREATE INDEX IF NOT EXISTS reviews_slug_status_idx
+    ON reviews (product_slug, status, created_at DESC)
+  `;
+
+  // Supports the duplicate and flood checks on submit.
+  await sql`
+    CREATE INDEX IF NOT EXISTS reviews_submitter_idx
+    ON reviews (submitter_key, created_at DESC)
+  `;
+}
+
+/** True when the reviews table exists. Used by the diagnostic endpoint. */
+export async function reviewsTableExists(sql: SqlTag): Promise<boolean> {
+  const rows = (await sql`
+    SELECT to_regclass('public.reviews') IS NOT NULL AS present
+  `) as unknown as { present: boolean }[];
+  return rows[0]?.present === true;
+}
 
 /**
  * Schema creation, shared by the migration script and the on-demand healing in

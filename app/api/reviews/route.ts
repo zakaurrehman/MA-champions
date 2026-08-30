@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createHash } from 'node:crypto';
 import { db, hasDatabase } from '@/lib/db';
-import { ensureReviewsTable, reviewsTableExists } from '@/lib/reviewsSchema';
+import { ensureReviewsTable, reviewsTableExists } from '@/lib/db-schema';
 import { getShopProducts } from '@/lib/products';
 
 export const runtime = 'nodejs';

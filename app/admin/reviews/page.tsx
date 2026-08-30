@@ -3,7 +3,7 @@ import ReviewRow, { type AdminReview } from '@/components/admin/ReviewRow';
 import AdminShell from '@/components/admin/AdminShell';
 import { isAdmin } from '@/lib/adminAuth';
 import { db } from '@/lib/db';
-import { reviewsTableExists } from '@/lib/reviewsSchema';
+import { reviewsTableExists } from '@/lib/db-schema';
 
 export const dynamic = 'force-dynamic';
 
