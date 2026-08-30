@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { whatsAppHref } from '@/lib/site';
 import { StarIcon } from '@/components/ui/Icons';
+import ReviewPhotoPicker, { type PendingPhoto } from './ReviewPhotoPicker';
 
 interface Props {
   productName: string;
@@ -31,12 +32,17 @@ export default function ReviewForm({ productName, productSlug }: Props) {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [photos, setPhotos] = useState<PendingPhoto[]>([]);
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
   /** Set when we fall back to WhatsApp, so a blocked popup still has a link. */
   const [fallbackHref, setFallbackHref] = useState<string | null>(null);
 
-  const valid = rating > 0 && name.trim().length > 1 && body.trim().length > 9;
+  const uploading = photos.some((p) => p.state === 'uploading');
+  const uploadedUrls = photos.filter((p) => p.state === 'done' && p.url).map((p) => p.url!);
+
+  const valid =
+    rating > 0 && name.trim().length > 1 && body.trim().length > 9 && !uploading;
 
   const asText = [
     `PRODUCT REVIEW — ${productName}`,
@@ -60,7 +66,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
       const res = await fetch('/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productSlug, name, title, body, rating }),
+        body: JSON.stringify({ productSlug, name, title, body, rating, photos: uploadedUrls }),
       });
 
       const data = (await res.json().catch(() => ({}))) as {
@@ -227,6 +233,14 @@ export default function ReviewForm({ productName, productSlug }: Props) {
         </div>
       </div>
 
+      <div className="mt-6">
+        <ReviewPhotoPicker
+          photos={photos}
+          onChange={setPhotos}
+          disabled={status === 'sending'}
+        />
+      </div>
+
       {status === 'error' && message && (
         <p role="alert" className="mt-3 text-sm text-link">
           {message}
@@ -239,7 +253,7 @@ export default function ReviewForm({ productName, productSlug }: Props) {
           disabled={!valid || status === 'sending'}
           className="rounded-[--radius-plate] bg-primary px-6 py-3.5 font-display text-sm uppercase tracking-wide text-on-primary transition-colors hover:bg-primary-hover disabled:opacity-40"
         >
-          {status === 'sending' ? 'Sending…' : 'Submit review'}
+          {status === 'sending' ? 'Sending…' : uploading ? 'Waiting for photos…' : 'Submit review'}
         </button>
         <button
           type="button"

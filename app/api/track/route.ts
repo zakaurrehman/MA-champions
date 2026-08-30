@@ -1,39 +1,17 @@
 import { NextResponse } from 'next/server';
 import { createHash } from 'node:crypto';
 import { db } from '@/lib/db';
+import { contactMatches } from '@/lib/contact';
+import { verifyOrderAccessToken } from '@/lib/orderAccess';
+import { detailView, summaryView, type OrderRowForView } from '@/lib/orderView';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const RATE_WINDOW_MINUTES = 15;
 const RATE_MAX_LOOKUPS = 20;
-
-/** Human-readable stage for each stored status. */
-const STAGES: Record<string, { label: string; detail: string; step: number }> = {
-  new: {
-    label: 'Received',
-    detail: 'We have your request and are preparing your quote.',
-    step: 1,
-  },
-  quoted: {
-    label: 'Quoted',
-    detail: 'Your quote has been sent. Production starts once it is confirmed.',
-    step: 2,
-  },
-  paid: { label: 'Confirmed', detail: 'Payment received. Your belt is queued to build.', step: 3 },
-  production: {
-    label: 'In production',
-    detail: 'Your belt is on the bench being made.',
-    step: 4,
-  },
-  shipped: { label: 'Shipped', detail: 'On its way to you.', step: 5 },
-  completed: { label: 'Delivered', detail: 'Order complete. Enjoy the belt.', step: 6 },
-  cancelled: { label: 'Cancelled', detail: 'This order was cancelled.', step: 0 },
-};
-
-/* Not exported: a route module may only export the reserved handlers and
-   config keys, and Next fails the build on anything else. */
-const TOTAL_STEPS = 6;
+/** A wrong contact detail is a much stronger signal than a wrong reference. */
+const RATE_MAX_FAILED_CONTACT = 8;
 
 function lookupKey(request: Request): string {
   const ip =
@@ -44,15 +22,26 @@ function lookupKey(request: Request): string {
 }
 
 /**
- * Order status lookup by reference.
+ * Guest order lookup.
  *
- * Deliberately returns the minimum: stage, dates, belt names and a tracking
- * number. No customer name, no email, no address, no prices. A reference is a
- * weak secret — it gets read aloud over WhatsApp — so nothing here should be
- * damaging if someone guesses one.
+ * Two levels, and which one you get depends on what you can prove:
  *
- * Guessing is also made impractical: references are random over a 32-character
- * alphabet, and lookups are rate limited per IP so the space cannot be swept.
+ *  - Reference alone → the status summary. Safe if guessed: a stage name, belt
+ *    names, a courier tracking number. This is the behaviour the page has
+ *    always had and existing customers rely on it.
+ *  - Reference + the email or phone on the order, OR a signed access token
+ *    from the checkout redirect → the full order: prices, total, payment
+ *    status, masked contact details.
+ *
+ * Anti-enumeration rules that hold throughout:
+ *
+ *  - A reference that does not exist and a reference with the wrong contact
+ *    detail return the SAME message and the same status code. Any difference
+ *    between them turns this endpoint into an oracle for "is MA-XXXXX real?".
+ *  - Every attempt is counted per IP, and failed contact attempts are counted
+ *    against a tighter limit, so the space cannot be swept.
+ *  - References are random over a 32-character alphabet — roughly 33 million
+ *    combinations — which only matters because of the limits above.
  */
 export async function POST(request: Request) {
   const sql = db();
@@ -63,7 +52,7 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: { reference?: unknown };
+  let body: { reference?: unknown; contact?: unknown; token?: unknown };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -74,6 +63,8 @@ export async function POST(request: Request) {
     .trim()
     .toUpperCase()
     .replace(/\s+/g, '');
+  const contact = String(body.contact ?? '').trim();
+  const token = typeof body.token === 'string' ? body.token : null;
 
   if (!/^MA-[A-Z0-9]{5}$/.test(reference)) {
     return NextResponse.json(
@@ -82,77 +73,94 @@ export async function POST(request: Request) {
     );
   }
 
+  /** Identical for "no such order" and "wrong contact". Never differentiate. */
+  const notFound = () =>
+    NextResponse.json(
+      {
+        error:
+          'We could not find an order matching those details. Check the reference and the email or phone you used.',
+      },
+      { status: 404 }
+    );
+
   try {
     const key = lookupKey(request);
 
+    await sql`
+      CREATE TABLE IF NOT EXISTS order_lookups (
+        id         BIGSERIAL PRIMARY KEY,
+        lookup_key TEXT NOT NULL,
+        failed     BOOLEAN NOT NULL DEFAULT FALSE,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `;
+    await sql`ALTER TABLE order_lookups ADD COLUMN IF NOT EXISTS failed BOOLEAN NOT NULL DEFAULT FALSE`;
+
     const recent = (await sql`
-      SELECT COUNT(*)::int AS n
+      SELECT COUNT(*)::int AS n,
+             COUNT(*) FILTER (WHERE failed)::int AS failures
       FROM order_lookups
       WHERE lookup_key = ${key}
         AND created_at > NOW() - make_interval(mins => ${RATE_WINDOW_MINUTES})
-    `.catch(() => [{ n: 0 }])) as unknown as { n: number }[];
+    `.catch(() => [{ n: 0, failures: 0 }])) as unknown as { n: number; failures: number }[];
 
-    if ((recent[0]?.n ?? 0) >= RATE_MAX_LOOKUPS) {
+    const seen = recent[0] ?? { n: 0, failures: 0 };
+
+    if (seen.n >= RATE_MAX_LOOKUPS || seen.failures >= RATE_MAX_FAILED_CONTACT) {
       return NextResponse.json(
         { error: 'Too many lookups. Please wait a few minutes and try again.' },
         { status: 429 }
       );
     }
 
-    await sql`
-      CREATE TABLE IF NOT EXISTS order_lookups (
-        id         BIGSERIAL PRIMARY KEY,
-        lookup_key TEXT NOT NULL,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `;
-    await sql`INSERT INTO order_lookups (lookup_key) VALUES (${key})`;
-
     const rows = (await sql`
-      SELECT reference, status, items, tracking_carrier, tracking_number,
+      SELECT reference, status, kind, channel, items, subtotal, currency,
+             customer_name, customer_email, customer_phone, customer_note,
+             tracking_carrier, tracking_number,
+             payment_method, payment_verified,
              created_at, updated_at
       FROM orders
       WHERE reference = ${reference}
       LIMIT 1
-    `) as unknown as {
-      reference: string;
-      status: string;
-      items: { name: string; quantity: number; variantName: string | null }[];
-      tracking_carrier: string | null;
-      tracking_number: string | null;
-      created_at: string;
-      updated_at: string;
-    }[];
+    `) as unknown as OrderRowForView[];
 
     const order = rows[0];
-    if (!order) {
-      return NextResponse.json(
-        { error: 'We could not find that reference. Check it and try again.' },
-        { status: 404 }
-      );
+
+    const fail = async () => {
+      await sql`INSERT INTO order_lookups (lookup_key, failed) VALUES (${key}, TRUE)`.catch(() => {});
+      return notFound();
+    };
+
+    // No such reference. Counted as a failure — sweeping the space is exactly
+    // what this limit exists to stop.
+    if (!order) return fail();
+
+    await sql`INSERT INTO order_lookups (lookup_key) VALUES (${key})`.catch(() => {});
+
+    /*
+     * Detail is unlocked by the signed token from the checkout redirect, or by
+     * the contact detail recorded on the order. The token is checked first
+     * because it is the stronger proof and costs no database work.
+     */
+    if (token && verifyOrderAccessToken(reference, token)) {
+      return NextResponse.json({ ok: true, ...detailView(order) });
     }
 
-    const stage = STAGES[order.status] ?? STAGES.new!;
+    if (contact) {
+      const matches = contactMatches(contact, {
+        email: order.customer_email,
+        phone: order.customer_phone,
+      });
 
-    return NextResponse.json({
-      ok: true,
-      reference: order.reference,
-      stage: stage.label,
-      detail: stage.detail,
-      step: stage.step,
-      totalSteps: TOTAL_STEPS,
-      placedAt: order.created_at,
-      updatedAt: order.updated_at,
-      items: (order.items ?? []).map((i) => ({
-        name: i.name,
-        quantity: i.quantity,
-        variantName: i.variantName,
-      })),
-      tracking:
-        order.tracking_number != null
-          ? { carrier: order.tracking_carrier, number: order.tracking_number }
-          : null,
-    });
+      // Wrong contact is answered exactly like a missing order, so the two
+      // cannot be told apart from outside.
+      if (!matches) return fail();
+
+      return NextResponse.json({ ok: true, ...detailView(order) });
+    }
+
+    // Reference only — the summary, as before.
+    return NextResponse.json({ ok: true, ...summaryView(order) });
   } catch (error) {
     console.error('[api/track] failed:', error);
     return NextResponse.json({ error: 'Lookup failed. Please try again.' }, { status: 500 });

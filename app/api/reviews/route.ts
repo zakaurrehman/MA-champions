@@ -30,11 +30,52 @@ function clean(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
 }
 
-/** Postgres "relation does not exist". */
-const UNDEFINED_TABLE = '42P01';
+const MAX_PHOTOS = 5;
 
-const isUndefinedTable = (error: unknown): boolean =>
-  (error as { code?: string })?.code === UNDEFINED_TABLE;
+/**
+ * Keeps only URLs that our own upload endpoint could have produced.
+ *
+ * The browser sends URLs rather than files, so without this the field is an
+ * open redirect / hotlink slot: anyone could post a review whose "photo" points
+ * at any URL on the internet, and it would render inside our product page once
+ * approved. Restricting to the Blob host means every displayed photo is one we
+ * actually validated and stored.
+ */
+function cleanPhotos(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+
+  const out: string[] = [];
+  for (const entry of value.slice(0, MAX_PHOTOS)) {
+    if (typeof entry !== 'string') continue;
+    try {
+      const url = new URL(entry);
+      if (url.protocol !== 'https:') continue;
+      if (!url.hostname.endsWith('.public.blob.vercel-storage.com')) continue;
+      if (!url.pathname.startsWith('/review-photos/')) continue;
+      if (!out.includes(url.toString())) out.push(url.toString());
+    } catch {
+      /* not a URL — drop it */
+    }
+  }
+  return out;
+}
+
+/** Postgres: relation does not exist / column does not exist. */
+const UNDEFINED_TABLE = '42P01';
+const UNDEFINED_COLUMN = '42703';
+
+/**
+ * Both are healed the same way, by running the idempotent schema and retrying.
+ *
+ * The column case matters as much as the table case: a database created before
+ * review photos existed HAS a reviews table but no photos column, so the first
+ * submission after deploying would fail with 42703 forever. ensureReviewsTable
+ * carries the ALTER, so one retry fixes it without anyone running a migration.
+ */
+const isHealableSchemaError = (error: unknown): boolean => {
+  const code = (error as { code?: string })?.code;
+  return code === UNDEFINED_TABLE || code === UNDEFINED_COLUMN;
+};
 
 export async function POST(request: Request) {
   const sql = db();
@@ -64,6 +105,7 @@ export async function POST(request: Request) {
   const title = clean(input.title, MAX.title);
   const body = clean(input.body, MAX.body);
   const rating = Number(input.rating);
+  const photos = cleanPhotos(input.photos);
 
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
     return NextResponse.json({ error: 'Please choose a rating from 1 to 5.' }, { status: 400 });
@@ -126,8 +168,8 @@ export async function POST(request: Request) {
     }
 
     await sql`
-      INSERT INTO reviews (product_slug, author_name, rating, title, body, submitter_key)
-      VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key})
+      INSERT INTO reviews (product_slug, author_name, rating, title, body, submitter_key, photos)
+      VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key}, ${JSON.stringify(photos)})
     `;
 
 
@@ -138,18 +180,18 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     /*
-     * The table does not exist yet. Rather than making someone SSH in and run
-     * a migration before a single review can be left, create it and retry
+     * The table or a column is missing. Rather than making someone run a
+     * migration before a single review can be left, apply the schema and retry
      * once. The DDL is idempotent, so a race between two submissions is safe.
      */
-    if (isUndefinedTable(error)) {
+    if (isHealableSchemaError(error)) {
       try {
-        console.warn('[api/reviews] reviews table missing — creating it now');
+        console.warn('[api/reviews] reviews schema out of date — repairing it now');
         await ensureReviewsTable(sql);
 
         await sql`
-          INSERT INTO reviews (product_slug, author_name, rating, title, body, submitter_key)
-          VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key})
+          INSERT INTO reviews (product_slug, author_name, rating, title, body, submitter_key, photos)
+          VALUES (${productSlug}, ${authorName}, ${rating}, ${title || null}, ${body}, ${key}, ${JSON.stringify(photos)})
         `;
 
         return NextResponse.json(
@@ -233,7 +275,7 @@ export async function GET(request: Request) {
 
   try {
     const rows = await sql`
-      SELECT id, author_name, rating, title, body, verified, created_at
+      SELECT id, author_name, rating, title, body, verified, photos, created_at
       FROM reviews
       WHERE product_slug = ${slug} AND status = 'approved'
       ORDER BY created_at DESC

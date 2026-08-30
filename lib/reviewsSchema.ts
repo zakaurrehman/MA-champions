@@ -25,12 +25,18 @@ export async function ensureReviewsTable(sql: SqlTag): Promise<void> {
       status        TEXT        NOT NULL DEFAULT 'pending'
                     CHECK (status IN ('pending', 'approved', 'rejected')),
       verified      BOOLEAN     NOT NULL DEFAULT FALSE,
+      -- Customer photo URLs (Vercel Blob). URLs only — never image bytes, which
+      -- would bloat every row this table is read from.
+      photos        JSONB       NOT NULL DEFAULT '[]'::jsonb,
       -- Hashed, never the raw address. Used only for rate limiting.
       submitter_key TEXT,
       created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+
+  // Added after the table shipped, so existing databases need it too.
+  await sql`ALTER TABLE reviews ADD COLUMN IF NOT EXISTS photos JSONB NOT NULL DEFAULT '[]'::jsonb`;
 
   // Product pages only ever read approved reviews for one slug.
   await sql`

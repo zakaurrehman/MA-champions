@@ -11,7 +11,11 @@ const ACTIONS = {
   unpublish: 'pending',
 } as const;
 
-type Action = keyof typeof ACTIONS;
+type StatusAction = keyof typeof ACTIONS;
+type Action = StatusAction | 'delete' | 'removePhoto';
+
+/** Narrows to the status transitions, so ACTIONS is only ever indexed by one. */
+const isStatusAction = (value: Action): value is StatusAction => value in ACTIONS;
 
 /** Moderate one review. Requires a valid admin cookie. */
 export async function POST(request: Request) {
@@ -26,7 +30,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No database configured.' }, { status: 503 });
   }
 
-  let body: { id?: unknown; action?: unknown; verified?: unknown };
+  let body: { id?: unknown; action?: unknown; verified?: unknown; photo?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -39,8 +43,52 @@ export async function POST(request: Request) {
   if (!Number.isInteger(id) || id < 1) {
     return NextResponse.json({ error: 'Invalid review id.' }, { status: 400 });
   }
+  /*
+   * Deleting and removing a single photo are not status changes, so they are
+   * handled before the status whitelist below rather than folded into it.
+   */
+  if (action === 'delete') {
+    try {
+      await sql`DELETE FROM reviews WHERE id = ${id}`;
+      return NextResponse.json({ ok: true, id, deleted: true });
+    } catch (error) {
+      console.error('[api/admin/reviews] delete failed:', error);
+      return NextResponse.json({ error: 'Delete failed.' }, { status: 500 });
+    }
+  }
+
+  if (action === 'removePhoto') {
+    const photo = typeof body.photo === 'string' ? body.photo : '';
+    if (!photo) {
+      return NextResponse.json({ error: 'No photo specified.' }, { status: 400 });
+    }
+    try {
+      /*
+       * Filters the URL out of the JSONB array in one statement. The blob
+       * itself is left in storage deliberately: deleting it would break any
+       * copy already cached elsewhere, and an unreferenced blob is invisible
+       * to customers because the site only ever renders this array.
+       */
+      await sql`
+        UPDATE reviews
+        SET photos = COALESCE(
+              (SELECT jsonb_agg(value)
+                 FROM jsonb_array_elements(photos) AS value
+                WHERE value <> to_jsonb(${photo}::text)),
+              '[]'::jsonb
+            ),
+            updated_at = NOW()
+        WHERE id = ${id}
+      `;
+      return NextResponse.json({ ok: true, id, removed: photo });
+    } catch (error) {
+      console.error('[api/admin/reviews] photo removal failed:', error);
+      return NextResponse.json({ error: 'Could not remove the photo.' }, { status: 500 });
+    }
+  }
+
   // Whitelist, so `action` can never reach the query as arbitrary text.
-  if (!(action in ACTIONS)) {
+  if (!isStatusAction(action)) {
     return NextResponse.json({ error: 'Unknown action.' }, { status: 400 });
   }
 

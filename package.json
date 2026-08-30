@@ -11,7 +11,9 @@
     "blur": "node scripts/generate-blur.mjs",
     "test:pricing": "node --experimental-strip-types --no-warnings scripts/test-pricing.ts",
     "postbuild": "next-sitemap",
-    "migrate": "node --env-file=.env.local --experimental-strip-types --no-warnings scripts/migrate.ts"
+    "migrate": "node --env-file=.env.local --experimental-strip-types --no-warnings scripts/migrate.ts",
+    "test:orders": "node --conditions=react-server --experimental-strip-types --no-warnings scripts/test-orders.ts",
+    "test": "npm run test:pricing && npm run test:orders"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useCart } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
@@ -27,22 +28,17 @@ export default function PayPalCheckout({ clientId, currency = 'USD' }: Props) {
 
   const [error, setError] = useState('');
   const [done, setDone] = useState<{ reference: string; amount: number } | null>(null);
+  const router = useRouter();
 
-  if (!clientId || items.length === 0) return null;
-
-  const lines = items.map((i) => ({
-    slug: i.slug,
-    variantId: typeof i.selection.variant === 'string' ? i.selection.variant : null,
-    quantity: i.quantity,
-  }));
-
+  // Before the empty-cart guard: a successful capture clears the cart, and
+  // this panel is what covers the moment before the redirect lands.
   if (done) {
     return (
       <div role="status" className="rounded-[--radius-plate] border border-line p-5 text-center">
         <p className="font-display text-2xl text-ink">Payment received</p>
         <p className="mt-2 text-sm leading-relaxed text-muted">
-          Your reference is <strong className="text-ink">{done.reference}</strong>. Keep it — you
-          can check progress any time on our track order page.
+          Your reference is <strong className="text-ink">{done.reference}</strong>. Taking you to
+          your order&hellip;
         </p>
         <p className="mt-1 text-2xs text-subtle">
           {formatPrice(done.amount, currency)} paid. We will be in touch to confirm your build.
@@ -50,6 +46,15 @@ export default function PayPalCheckout({ clientId, currency = 'USD' }: Props) {
       </div>
     );
   }
+
+  if (!clientId) return null;
+  if (items.length === 0) return null;
+
+  const lines = items.map((i) => ({
+    slug: i.slug,
+    variantId: typeof i.selection.variant === 'string' ? i.selection.variant : null,
+    quantity: i.quantity,
+  }));
 
   return (
     <div>
@@ -92,6 +97,7 @@ export default function PayPalCheckout({ clientId, currency = 'USD' }: Props) {
             });
             const result = (await res.json().catch(() => ({}))) as {
               reference?: string;
+              accessToken?: string;
               amount?: number;
               error?: string;
             };
@@ -101,6 +107,9 @@ export default function PayPalCheckout({ clientId, currency = 'USD' }: Props) {
             }
             setDone({ reference: result.reference, amount: result.amount ?? 0 });
             clear();
+            const query = new URLSearchParams({ ref: result.reference });
+            if (result.accessToken) query.set('t', result.accessToken);
+            router.push(`/order-confirmation?${query}`);
           }}
           onError={() => setError('Something went wrong with PayPal. Please try again.')}
         />

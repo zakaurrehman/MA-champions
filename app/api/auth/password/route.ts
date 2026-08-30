@@ -49,7 +49,13 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: { mode?: unknown; email?: unknown; password?: unknown; name?: unknown };
+  let body: {
+    mode?: unknown;
+    email?: unknown;
+    password?: unknown;
+    name?: unknown;
+    phone?: unknown;
+  };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -60,6 +66,7 @@ export async function POST(request: Request) {
   const email = String(body.email ?? '').trim().toLowerCase();
   const password = String(body.password ?? '');
   const name = String(body.name ?? '').trim().slice(0, 120);
+  const phone = String(body.phone ?? '').trim().slice(0, 60);
 
   if (!email.includes('@') || email.length > 200) {
     return NextResponse.json({ error: 'Enter a valid email address.' }, { status: 400 });
@@ -105,9 +112,16 @@ export async function POST(request: Request) {
       }
 
       const hash = await hashPassword(password);
+      /*
+       * The phone is stored so that guest orders placed with it are picked up
+       * by the account's order history. Nothing here "claims" those orders —
+       * /account matches on email or phone at read time, so an order placed
+       * before this account existed appears without any migration step, and
+       * cannot be duplicated because it is never copied anywhere.
+       */
       await sql`
-        INSERT INTO customers (email, name, password_hash)
-        VALUES (${email}, ${name || null}, ${hash})
+        INSERT INTO customers (email, name, phone, password_hash)
+        VALUES (${email}, ${name || null}, ${phone || null}, ${hash})
       `;
 
       const token = createSessionToken({

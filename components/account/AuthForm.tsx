@@ -10,6 +10,7 @@ export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) 
   const [mode, setMode] = useState<Mode>('login');
   const [forgot, setForgot] = useState(false);
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
@@ -28,7 +29,7 @@ export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) 
       const res = await fetch('/api/auth/password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mode, email, password, name }),
+        body: JSON.stringify({ mode, email, password, name, phone }),
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
 
@@ -81,18 +82,38 @@ export default function AuthForm({ googleEnabled }: { googleEnabled: boolean }) 
 
       <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
         {mode === 'register' && (
-          <div>
-            <label htmlFor="auth-name" className={label}>
-              Your name
-            </label>
-            <input
-              id="auth-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-              className={field}
-            />
-          </div>
+          <>
+            <div>
+              <label htmlFor="auth-name" className={label}>
+                Your name
+              </label>
+              <input
+                id="auth-name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
+                className={field}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="auth-phone" className={label}>
+                Phone (optional)
+              </label>
+              <input
+                id="auth-phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                autoComplete="tel"
+                className={field}
+              />
+              <p className="mt-1.5 text-2xs leading-relaxed text-muted">
+                If you have ordered before as a guest, add the phone you used and those orders
+                will show up here.
+              </p>
+            </div>
+          </>
         )}
 
         <div>

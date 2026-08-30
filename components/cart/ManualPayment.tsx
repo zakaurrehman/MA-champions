@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useCart, selectSubtotal } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
 
@@ -34,6 +35,7 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
   const [copied, setCopied] = useState(false);
   const [txReference, setTx] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [note, setNote] = useState('');
   const [proof, setProof] = useState<File | null>(null);
@@ -41,9 +43,24 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [done, setDone] = useState<{ reference: string } | null>(null);
+  const router = useRouter();
 
   const isPayPal = method === 'paypal';
   const destination = isPayPal ? paypalEmail : wallet?.address;
+
+  // Checked BEFORE the empty-cart guard below: submitting clears the cart,
+  // so gating this on a non-empty cart would hide it the moment it applies.
+  if (done) {
+    return (
+      <div role="status" className="rounded-[--radius-plate] border border-line p-5 text-center">
+        <p className="font-display text-2xl text-ink">Payment submitted</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          Your reference is <strong className="text-ink">{done.reference}</strong>. Taking you to
+          your order&hellip;
+        </p>
+      </div>
+    );
+  }
 
   if (items.length === 0 || !destination) return null;
 
@@ -66,6 +83,7 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
     form.append('txReference', txReference);
     form.append('network', wallet?.network ?? '');
     form.append('name', name);
+    form.append('phone', phone);
     form.append('email', email);
     form.append('note', note);
     form.append(
@@ -84,12 +102,16 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
       const res = await fetch('/api/payments/manual', { method: 'POST', body: form });
       const data = (await res.json().catch(() => ({}))) as {
         reference?: string;
+        accessToken?: string;
         error?: string;
       };
 
       if (res.ok && data.reference) {
         setDone({ reference: data.reference });
         clear();
+        const query = new URLSearchParams({ ref: data.reference });
+        if (data.accessToken) query.set('t', data.accessToken);
+        router.push(`/order-confirmation?${query}`);
         return;
       }
       setError(data.error ?? 'Could not record your payment.');
@@ -104,18 +126,6 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
     'w-full rounded-[--radius-plate] border border-subtle/25 bg-canvas px-4 py-2.5 font-body text-sm text-ink placeholder:text-subtle/60 focus:border-primary focus:outline-none';
   const label =
     'mb-1.5 block font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle';
-
-  if (done) {
-    return (
-      <div role="status" className="rounded-[--radius-plate] border border-line p-5 text-center">
-        <p className="font-display text-2xl text-ink">Payment submitted</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          Your reference is <strong className="text-ink">{done.reference}</strong>. We will check
-          the payment and email you once it clears. Nothing is built until we have confirmed it.
-        </p>
-      </div>
-    );
-  }
 
   if (!open) {
     return (
@@ -209,11 +219,29 @@ export default function ManualPayment({ method, wallets = [], paypalEmail }: Pro
             <input
               id={`mp-email-${method}`}
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={field}
             />
           </div>
+        </div>
+
+        <div>
+          <label htmlFor={`mp-phone-${method}`} className={label}>
+            Phone / WhatsApp
+          </label>
+          <input
+            id={`mp-phone-${method}`}
+            type="tel"
+            autoComplete="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className={field}
+          />
+          <p className="mt-1.5 text-2xs text-muted">
+            Optional. Either your email or your phone will find this order later.
+          </p>
         </div>
 
         {/*

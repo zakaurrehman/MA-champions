@@ -1,4 +1,5 @@
 import 'server-only';
+import { ensureReviewsTable } from './reviewsSchema';
 
 /**
  * Structural type for the pieces of Neon's tag we actually use.
@@ -10,6 +11,16 @@ import 'server-only';
  * keeps both the app and the migration script assignable.
  */
 type SqlTag = (strings: TemplateStringsArray, ...values: unknown[]) => Promise<unknown>;
+
+/*
+ * The reviews table lives in lib/reviewsSchema.ts and is re-exported here.
+ *
+ * It was previously defined in BOTH files. Two copies of one CREATE TABLE is a
+ * bug waiting to happen — adding a column to one and not the other gives you a
+ * schema that depends on which code path created the table first. One
+ * definition, re-exported, so every caller gets the same thing.
+ */
+export { ensureReviewsTable } from './reviewsSchema';
 
 /**
  * Schema creation, shared by the migration script and the on-demand healing in
@@ -24,33 +35,6 @@ type SqlTag = (strings: TemplateStringsArray, ...values: unknown[]) => Promise<u
  * per-variant stock queries, variants earn their own table; today they would
  * only add work.
  */
-
-export async function ensureReviewsTable(sql: SqlTag) {
-  await sql`
-    CREATE TABLE IF NOT EXISTS reviews (
-      id            BIGSERIAL PRIMARY KEY,
-      product_slug  TEXT        NOT NULL,
-      author_name   TEXT        NOT NULL,
-      rating        SMALLINT    NOT NULL CHECK (rating BETWEEN 1 AND 5),
-      title         TEXT,
-      body          TEXT        NOT NULL,
-      status        TEXT        NOT NULL DEFAULT 'pending'
-                    CHECK (status IN ('pending', 'approved', 'rejected')),
-      verified      BOOLEAN     NOT NULL DEFAULT FALSE,
-      submitter_key TEXT,
-      created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-      updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE INDEX IF NOT EXISTS reviews_slug_status_idx
-    ON reviews (product_slug, status, created_at DESC)
-  `;
-  await sql`
-    CREATE INDEX IF NOT EXISTS reviews_submitter_idx
-    ON reviews (submitter_key, created_at DESC)
-  `;
-}
 
 export async function ensureProductsTable(sql: SqlTag) {
   await sql`
@@ -232,6 +216,19 @@ export async function ensureCustomersTable(sql: SqlTag) {
   `;
 
   await ensureAuthAttemptsTable(sql);
+
+  await sql`ALTER TABLE customers ADD COLUMN IF NOT EXISTS phone TEXT`;
+
+  /*
+   * Guest orders are matched to an account by email OR phone, so both need an
+   * index that survives the normalisation the query applies. Phone numbers are
+   * typed inconsistently — +92 302 405 7417, 0302-4057417 — so comparison is
+   * done on digits only.
+   */
+  await sql`
+    CREATE INDEX IF NOT EXISTS orders_phone_digits_idx
+    ON orders (regexp_replace(COALESCE(customer_phone, ''), '\\D', '', 'g'))
+  `;
 
   /*
    * Orders are matched to a customer by email, because most arrive through

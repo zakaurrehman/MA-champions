@@ -22,7 +22,24 @@ interface OrderRow {
   subtotal: string | number;
   currency: string;
   tracking_number: string | null;
+  payment_method: string | null;
+  payment_verified: boolean;
   created_at: string;
+}
+
+/** The phone on the account, used to match guest orders placed with it. */
+async function accountPhone(email: string): Promise<string | null> {
+  const sql = db();
+  if (!sql) return null;
+
+  try {
+    const rows = (await sql`
+      SELECT phone FROM customers WHERE LOWER(email) = LOWER(${email}) LIMIT 1
+    `) as unknown as { phone: string | null }[];
+    return rows[0]?.phone ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -44,16 +61,36 @@ async function hasPassword(email: string): Promise<boolean> {
   }
 }
 
-/** Orders are matched by email, so WhatsApp and crypto orders appear too. */
-async function loadOrders(email: string): Promise<OrderRow[]> {
+/**
+ * Every order belonging to this person, however they placed it.
+ *
+ * This is the account-linking mechanism, and it works by matching rather than
+ * by writing a foreign key at signup. That choice matters: a guest order
+ * placed BEFORE the account existed is picked up automatically, and so is one
+ * placed after, on WhatsApp, without signing in. There is no migration step to
+ * forget to run and no chance of duplicating an order into a second table.
+ *
+ * Matched on email, or on phone when the account has one. Phones are compared
+ * on their last nine digits because +92 302 405 7417 and 03024057417 are the
+ * same person, and a literal comparison would hide their own order from them.
+ */
+async function loadOrders(email: string, phone: string | null): Promise<OrderRow[]> {
   const sql = db();
   if (!sql) return [];
 
+  const phoneTail = (phone ?? '').replace(/\D/g, '').slice(-9);
+
   try {
     return (await sql`
-      SELECT reference, status, items, subtotal, currency, tracking_number, created_at
+      SELECT reference, status, items, subtotal, currency, tracking_number,
+             payment_method, payment_verified, created_at
       FROM orders
       WHERE LOWER(customer_email) = LOWER(${email})
+         OR (
+              ${phoneTail} <> ''
+              AND LENGTH(regexp_replace(COALESCE(customer_phone, ''), '\\D', '', 'g')) >= 9
+              AND RIGHT(regexp_replace(COALESCE(customer_phone, ''), '\\D', '', 'g'), 9) = ${phoneTail}
+            )
       ORDER BY created_at DESC
       LIMIT 50
     `) as unknown as OrderRow[];
@@ -119,8 +156,9 @@ export default async function AccountPage({
     );
   }
 
+  const phone = await accountPhone(user.email);
   const [orders, passwordSet] = await Promise.all([
-    loadOrders(user.email),
+    loadOrders(user.email, phone),
     hasPassword(user.email),
   ]);
 
@@ -150,7 +188,7 @@ export default async function AccountPage({
 
       {orders.length === 0 ? (
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
-          No orders against this email yet. If you ordered on WhatsApp with a different address,
+          No orders yet against this email or phone. If you ordered with a different address,
           look it up with your reference on the{' '}
           <Link href="/track-order" className="text-link hover:underline">
             track order page
@@ -168,6 +206,8 @@ export default async function AccountPage({
                 <p className="font-display text-lg text-ink">{order.reference}</p>
                 <p className="mt-1 text-2xs uppercase tracking-[0.14em] text-subtle">
                   {order.status}
+                  {order.payment_method &&
+                    ` · ${order.payment_method}${order.payment_verified ? ' received' : ' awaiting confirmation'}`}
                   {order.tracking_number && ` · ${order.tracking_number}`}
                   {' · '}
                   <time dateTime={order.created_at}>
@@ -185,9 +225,17 @@ export default async function AccountPage({
                 </p>
               </div>
 
-              <p className="font-display text-xl text-plated">
-                {formatPrice(Number(order.subtotal), order.currency)}
-              </p>
+              <div className="text-right">
+                <p className="font-display text-xl text-plated">
+                  {formatPrice(Number(order.subtotal), order.currency)}
+                </p>
+                <Link
+                  href={`/order-confirmation?ref=${order.reference}`}
+                  className="mt-1 inline-block font-body text-2xs font-semibold uppercase tracking-[0.14em] text-link hover:underline"
+                >
+                  View order
+                </Link>
+              </div>
             </li>
           ))}
         </ul>

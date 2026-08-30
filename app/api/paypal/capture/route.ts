@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { ensureOrdersTable } from '@/lib/db-schema';
 import { getAllProducts } from '@/lib/products';
 import { authoritativeLineTotal } from '@/lib/pricing';
+import { createOrderAccessToken } from '@/lib/orderAccess';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -12,7 +13,11 @@ export const dynamic = 'force-dynamic';
 interface CaptureResponse {
   id: string;
   status: string;
-  payer?: { name?: { given_name?: string; surname?: string }; email_address?: string };
+  payer?: {
+    name?: { given_name?: string; surname?: string };
+    email_address?: string;
+    phone?: { phone_number?: { national_number?: string } };
+  };
   purchase_units?: {
     payments?: {
       captures?: { id: string; status: string; amount: { value: string; currency_code: string } }[];
@@ -125,7 +130,7 @@ export async function POST(request: Request) {
       await sql`
         INSERT INTO orders (
           reference, kind, channel, status,
-          customer_name, customer_email, customer_note,
+          customer_name, customer_email, customer_phone, customer_note,
           items, subtotal, currency, admin_note
         ) VALUES (
           ${reference},
@@ -134,6 +139,7 @@ export async function POST(request: Request) {
           'paid',
           ${payerName || null},
           ${capture.payer?.email_address ?? null},
+          ${capture.payer?.phone?.phone_number?.national_number ?? null},
           ${typeof body.note === 'string' ? body.note.slice(0, 2000) : null},
           ${JSON.stringify(items)},
           ${paidAmount},
@@ -155,6 +161,9 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     reference,
+    // Lets the confirmation page show the full order immediately, without
+    // asking the customer to type the email PayPal already gave us.
+    accessToken: createOrderAccessToken(reference),
     amount: paidAmount,
     currency,
   });

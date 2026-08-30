@@ -6,6 +6,7 @@ import { ensureOrdersTable } from '@/lib/db-schema';
 import { getAllProducts } from '@/lib/products';
 import { authoritativeLineTotal } from '@/lib/pricing';
 import { getSessionUser } from '@/lib/session';
+import { createOrderAccessToken } from '@/lib/orderAccess';
 import { site } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -74,6 +75,7 @@ export async function POST(request: Request) {
   const reference = String(form.get('txReference') ?? '').trim();
   const network = String(form.get('network') ?? '').trim();
   const name = String(form.get('name') ?? '').trim();
+  const phone = String(form.get('phone') ?? '').trim().slice(0, 60);
   const email = String(form.get('email') ?? '').trim();
   const note = String(form.get('note') ?? '').trim();
 
@@ -211,13 +213,14 @@ export async function POST(request: Request) {
     await sql`
       INSERT INTO orders (
         reference, kind, channel, status,
-        customer_name, customer_email, customer_note,
+        customer_name, customer_email, customer_phone, customer_note,
         items, subtotal, currency, submitter_key,
         payment_method, payment_reference, payment_network, payment_proof_url, payment_verified
       ) VALUES (
         ${orderRef}, 'cart', ${method}, 'new',
         ${name || user?.name || null},
         ${email},
+        ${phone || null},
         ${note || null},
         ${JSON.stringify(lines)},
         ${Math.round(subtotal * 100) / 100},
@@ -231,9 +234,15 @@ export async function POST(request: Request) {
       )
     `;
 
+    /*
+     * The token is what lets the confirmation page show the full order without
+     * asking the customer to re-enter the email they just typed. It is minted
+     * here, server-side, over this reference only.
+     */
     return NextResponse.json({
       ok: true,
       reference: orderRef,
+      accessToken: createOrderAccessToken(orderRef),
       expected: Math.round(subtotal * 100) / 100,
       currency,
     });

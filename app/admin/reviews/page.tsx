@@ -22,6 +22,7 @@ interface Row {
   body: string;
   status: AdminReview['status'];
   verified: boolean;
+  photos: unknown;
   created_at: string;
 }
 
@@ -32,7 +33,7 @@ async function loadReviews(): Promise<AdminReview[] | null> {
   if (!(await reviewsTableExists(sql))) return [];
 
   const rows = (await sql`
-    SELECT id, product_slug, author_name, rating, title, body, status, verified, created_at
+    SELECT id, product_slug, author_name, rating, title, body, status, verified, photos, created_at
     FROM reviews
     -- Pending first: this page exists to clear a queue.
     ORDER BY (status = 'pending') DESC, created_at DESC
@@ -48,6 +49,7 @@ async function loadReviews(): Promise<AdminReview[] | null> {
     body: r.body,
     status: r.status,
     verified: r.verified,
+    photos: Array.isArray(r.photos) ? (r.photos as string[]) : [],
     createdAt: new Date(r.created_at).toISOString(),
   }));
 }

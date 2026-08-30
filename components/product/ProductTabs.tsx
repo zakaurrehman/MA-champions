@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import type { Product } from '@/lib/types';
 import type { Review } from '@/lib/reviews';
+import ReviewPhotos from './ReviewPhotos';
+import CustomerGallery from './CustomerGallery';
 import { site, leadTimeLabel, fulfilmentFor, warrantyFor } from '@/lib/site';
 import StarRating from '@/components/ui/StarRating';
 import ReviewForm from './ReviewForm';
@@ -248,13 +250,17 @@ export default function ProductTabs({ product, reviews }: Props) {
           </div>
         )}
 
+        <CustomerGallery
+          photos={reviews.flatMap((r) => r.photos.map((url) => ({ url, author: r.name })))}
+        />
+
         {reviews.length === 0 ? (
           <p className="max-w-2xl text-sm leading-relaxed text-muted">
             No reviews for this belt yet. We publish reviews only from verified customers, so
             this stays empty until someone who bought it writes one.
           </p>
         ) : (
-          <ul className="flex max-w-2xl flex-col gap-6">
+          <ul className="flex max-w-3xl flex-col gap-6">
             {reviews.map((review) => (
               <li key={review.id} className="border-b border-line/60 pb-6 last:border-0">
                 <StarRating rating={review.rating} size="md" />
@@ -262,9 +268,17 @@ export default function ProductTabs({ product, reviews }: Props) {
                   {review.title}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{review.body}</p>
+
+                <ReviewPhotos photos={review.photos} authorName={review.name} />
+
                 <p className="mt-3 text-2xs uppercase tracking-[0.14em] text-subtle">
                   {review.name}
                   {review.verified && ' · Verified buyer'}
+                  {review.date && ` · ${new Date(review.date).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  })}`}
                 </p>
               </li>
             ))}

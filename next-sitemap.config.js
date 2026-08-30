@@ -22,6 +22,13 @@ module.exports = {
     // Per-customer, so nothing here is meaningful to a crawler.
     '/account',
     /*
+     * Carries an order reference and an access token in the query string.
+     * The page sets noindex too; this keeps it out of the sitemap as well so
+     * a URL from a shared link never becomes a crawlable page.
+     */
+    '/order-confirmation',
+    '/reset-password',
+    /*
      * Policy pages are NOT excluded. They should be indexed once approved, and
      * a sitemap exclusion here would be permanent. The draft state is handled
      * where it belongs — the page itself sets noindex until

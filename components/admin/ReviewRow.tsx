@@ -14,6 +14,7 @@ export interface AdminReview {
   body: string;
   status: 'pending' | 'approved' | 'rejected';
   verified: boolean;
+  photos: string[];
   createdAt: string;
 }
 
@@ -28,15 +29,18 @@ export default function ReviewRow({ review }: { review: AdminReview }) {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const act = async (action: 'approve' | 'reject' | 'unpublish', verified?: boolean) => {
-    setBusy(action);
+  const act = async (
+    action: 'approve' | 'reject' | 'unpublish' | 'delete' | 'removePhoto',
+    extra?: { verified?: boolean; photo?: string }
+  ) => {
+    setBusy(action + (extra?.photo ?? ''));
     setError('');
 
     try {
       const res = await fetch('/api/admin/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: review.id, action, verified }),
+        body: JSON.stringify({ id: review.id, action, ...extra }),
       });
 
       if (res.ok) {
@@ -74,6 +78,39 @@ export default function ReviewRow({ review }: { review: AdminReview }) {
 
       <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-muted">{review.body}</p>
 
+      {review.photos.length > 0 && (
+        <div className="mt-4">
+          <p className="font-body text-2xs font-semibold uppercase tracking-[0.16em] text-subtle">
+            {review.photos.length} customer {review.photos.length === 1 ? 'photo' : 'photos'}
+            {review.status !== 'approved' && ' · not public yet'}
+          </p>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {review.photos.map((photo) => (
+              <li key={photo} className="relative">
+                <a href={photo} target="_blank" rel="noopener noreferrer">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- blob URL, optimisation is off site-wide */}
+                  <img
+                    src={photo}
+                    alt="Customer review photo"
+                    className="h-24 w-24 rounded-[--radius-plate] border border-line object-cover"
+                  />
+                </a>
+                <button
+                  type="button"
+                  disabled={busy !== null}
+                  onClick={() => act('removePhoto', { photo })}
+                  aria-label="Remove this photo"
+                  title="Remove this photo"
+                  className="absolute -right-1.5 -top-1.5 grid h-6 w-6 place-items-center rounded-full border border-line bg-canvas font-body text-2xs text-ink hover:border-primary hover:text-link disabled:opacity-40"
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <p className="mt-3 text-2xs uppercase tracking-[0.14em] text-subtle">
         {review.authorName} ·{' '}
         <Link href={`/products/${review.productSlug}`} className="hover:text-link">
@@ -109,7 +146,7 @@ export default function ReviewRow({ review }: { review: AdminReview }) {
             <button
               type="button"
               disabled={busy !== null}
-              onClick={() => act('approve', true)}
+              onClick={() => act('approve', { verified: true })}
               className={`${btn} border border-subtle/40 text-ink hover:border-primary hover:text-link`}
             >
               Approve as verified buyer
@@ -138,6 +175,20 @@ export default function ReviewRow({ review }: { review: AdminReview }) {
             {busy === 'reject' ? 'Rejecting…' : 'Reject'}
           </button>
         )}
+
+        {/* Rejecting hides a review; this erases it. Hence the confirm. */}
+        <button
+          type="button"
+          disabled={busy !== null}
+          onClick={() => {
+            if (window.confirm('Delete this review and its photos permanently?')) {
+              void act('delete');
+            }
+          }}
+          className={`${btn} ml-auto border border-subtle/30 text-subtle hover:border-primary hover:text-link`}
+        >
+          {busy === 'delete' ? 'Deleting…' : 'Delete'}
+        </button>
       </div>
     </li>
   );
