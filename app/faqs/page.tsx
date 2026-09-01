@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import PageShell from '@/components/ui/PageShell';
 import Accordion from '@/components/ui/Accordion';
 import Button from '@/components/ui/Button';
@@ -7,10 +8,7 @@ import JsonLd from '@/components/seo/JsonLd';
 import { faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'FAQs — Lead Times, Sizing, Materials & Shipping',
-  description:
-    'Answers on championship belt lead times, shipping, sizing, the custom design process, plate materials, gold plating, payment and returns.',
-  alternates: { canonical: '/faqs' },
+  ...seoFor("/faqs")!,
 };
 
 export default async function FaqsPage() {

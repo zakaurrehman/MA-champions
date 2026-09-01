@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
 import Button from '@/components/ui/Button';
@@ -15,10 +16,7 @@ export const revalidate = 300;
 
 
 export const metadata: Metadata = {
-  title: 'Championship Belt Pricing — Six Material Tiers Compared',
-  description:
-    'Compare championship belt pricing across six material tiers: brass, boxing, zinc, 24k gold, HD & CNC premium and fully custom. Plate metal, plating, etching and leather side by side.',
-  alternates: { canonical: '/pricing' },
+  ...seoFor("/pricing")!,
 };
 
 /**

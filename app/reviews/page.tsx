@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import Image from 'next/image';
 import PageShell from '@/components/ui/PageShell';
 import StarRating from '@/components/ui/StarRating';
@@ -6,9 +7,7 @@ import EmptyState from '@/components/ui/EmptyState';
 import { getReviews, getAggregateRating } from '@/lib/reviews';
 
 export const metadata: Metadata = {
-  title: 'Customer Reviews',
-  description: 'Reviews and photos from M.A Champions Belts customers.',
-  alternates: { canonical: '/reviews' },
+  ...seoFor("/reviews")!,
 };
 
 export default async function ReviewsPage() {

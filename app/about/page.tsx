@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import PageShell from '@/components/ui/PageShell';
 import Button from '@/components/ui/Button';
 import { site, yearsInBusiness } from '@/lib/site';
 import { FactoryIcon, GlobeIcon, HideIcon, PlatingIcon } from '@/components/ui/Icons';
 
 export const metadata: Metadata = {
-  title: 'About M.A Champions Belts — Our Workshop',
-  description:
-    'M.A Champions Belts makes custom championship belts and replica title belts in-house, from real cowhide and deep-etched metal with genuine 24k gold plating.',
-  alternates: { canonical: '/about' },
+  ...seoFor("/about")!,
 };
 
 /**

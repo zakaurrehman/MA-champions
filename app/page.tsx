@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { seoFor, PAGE_SEO } from '@/lib/seoMeta';
+import JsonLd from '@/components/seo/JsonLd';
+import { webPageJsonLd } from '@/lib/seo';
 import Hero from '@/components/home/Hero';
 import MaterialTiers from '@/components/home/MaterialTiers';
 import FeaturedBelts from '@/components/home/FeaturedBelts';
@@ -18,15 +21,17 @@ export const revalidate = 300;
 
 
 export const metadata: Metadata = {
-  title: 'Custom Championship Belts & Replica Title Belts',
-  description:
-    'Custom championship belts and replica title belts made in-house from real cowhide and deep-etched metal with 24k gold plating. Build your own belt or shop by material. Worldwide shipping.',
-  alternates: { canonical: '/' },
+  ...seoFor("/")!,
 };
 
 export default function HomePage() {
+  const seo = PAGE_SEO['/']!;
+
   return (
     <>
+      <JsonLd
+        data={webPageJsonLd({ path: '/', name: seo.title, description: seo.description })}
+      />
       <Hero />
       {/*
         Products come FIRST, directly under the hero. A shopper landing here is

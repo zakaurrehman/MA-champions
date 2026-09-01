@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import Image from 'next/image';
 import Link from 'next/link';
 import PageShell from '@/components/ui/PageShell';
@@ -6,10 +7,7 @@ import EmptyState from '@/components/ui/EmptyState';
 import { getPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
-  title: 'Journal — Championship Belt Guides & Workshop Notes',
-  description:
-    'Guides on championship belt materials, plating, sizing and custom design, from the M.A Champions Belts workshop.',
-  alternates: { canonical: '/blog' },
+  ...seoFor("/blog")!,
 };
 
 export default async function BlogPage() {

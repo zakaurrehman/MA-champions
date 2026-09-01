@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import PageShell from '@/components/ui/PageShell';
 import TrackOrderLookup from '@/components/contact/TrackOrderLookup';
 import ContactForm from '@/components/contact/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Track Your Order',
-  description: 'Check the status of your M.A Champions Belts order using your order reference.',
-  alternates: { canonical: '/track-order' },
+  ...seoFor("/track-order")!,
   robots: { index: false, follow: true },
 };
 

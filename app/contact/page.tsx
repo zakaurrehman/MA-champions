@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
+import { seoFor } from '@/lib/seoMeta';
 import PageShell from '@/components/ui/PageShell';
 import ContactForm from '@/components/contact/ContactForm';
 import { site, hasEmail, hasWhatsApp, whatsAppDisplay } from '@/lib/site';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description:
-    'Get in touch with M.A Champions Belts about a custom championship belt, a quote, or an existing order.',
-  alternates: { canonical: '/contact' },
+  ...seoFor("/contact")!,
 };
 
 export default function ContactPage() {

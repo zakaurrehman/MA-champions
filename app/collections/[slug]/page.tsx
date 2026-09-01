@@ -6,6 +6,7 @@ import { getTierBySlug, LEAGUE_COLLECTIONS, ALL_BELTS_SLUG } from '@/lib/tiers';
 import { getProductsByCollection, getProductsByTier, getShopProducts } from '@/lib/products';
 import JsonLd from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/seo';
+import { seoFor } from '@/lib/seoMeta';
 
 /*
  * Products come from the database, so a statically rendered page would keep
@@ -72,6 +73,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const data = await resolve(slug);
   if (!data) return { title: 'Collection not found' };
+
+  /*
+   * Hand-written copy from the SEO sheet wins where it exists. Everything
+   * else — a new material tier, a new league — still gets the generated
+   * fallback, so adding a collection never silently ships a page with no
+   * description.
+   */
+  const sheet = seoFor(`/collections/${slug}`);
+  if (sheet) return sheet;
 
   return {
     title: data.title,

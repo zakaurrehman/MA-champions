@@ -33,6 +33,15 @@ export function organizationJsonLd() {
     legalName: site.legalName,
     description: site.description,
     url: site.url,
+    /*
+     * Points at the generated OG image because there is no dedicated logo
+     * file in the repo. It is real, branded and 1200x630, which clears
+     * Google's 112x112 minimum.
+     *
+     * A square logo PNG would be better. Drop one at public/logo.png and
+     * change this line to `${site.url}/logo.png` — nothing else depends on it.
+     */
+    logo: `${site.url}/opengraph-image`,
     ...(profiles.length > 0 && { sameAs: profiles }),
     ...(site.email && { email: site.email }),
     ...(site.whatsapp && {
@@ -57,6 +66,39 @@ export function organizationJsonLd() {
         },
       }),
     ...(site.foundedYear && { foundingDate: String(site.foundedYear) }),
+  };
+}
+
+/**
+ * WebPage node for a single URL.
+ *
+ * Included because the SEO sheet asks for it. Being straight about its worth:
+ * Google does not surface WebPage markup in results, so this is housekeeping
+ * that completes the graph rather than something that will move rankings. The
+ * Product, FAQ and Breadcrumb types below are the ones that actually earn rich
+ * results.
+ */
+export function webPageJsonLd({
+  path,
+  name,
+  description,
+}: {
+  path: string;
+  name: string;
+  description: string;
+}) {
+  const url = path === '/' ? `${site.url}/` : `${site.url}${path}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name,
+    description,
+    isPartOf: { '@id': `${site.url}/#website` },
+    about: { '@id': `${site.url}/#organization` },
+    inLanguage: 'en-US',
   };
 }
 
