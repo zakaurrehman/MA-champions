@@ -41,7 +41,14 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: true, follow: true },
-  verification: { google: 'QoUleaS65IhyRU2O-Fqgw7cCVRUs3f2WQYqtkSHiFD8' },
+  // Multiple tokens are allowed — each verifies a different Search Console
+  // user/property. Adding one never revokes an existing verification.
+  verification: {
+    google: [
+      'QoUleaS65IhyRU2O-Fqgw7cCVRUs3f2WQYqtkSHiFD8',
+      'qgZV81mPyzOl5iz_8vFvy_4P564hfZIVyKlt37GrrJo',
+    ],
+  },
 };
 
 export const viewport: Viewport = {
