@@ -23,3 +23,8 @@ public/robots.txt
 # photos; the web-ready copies live in public/products/. Excluded because they
 # are large duplicates and their names contain spaces and \$ characters.
 source-photos/
+
+# Database backups (npm run backup). These hold customer names, emails, phone
+# numbers and orders, so they must never be committed. Keep them somewhere
+# private instead.
+backups/

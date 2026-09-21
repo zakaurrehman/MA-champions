@@ -13,7 +13,10 @@
     "postbuild": "next-sitemap",
     "migrate": "node --conditions=react-server --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/migrate.ts",
     "test:orders": "node --conditions=react-server --experimental-strip-types --no-warnings scripts/test-orders.ts",
-    "test": "npm run test:pricing && npm run test:orders"
+    "test": "npm run test:pricing && npm run test:orders && npm run test:backup",
+    "backup": "node --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/backup.ts",
+    "restore": "node --conditions=react-server --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/restore.ts",
+    "test:backup": "node --conditions=react-server --experimental-strip-types --no-warnings scripts/test-backup.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
@@ -29,6 +32,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.18.1",

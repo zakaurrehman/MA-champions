@@ -3,9 +3,13 @@
  *
  *   npm run migrate
  *
- * Safe to run repeatedly. Tables are IF NOT EXISTS and the product seed is an
- * upsert on slug, so re-running syncs the JSON in without duplicating rows or
- * destroying admin edits to products that are not in the JSON.
+ * Safe to run repeatedly. Tables are IF NOT EXISTS, and by default the product
+ * seed only ADDS belts that are missing — a belt that already exists is left
+ * exactly as it is, so edits made in the admin panel survive.
+ *
+ * It used to overwrite every column of every belt in data/products.json on each
+ * run, which silently reverted admin edits (prices, photos, descriptions) to the
+ * repo's stale copy. Pass --overwrite to get that behaviour back deliberately.
  */
 
 import { readFileSync } from 'node:fs';
@@ -92,10 +96,13 @@ for (const [index, p] of raw.products.entries()) {
       variants          = EXCLUDED.variants,
       images            = EXCLUDED.images,
       updated_at        = NOW()
+    -- Without --overwrite this is false, so a conflicting row is left untouched.
+    WHERE ${overwrite}::boolean
   `;
 
-  if (existing.length > 0) updated++;
-  else inserted++;
+  if (existing.length === 0) inserted++;
+  else if (overwrite) updated++;
+  else skipped++;
 }
 
 const counts = (await sql`
@@ -105,7 +112,7 @@ const counts = (await sql`
     (SELECT COUNT(*)::int FROM reviews) AS reviews
 `) as unknown as { products: number; visible: number; reviews: number }[];
 
-console.log(`  inserted ${inserted}, updated ${updated}`);
+console.log(`  added ${inserted}, overwritten ${updated}, left alone ${skipped}`);
 console.log('');
 console.log('Done.');
 console.log(`  products: ${counts[0]?.products} (${counts[0]?.visible} visible in shop)`);
