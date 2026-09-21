@@ -3,6 +3,7 @@ import Link from 'next/link';
 import AdminShell from '@/components/admin/AdminShell';
 import { isAdmin } from '@/lib/adminAuth';
 import { db } from '@/lib/db';
+import { dbHealth } from '@/lib/dbHealth';
 import { formatPrice } from '@/lib/format';
 
 export const dynamic = 'force-dynamic';
@@ -93,7 +94,12 @@ function Tile({
 }
 
 export default async function AdminDashboard() {
-  const stats = (await isAdmin()) ? await loadStats() : null;
+  const signedIn = await isAdmin();
+  const stats = signedIn ? await loadStats() : null;
+  // "No figures" has two very different causes. The banner in AdminShell
+  // explains an outage, so the generic "import your catalogue" copy below must
+  // not also appear and contradict it.
+  const down = signedIn && (await dbHealth()).status === 'down';
 
   return (
     <AdminShell
@@ -101,14 +107,18 @@ export default async function AdminDashboard() {
       intro={
         stats
           ? 'Anything needing attention is highlighted.'
-          : 'Connect a database and import your catalogue to see figures here.'
+          : down
+            ? 'Figures are unavailable while the database cannot be reached.'
+            : 'Connect a database and import your catalogue to see figures here.'
       }
     >
       {!stats ? (
-        <p className="text-sm leading-relaxed text-muted">
-          No figures yet. Once your catalogue is imported and the first order arrives, this page
-          shows what needs doing.
-        </p>
+        down ? null : (
+          <p className="text-sm leading-relaxed text-muted">
+            No figures yet. Once your catalogue is imported and the first order arrives, this page
+            shows what needs doing.
+          </p>
+        )
       ) : (
         <>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

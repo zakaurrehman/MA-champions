@@ -1,5 +1,6 @@
 import 'server-only';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { PRODUCTS_CACHE_TAG } from './cacheTags';
 
 /**
  * Clears the cached storefront after a catalogue change.
@@ -14,6 +15,17 @@ import { revalidatePath } from 'next/cache';
  * that route, not just one — so all collections and all product pages clear.
  */
 export function revalidateCatalogue(): void {
+  /*
+   * The catalogue itself is cached (see readProductsFromDb in lib/products.ts),
+   * so it has to be cleared FIRST. Clearing the paths below without it would
+   * just re-render every page from the old cached products.
+   */
+  try {
+    revalidateTag(PRODUCTS_CACHE_TAG);
+  } catch {
+    // Same rule as below: the write already succeeded, never fail it over cache.
+  }
+
   const paths: [string, 'page' | 'layout'][] = [
     ['/', 'page'],
     ['/collections', 'page'],

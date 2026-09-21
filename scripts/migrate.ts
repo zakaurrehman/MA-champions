@@ -110,3 +110,6 @@ console.log('');
 console.log('Done.');
 console.log(`  products: ${counts[0]?.products} (${counts[0]?.visible} visible in shop)`);
 console.log(`  reviews:  ${counts[0]?.reviews}`);
+console.log('');
+console.log('Note: a running site caches the catalogue for up to an hour. Saving any product');
+console.log('in the admin panel refreshes it immediately; otherwise it catches up on its own.');

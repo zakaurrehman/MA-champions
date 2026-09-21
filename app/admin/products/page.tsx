@@ -6,7 +6,8 @@ import DeleteProductButton from '@/components/admin/DeleteProductButton';
 import { getAllProducts } from '@/lib/products';
 import { resolvePrice } from '@/lib/pricing';
 import { formatPrice } from '@/lib/format';
-import { db, hasDatabase } from '@/lib/db';
+import { db } from '@/lib/db';
+import { dbHealth } from '@/lib/dbHealth';
 import SeedButton from '@/components/admin/SeedButton';
 
 export const dynamic = 'force-dynamic';
@@ -37,13 +38,21 @@ async function countDbProducts(): Promise<number | null> {
 
 export default async function AdminProductsPage() {
   const products = await getAllProducts();
-  const dbReady = hasDatabase();
-  const dbCount = await countDbProducts();
+  const health = await dbHealth();
+
+  // Only count when the database answered. Counting through a failure used to
+  // return 0, which this page read as "empty" and answered with an import
+  // button — while the real catalogue sat untouched behind a blocked connection.
+  const dbCount = health.status === 'ok' ? await countDbProducts() : null;
 
   return (
     <AdminShell
       title="Products"
-      intro={`${products.length} belts in the catalogue.`}
+      intro={
+        health.status === 'down'
+          ? `${products.length} belts in the BACKUP catalogue. The live catalogue cannot be reached.`
+          : `${products.length} belts in the catalogue.`
+      }
       action={
         <Link
           href="/admin/products/new"
@@ -53,14 +62,14 @@ export default async function AdminProductsPage() {
         </Link>
       }
     >
-      {!dbReady && (
+      {health.status === 'unconfigured' && (
         <p className="mb-6 rounded-[--radius-plate] border border-line px-5 py-4 text-sm leading-relaxed text-muted">
           <strong className="text-ink">Read-only.</strong> No DATABASE_URL is configured, so this
           list is coming from the JSON seed and edits cannot be saved.
         </p>
       )}
 
-      {dbReady && dbCount === 0 && <SeedButton count={products.length} />}
+      {health.status === 'ok' && dbCount === 0 && <SeedButton count={products.length} />}
 
       <ul className="flex flex-col gap-3">
         {products.map((product) => {

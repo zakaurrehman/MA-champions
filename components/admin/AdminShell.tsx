@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { adminConfigured, isAdmin } from '@/lib/adminAuth';
+import { dbHealth } from '@/lib/dbHealth';
 import AdminLogin from './AdminLogin';
 import AdminSignOut from './AdminSignOut';
+import DbHealthBanner from './DbHealthBanner';
 
 const NAV = [
   { href: '/admin', label: 'Dashboard' },
@@ -41,6 +43,9 @@ export default async function AdminShell({ title, intro, action, children }: Pro
     );
   }
 
+  // Only reached once signed in, so this costs nothing on the public login form.
+  const health = await dbHealth();
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5">
@@ -57,6 +62,12 @@ export default async function AdminShell({ title, intro, action, children }: Pro
         </nav>
         <AdminSignOut />
       </div>
+
+      {health.status === 'down' && (
+        <div className="mt-8">
+          <DbHealthBanner reason={health.reason} />
+        </div>
+      )}
 
       <div className="mt-10 flex flex-wrap items-start justify-between gap-4">
         <div>

@@ -15,8 +15,10 @@
  */
 
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import raw from '@/data/products.json';
 import { db } from './db';
+import { PRODUCTS_CACHE_TAG } from './cacheTags';
 import type { Product, ProductVariant, ProductImage, ProductSpecs } from './types';
 
 /** Shape of a `products` row, before mapping onto the domain type. */
@@ -76,37 +78,79 @@ function rowToProduct(row: ProductRow): Product {
   } as Product;
 }
 
+/** The table exists but holds no rows: "not seeded yet", which is not a failure. */
+class CatalogueNotSeeded extends Error {}
+
+/**
+ * The catalogue, read from Postgres and cached ACROSS requests.
+ *
+ * This is the important one. The whole catalogue is roughly 0.4 MB (every image
+ * carries a base64 blur placeholder), and before this cache existed every page
+ * render downloaded all of it: each of ~100 pages at build time, each ISR
+ * refresh every five minutes, each crawler hit, each order and review POST.
+ * That is how a small shop used up its database provider's monthly
+ * data-transfer allowance, at which point the provider answered every query
+ * with HTTP 402 and the storefront silently fell back to the 17-belt JSON seed.
+ *
+ * Now it is one query per hour at most, plus one whenever an admin saves.
+ * revalidateCatalogue() clears the tag, so edits still appear immediately.
+ *
+ * It THROWS on failure instead of returning the fallback, on purpose:
+ * unstable_cache stores only what a function returns. Returning the JSON seed
+ * from here would cache "17 belts" for an hour after a single blip.
+ *
+ * Bump the key if the shape of `Product` ever changes, so old cached entries
+ * are not read back as the new type.
+ */
+const readProductsFromDb = unstable_cache(
+  async (): Promise<Product[]> => {
+    const sql = db();
+    if (!sql) throw new CatalogueNotSeeded('no database configured');
+
+    const rows = (await sql`
+      SELECT slug, name, category, collections, material_tier,
+             price, original_price, sale_price, currency,
+             in_stock, featured, shop_visible, custom_gallery,
+             short_description, description,
+             variant_label, specs, variants, images
+      FROM products
+      ORDER BY sort_order ASC, created_at DESC
+    `) as unknown as ProductRow[];
+
+    // An empty table means "not seeded yet", not "no products".
+    if (rows.length === 0) throw new CatalogueNotSeeded('products table is empty');
+
+    // One line per REAL database read. If a build ever logs this more than once,
+    // caching has stopped working and the data-transfer bill is coming back.
+    console.info(`[products] read ${rows.length} products from the database`);
+    return rows.map(rowToProduct);
+  },
+  ['catalogue-v1'],
+  { tags: [PRODUCTS_CACHE_TAG], revalidate: 3600 }
+);
+
 /**
  * Single point of ingestion.
  *
  * Reads the database when one is configured, and falls back to the JSON seed
  * otherwise — so local development, preview builds and any deploy without
- * DATABASE_URL still render the full catalogue instead of an empty shop.
+ * DATABASE_URL still render the full catalogue instead of an empty shop. The
+ * same fallback covers an unreachable database, so a provider outage degrades
+ * the shop instead of taking it down.
  *
  * Wrapped in React's `cache` so a page rendering a grid, a breadcrumb and
- * structured data issues one query, not three.
+ * structured data reads once per request. The layer above adds the
+ * cross-request cache; this one only dedupes within a single render.
  */
 const loadProducts = cache(async (): Promise<Product[]> => {
-  const sql = db();
-
-  if (sql) {
+  if (db()) {
     try {
-      const rows = (await sql`
-        SELECT slug, name, category, collections, material_tier,
-               price, original_price, sale_price, currency,
-               in_stock, featured, shop_visible, custom_gallery,
-               short_description, description,
-               variant_label, specs, variants, images
-        FROM products
-        ORDER BY sort_order ASC, created_at DESC
-      `) as unknown as ProductRow[];
-
-      // An empty table means "not seeded yet", not "no products". Falling back
-      // keeps the shop populated until `npm run migrate` has been run.
-      if (rows.length > 0) return rows.map(rowToProduct);
+      return await readProductsFromDb();
     } catch (error) {
-      // A missing table or an unreachable database must not take the shop down.
-      console.error('[products] database read failed, using JSON seed:', error);
+      // An empty table is expected before the first seed, so it stays quiet.
+      if (!(error instanceof CatalogueNotSeeded)) {
+        console.error('[products] database read failed, using JSON seed:', error);
+      }
     }
   }
 
