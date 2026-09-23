@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SectionHeading from '@/components/ui/SectionHeading';
-import { getMaterialTiers, hasUnconfirmedPricing } from '@/lib/tiers';
+import { getMaterialTiers } from '@/lib/tiers';
+import { collectionCounts, MIN_LISTED } from '@/lib/collectionCounts';
 import { formatPrice } from '@/lib/format';
 
 /**
@@ -9,15 +10,21 @@ import { formatPrice } from '@/lib/format';
  * we say so plainly instead of passing drafts off as final.
  */
 export default async function MaterialTiers() {
-  const tiers = await getMaterialTiers();
-  const draft = await hasUnconfirmedPricing();
+  const counts = await collectionCounts();
+  // Tiers with too few belts link to a near-empty shelf, so they are left out.
+  const tiers = (await getMaterialTiers()).filter(
+    (t) => (counts.get(t.slug) ?? 0) >= MIN_LISTED
+  );
+  if (tiers.length === 0) return null;
+
+  const columns = tiers.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
 
   return (
     <section className="border-t border-line py-16 sm:py-20" aria-labelledby="tiers-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Shop by material"
-          title="Six tiers, one workshop"
+          title="One workshop, every finish"
           titleId="tiers-title"
           intro="The metal decides how sharp the detail reads and how much the belt weighs. Everything below is made by us, on the same benches."
           action={
@@ -30,7 +37,7 @@ export default async function MaterialTiers() {
           }
         />
 
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className={`mt-12 grid gap-4 sm:grid-cols-2 ${columns}`}>
           {tiers.map((tier) => (
             <li key={tier.id}>
               <Link
@@ -63,25 +70,23 @@ export default async function MaterialTiers() {
                   ))}
                 </ul>
 
-                <div className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
-                  <span className="font-body text-2xs uppercase tracking-[0.16em] text-subtle">
-                    From
-                  </span>
-                  <span className="font-display text-2xl text-plated">
-                    {formatPrice(tier.priceFloor)}
-                  </span>
-                </div>
+                {/* Draft floors are not printed. They were derived from competitor
+                    pricing, and the real catalogue contradicted them. */}
+                {tier.confirmed && (
+                  <div className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
+                    <span className="font-body text-2xs uppercase tracking-[0.16em] text-subtle">
+                      From
+                    </span>
+                    <span className="font-display text-2xl text-plated">
+                      {formatPrice(tier.priceFloor)}
+                    </span>
+                  </div>
+                )}
               </Link>
             </li>
           ))}
         </ul>
 
-        {draft && (
-          <p className="mt-6 text-2xs leading-relaxed text-subtle">
-            {/* Visible, deliberate. Remove once data/tiers.json is confirmed. */}
-            Indicative starting prices — final pricing is confirmed on your quote.
-          </p>
-        )}
       </div>
     </section>
   );

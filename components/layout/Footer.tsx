@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MAIN_NAV, POLICY_LINKS } from '@/lib/nav';
+import { POLICY_LINKS, type NavGroup } from '@/lib/nav';
 import { site, hasEmail, hasWhatsApp, whatsAppDisplay } from '@/lib/site';
 import SocialLinks from './SocialLinks';
 import { WhatsAppIcon } from '@/components/ui/Icons';
@@ -9,7 +9,7 @@ import Logo from './Logo';
  * Footer. Contact details render only when we hold the real value — no
  * placeholder phone numbers or addresses are ever printed.
  */
-export default function Footer() {
+export default function Footer({ nav }: { nav: NavGroup[] }) {
   const year = new Date().getFullYear();
   const hasAddress = Boolean(site.address.city && site.address.country);
 
@@ -65,7 +65,7 @@ export default function Footer() {
 
           {/* Nav columns */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {MAIN_NAV.map((group) => (
+            {nav.map((group) => (
               <div key={group.label}>
                 <h4 className="mb-4 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
                   {group.label}

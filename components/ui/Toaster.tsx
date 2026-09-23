@@ -18,7 +18,7 @@ export default function Toaster() {
     <div
       aria-live="polite"
       aria-atomic="false"
-      className="pointer-events-none fixed bottom-4 left-1/2 z-[90] flex w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 flex-col gap-2 sm:left-auto sm:right-4 sm:translate-x-0"
+      className="toast-stack pointer-events-none fixed bottom-4 left-1/2 z-[90] flex w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 flex-col gap-2 sm:left-auto sm:right-4 sm:translate-x-0"
     >
       {toasts.map((toast) => (
         <div

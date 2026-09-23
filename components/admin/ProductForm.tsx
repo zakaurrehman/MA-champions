@@ -9,6 +9,7 @@ import { discountPercent } from '@/lib/pricing';
 import { DEFAULT_VARIANT_LABEL } from '@/lib/buildLadder';
 import ImageUploader, { type EditableImage } from './ImageUploader';
 import VariantEditor from './VariantEditor';
+import { COLLECTION_TAGS, isCollectionTag } from '@/lib/collectionTags';
 
 const TIERS = [
   'brass',
@@ -51,7 +52,17 @@ export default function ProductForm({ product }: { product: Product | null }) {
   );
   const [category, setCategory] = useState(product?.category ?? 'wrestling');
   const [materialTier, setTier] = useState(product?.materialTier ?? 'hd-cnc-premium');
-  const [collections, setCollections] = useState((product?.collections ?? []).join(', '));
+  // Only real categories can be ticked. A new belt starts in Wrestling, since
+  // that is what the catalogue sells; untick it for anything else.
+  const [collections, setCollections] = useState<string[]>(
+    isNew ? ['wrestling'] : (product?.collections ?? []).filter(isCollectionTag)
+  );
+  /** Old free-text values that are not categories. Dropped on the next save. */
+  const legacyTags = (product?.collections ?? []).filter((c) => !isCollectionTag(c));
+  const toggleCollection = (id: string) =>
+    setCollections((current) =>
+      current.includes(id) ? current.filter((c) => c !== id) : [...current, id]
+    );
   const [inStock, setInStock] = useState(product?.inStock ?? true);
   const [featured, setFeatured] = useState(product?.featured ?? false);
   const [shopVisible, setShopVisible] = useState(product?.visibility?.shop ?? true);
@@ -85,10 +96,7 @@ export default function ProductForm({ product }: { product: Product | null }) {
           originalPrice: originalNum,
           category,
           materialTier,
-          collections: collections
-            .split(',')
-            .map((c) => c.trim())
-            .filter(Boolean),
+          collections,
           inStock,
           featured,
           shopVisible,
@@ -313,16 +321,49 @@ export default function ProductForm({ product }: { product: Product | null }) {
             </select>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="p-collections" className={label}>
-              Collections (comma separated)
-            </label>
-            <input
-              id="p-collections"
-              value={collections}
-              onChange={(e) => setCollections(e.target.value)}
-              className={field}
-              placeholder="wrestling, replica-style, 24k-gold"
-            />
+            <fieldset>
+              <legend className={label}>Show this belt in</legend>
+              {(['sport', 'material'] as const).map((group) => (
+                <div key={group} className="mt-3">
+                  <p className="mb-2 text-2xs text-muted">
+                    {group === 'sport'
+                      ? 'Sport collections'
+                      : 'Also list under these materials (it always appears under its own tier above)'}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {COLLECTION_TAGS.filter((t) => t.group === group).map((tag) => {
+                      const on = collections.includes(tag.id);
+                      return (
+                        <label
+                          key={tag.id}
+                          className={`flex cursor-pointer items-center gap-2 rounded-[--radius-plate] border px-3 py-2 text-sm transition-colors ${
+                            on ? 'border-primary bg-primary/5 text-ink' : 'border-subtle/30 text-muted hover:border-subtle/60'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={on}
+                            onChange={() => toggleCollection(tag.id)}
+                            className="h-4 w-4 accent-[--color-primary]"
+                          />
+                          {tag.label}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </fieldset>
+
+            {legacyTags.length > 0 && (
+              <p className="mt-3 text-2xs leading-relaxed text-muted">
+                Old tags that are not categories will be removed when you save:{' '}
+                <span className="text-ink">
+                  {legacyTags.slice(0, 4).map((t) => (t.length > 40 ? t.slice(0, 40) + '…' : t)).join(' · ')}
+                  {legacyTags.length > 4 && ` and ${legacyTags.length - 4} more`}
+                </span>
+              </p>
+            )}
           </div>
         </div>
 

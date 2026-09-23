@@ -4,6 +4,7 @@ import PageShell from '@/components/ui/PageShell';
 import { getMaterialTiers, LEAGUE_COLLECTIONS, ALL_BELTS_SLUG } from '@/lib/tiers';
 import { getShopProducts } from '@/lib/products';
 import { formatPrice } from '@/lib/format';
+import { collectionCounts, MIN_LISTED } from '@/lib/collectionCounts';
 
 /*
  * Products come from the database, so a statically rendered page would keep
@@ -21,7 +22,14 @@ export const metadata: Metadata = {
 };
 
 export default async function CollectionsPage() {
-  const tiers = await getMaterialTiers();
+  const counts = await collectionCounts();
+  const listed = (slug: string) => (counts.get(slug) ?? 0) >= MIN_LISTED;
+
+  // Under-stocked shelves are left off this index, same rule as the menus.
+  const tiers = (await getMaterialTiers()).filter((t) => listed(t.slug));
+  // A slug shared with a tier (Boxing) is already shown above; never list a page twice.
+  const tierSlugs = new Set(tiers.map((t) => t.slug));
+  const leagues = LEAGUE_COLLECTIONS.filter((l) => listed(l.slug) && !tierSlugs.has(l.slug));
   const productCount = (await getShopProducts()).length;
 
   return (
@@ -59,21 +67,26 @@ export default async function CollectionsPage() {
                 className="border-plate flex items-baseline justify-between gap-4 rounded-[--radius-plate] bg-surface px-5 py-4 transition-colors hover:border-primary/40"
               >
                 <span className="font-body text-sm font-semibold text-ink">{tier.name}</span>
-                <span className="font-display text-base text-plated">
-                  {formatPrice(tier.priceFloor)}+
-                </span>
+                {/* Only confirmed floors are printed. A draft "from" price that the
+                    real catalogue contradicts is worse than no price at all. */}
+                {tier.confirmed && (
+                  <span className="font-display text-base text-plated">
+                    {formatPrice(tier.priceFloor)}+
+                  </span>
+                )}
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
+      {leagues.length > 0 && (
       <section aria-labelledby="by-sport" className="mt-14">
         <h2 id="by-sport" className="text-2xl text-ink">
           By sport
         </h2>
         <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {LEAGUE_COLLECTIONS.map((league) => (
+          {leagues.map((league) => (
             <li key={league.id}>
               <Link
                 href={`/collections/${league.slug}`}
@@ -85,6 +98,7 @@ export default async function CollectionsPage() {
           ))}
         </ul>
       </section>
+      )}
     </PageShell>
   );
 }

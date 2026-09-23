@@ -7,6 +7,7 @@ import { getProductsByCollection, getProductsByTier, getShopProducts } from '@/l
 import JsonLd from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/seo';
 import { seoFor } from '@/lib/seoMeta';
+import { collectionCounts } from '@/lib/collectionCounts';
 
 /*
  * Products come from the database, so a statically rendered page would keep
@@ -59,14 +60,18 @@ async function resolve(slug: string) {
   return null;
 }
 
+/**
+ * Only collections with belts in them are pre-built. That is also what keeps
+ * empty ones out of the sitemap, which next-sitemap builds from the pre-built
+ * routes. An empty collection still works if someone visits it — it is simply
+ * rendered on demand, marked noindex, and picked up at the next deploy once it
+ * has stock.
+ */
 export async function generateStaticParams() {
-  const { getMaterialTiers } = await import('@/lib/tiers');
-  const tiers = await getMaterialTiers();
-  return [
-    { slug: ALL_BELTS_SLUG },
-    ...tiers.map((t) => ({ slug: t.slug })),
-    ...LEAGUE_COLLECTIONS.map((l) => ({ slug: l.slug })),
-  ];
+  const counts = await collectionCounts();
+  return [...counts]
+    .filter(([, count]) => count > 0)
+    .map(([slug]) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -81,12 +86,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
    * description.
    */
   const sheet = seoFor(`/collections/${slug}`);
-  if (sheet) return sheet;
+
+  /*
+   * An empty collection is a thin page: Google indexes "Nothing listed here
+   * yet" and ranks the whole site lower for it. Noindex until it has stock,
+   * then it indexes itself with no change needed.
+   */
+  const empty = data.products.length === 0;
+  const robots = empty ? { index: false, follow: true } : undefined;
+
+  if (sheet) return { ...sheet, ...(robots && { robots }) };
 
   return {
     title: data.title,
     description: `${data.intro} Custom and replica championship belts built in-house by M.A Champions Belts.`,
     alternates: { canonical: `/collections/${slug}` },
+    ...(robots && { robots }),
   };
 }
 

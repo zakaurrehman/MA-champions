@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { ensureProductsTable } from '@/lib/db-schema';
 import { isAdmin } from '@/lib/adminAuth';
 import { revalidateCatalogue } from '@/lib/revalidate';
+import { cleanCollections } from '@/lib/collectionTags';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -173,7 +174,7 @@ export async function POST(request: Request) {
         ${slug},
         ${name},
         ${String(body.category ?? 'wrestling')},
-        ${(body.collections as string[]) ?? []},
+        ${cleanCollections(body.collections)},
         ${String(body.materialTier ?? 'hd-cnc-premium')},
         ${price},
         ${originalPrice},

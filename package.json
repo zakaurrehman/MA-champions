@@ -16,7 +16,9 @@
     "test": "npm run test:pricing && npm run test:orders && npm run test:backup",
     "backup": "node --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/backup.ts",
     "restore": "node --conditions=react-server --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/restore.ts",
-    "test:backup": "node --conditions=react-server --experimental-strip-types --no-warnings scripts/test-backup.ts"
+    "test:backup": "node --conditions=react-server --experimental-strip-types --no-warnings scripts/test-backup.ts",
+    "tidy-collections": "node --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/tidy-collections.ts",
+    "tidy-names": "node --env-file-if-exists=.env.local --experimental-strip-types --no-warnings scripts/tidy-names.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

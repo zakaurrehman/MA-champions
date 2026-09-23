@@ -8,7 +8,7 @@
  */
 
 import raw from '@/data/tiers.json';
-import type { MaterialTier, LeagueCollection } from './types';
+import type { MaterialTier } from './types';
 
 async function loadTiers(): Promise<MaterialTier[]> {
   return (raw.tiers as unknown as MaterialTier[]).slice().sort((a, b) => a.order - b.order);
@@ -39,13 +39,4 @@ export async function hasUnconfirmedPricing(): Promise<boolean> {
  */
 export const ALL_BELTS_SLUG = 'all-championship-belts';
 
-export const LEAGUE_COLLECTIONS: LeagueCollection[] = [
-  { id: 'nfl', name: 'Football', slug: 'football-championship-belts', blurb: 'Gridiron league and fantasy title belts' },
-  { id: 'nba', name: 'Basketball', slug: 'basketball-championship-belts', blurb: 'Court championship and league belts' },
-  { id: 'nhl', name: 'Hockey', slug: 'hockey-championship-belts', blurb: 'Ice league and tournament belts' },
-  { id: 'mlb', name: 'Baseball', slug: 'baseball-championship-belts', blurb: 'Diamond league and season belts' },
-  { id: 'wrestling', name: 'Wrestling', slug: 'wrestling-championship-belts', blurb: 'Replica title and promotion belts' },
-  { id: 'boxing', name: 'Boxing', slug: 'boxing-championship-belts', blurb: 'Round-plate title belts' },
-  { id: 'mma', name: 'MMA', slug: 'mma-championship-belts', blurb: 'Cage and grappling title belts' },
-  { id: 'fantasy', name: 'Fantasy League', slug: 'fantasy-league-belts', blurb: 'Season trophies that get passed on' },
-];
+export { LEAGUE_COLLECTIONS } from './leagues';

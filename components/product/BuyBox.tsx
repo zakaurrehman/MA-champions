@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { Product } from '@/lib/types';
 import { formatPrice } from '@/lib/format';
 import {
@@ -14,12 +14,14 @@ import {
 import { useCart } from '@/lib/cart';
 import { useToasts } from '@/lib/toast';
 import { resolvePrice, getVariants, defaultVariant } from '@/lib/pricing';
-import { site, whatsAppHref } from '@/lib/site';
+import { whatsAppHref } from '@/lib/site';
 import { recordOrder } from '@/lib/recordOrder';
 import PriceDisplay from './PriceDisplay';
 import ProductVariantPicker from './ProductVariantPicker';
 import VariantSelector from './VariantSelector';
 import SizeGuideModal from './SizeGuideModal';
+import StickyBuyBar from './StickyBuyBar';
+import TrustBlock from './TrustBlock';
 import { WhatsAppIcon } from '@/components/ui/Icons';
 
 /** Keeps quantity within 1..stock, where stock is tracked. */
@@ -39,6 +41,8 @@ export default function BuyBox({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [added, setAdded] = useState(false);
+  /** The real Add to cart area; the phone bar watches it. */
+  const actionsRef = useRef<HTMLDivElement>(null);
 
   const addItem = useCart((s) => s.addItem);
   const openCart = useCart((s) => s.openCart);
@@ -255,7 +259,7 @@ export default function BuyBox({ product }: { product: Product }) {
       </div>
 
       {/* Actions */}
-      <div className="mt-8 flex flex-col gap-3">
+      <div ref={actionsRef} className="mt-8 flex flex-col gap-3">
         <button
           type="button"
           onClick={handleAdd}
@@ -303,11 +307,16 @@ export default function BuyBox({ product }: { product: Product }) {
         {added ? `${product.name} added to cart` : ''}
       </p>
 
-      {site.shipping.freeTo.length > 0 && (
-        <p className="mt-5 text-2xs uppercase tracking-[0.14em] text-subtle">
-          Free shipping to {site.shipping.freeTo.join(', ')}
-        </p>
-      )}
+      <TrustBlock productName={product.name} />
+
+      <StickyBuyBar
+        targetRef={actionsRef}
+        buildName={resolved.variant?.name ?? null}
+        price={formatPrice(unitPrice, product.currency)}
+        soldOut={soldOut}
+        added={added}
+        onAdd={handleAdd}
+      />
 
       <SizeGuideModal open={sizeGuideOpen} onClose={() => setSizeGuideOpen(false)} />
     </div>

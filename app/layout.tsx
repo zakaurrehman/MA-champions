@@ -3,6 +3,7 @@ import { Anton, Archivo } from 'next/font/google';
 import { site } from '@/lib/site';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { visibleNav } from '@/lib/collectionCounts';
 import { themeInitScript } from '@/components/ui/ThemeToggle';
 import CartDrawer from '@/components/cart/CartDrawer';
 import Toaster from '@/components/ui/Toaster';
@@ -61,7 +62,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  /*
+   * Computed once here and handed to the header, mobile menu and footer, so
+   * all three hide the same under-stocked collections. Reads the cached
+   * catalogue (lib/products.ts), so it adds no database traffic of its own —
+   * and because that cache is tagged, an admin save refreshes the menus too.
+   */
+  const nav = await visibleNav();
+
   return (
     <html lang="en" className={`${anton.variable} ${archivo.variable}`} suppressHydrationWarning>
       <head>
@@ -81,9 +90,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={webSiteJsonLd()} />
 
-        <Header />
+        <Header nav={nav} />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer nav={nav} />
 
         {/* Global commerce and conversion islands. Each renders nothing until
             it has something to show, so none of them cost layout on first

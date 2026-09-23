@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { MAIN_NAV } from '@/lib/nav';
+import type { NavGroup } from '@/lib/nav';
 import Logo from './Logo';
 import MegaMenu from './MegaMenu';
 import MobileNav from './MobileNav';
@@ -32,7 +32,12 @@ function Badge({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function Header() {
+/**
+ * `nav` comes from the server (see visibleNav in lib/collectionCounts.ts) with
+ * under-stocked collections already removed. It is a prop rather than an import
+ * because this is a client component and the product counts live on the server.
+ */
+export default function Header({ nav }: { nav: NavGroup[] }) {
   const [condensed, setCondensed] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -106,7 +111,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav aria-label="Main" className="ml-auto hidden lg:block">
             <div ref={navRef} className="flex items-center gap-1">
-              {MAIN_NAV.map((group) => {
+              {nav.map((group) => {
                 const isOpen = openGroup === group.label;
                 return (
                   <div key={group.label} className="relative">
@@ -194,7 +199,7 @@ export default function Header() {
         </div>
       </header>
 
-      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileNav nav={nav} open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );
 }

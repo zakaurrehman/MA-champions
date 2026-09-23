@@ -340,3 +340,16 @@
     display: none;
   }
 }
+
+/*
+ * While the phone "Add to cart" bar is showing (StickyBuyBar sets
+ * body[data-buy-bar]), lift the floating WhatsApp button and the toast stack
+ * above it instead of letting the bar cover them. Phones and tablets only —
+ * the bar never shows from lg (64rem) up.
+ */
+@media (width < 64rem) {
+  body[data-buy-bar] .whatsapp-float,
+  body[data-buy-bar] .toast-stack {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}

@@ -2,15 +2,17 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { MAIN_NAV } from '@/lib/nav';
+import type { NavGroup } from '@/lib/nav';
 import { CloseIcon } from '@/components/ui/Icons';
 
 interface Props {
+  /** Already filtered on the server — see Header. */
+  nav: NavGroup[];
   open: boolean;
   onClose: () => void;
 }
 
-export default function MobileNav({ open, onClose }: Props) {
+export default function MobileNav({ nav, open, onClose }: Props) {
   /* Lock body scroll and close on Escape while the drawer is open. */
   useEffect(() => {
     if (!open) return;
@@ -59,7 +61,7 @@ export default function MobileNav({ open, onClose }: Props) {
         </div>
 
         <nav aria-label="Mobile" className="flex-1 overflow-y-auto px-5 py-6">
-          {MAIN_NAV.map((group) => (
+          {nav.map((group) => (
             <div key={group.label} className="mb-7">
               <p className="mb-3 font-body text-2xs font-semibold uppercase tracking-[0.2em] text-subtle">
                 {group.label}

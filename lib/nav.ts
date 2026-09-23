@@ -26,7 +26,8 @@ export const TIER_LINKS: NavLink[] = [
     hint: 'Everything we build',
   },
   { label: 'Brass', href: '/collections/brass-championship-belts', hint: 'Entry tier' },
-  { label: 'Boxing', href: '/collections/boxing-championship-belts', hint: 'Round plate' },
+  // Boxing is a sport, not a metal, and it already sits under Shop by Sport.
+  // Listing it here too put the same page in two menus.
   { label: 'Zinc', href: '/collections/zinc-championship-belts', hint: 'Deep etched' },
   { label: '24K Gold', href: '/collections/24k-gold-championship-belts', hint: 'True plating' },
   { label: 'HD & CNC', href: '/collections/hd-cnc-championship-belts', hint: 'Machine cut' },

@@ -1,23 +1,37 @@
 import Link from 'next/link';
 import SectionHeading from '@/components/ui/SectionHeading';
 import EmptyState from '@/components/ui/EmptyState';
+import Button from '@/components/ui/Button';
 import ProductCard from '@/components/product/ProductCard';
-import { getFeaturedProducts } from '@/lib/products';
+import { getFeaturedProducts, getShopProducts } from '@/lib/products';
 import { ALL_BELTS_SLUG } from '@/lib/tiers';
 
+/** How many belts the homepage shows. The rest are one click away. */
+const HOMEPAGE_BELTS = 8;
+
 /**
- * The shop, on the homepage.
+ * A short selection of belts, directly under the hero.
  *
- * Shows the ENTIRE catalogue rather than a curated handful: a visitor should
- * be able to see everything we sell without a second click, which is the whole
- * point of putting products directly under the hero. Products flagged
- * `featured` sort to the front.
+ * This used to render the ENTIRE catalogue — and render it twice, once as a
+ * phone carousel and once as a desktop grid, with CSS hiding one of them. At 80
+ * belts that was 1.6 MB of HTML and about twenty rows of cards on desktop
+ * before a visitor reached anything else on the page. Showing everything is
+ * what the collection page is for; the homepage's job is a strong first
+ * impression and a clear way in.
  *
- * Mobile keeps the horizontal rail so a long catalogue does not turn into an
- * endless scroll on a phone.
+ * Which eight: belts ticked "Featured" in the admin panel come first, in their
+ * sort order. To choose the eight exactly, tick Featured on those and untick it
+ * on the rest.
+ *
+ * One list serves both layouts: a swipeable rail on phones, a grid from `sm`.
  */
 export default async function FeaturedBelts() {
-  const products = await getFeaturedProducts();
+  const [products, all] = await Promise.all([
+    getFeaturedProducts(HOMEPAGE_BELTS),
+    getShopProducts(),
+  ]);
+  const total = all.length;
+  const shopAll = `/collections/${ALL_BELTS_SLUG}`;
 
   return (
     <section className="border-t border-line py-16 sm:py-20" aria-labelledby="featured-title">
@@ -28,16 +42,16 @@ export default async function FeaturedBelts() {
           titleId="featured-title"
           intro={
             products.length > 0
-              ? `${products.length} builds ready to order, every one made in-house.`
+              ? `A few of the ${total} belts we build. Every one is made in-house.`
               : 'A rotating selection of builds ready to ship or reorder.'
           }
           action={
             products.length > 0 ? (
               <Link
-                href={`/collections/${ALL_BELTS_SLUG}`}
+                href={shopAll}
                 className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-link transition-colors hover:text-link-hover"
               >
-                Shop all belts →
+                Shop all {total} belts →
               </Link>
             ) : undefined
           }
@@ -51,19 +65,20 @@ export default async function FeaturedBelts() {
           />
         ) : (
           <>
-            {/* Mobile: rail. Scrolls inside itself, never the page. */}
-            <div className="rail -mx-4 mt-12 flex gap-4 px-4 sm:hidden">
+            {/* Phones: a rail that scrolls inside itself. sm and up: a grid. */}
+            <div className="rail -mx-4 mt-12 flex gap-4 px-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-10 sm:overflow-visible sm:px-0 lg:grid-cols-4">
               {products.map((p, i) => (
-                <ProductCard key={p.id} product={p} fixedWidth priority={i === 0} />
+                <ProductCard key={p.id} product={p} railOnMobile priority={i < 2} />
               ))}
             </div>
 
-            {/* Tablet and up: grid. */}
-            <div className="mt-12 hidden gap-x-5 gap-y-10 sm:grid sm:grid-cols-2 lg:grid-cols-4">
-              {products.map((p, i) => (
-                <ProductCard key={p.id} product={p} priority={i < 2} />
-              ))}
-            </div>
+            {total > products.length && (
+              <div className="mt-10 flex justify-center">
+                <Button href={shopAll} variant="secondary" size="lg">
+                  Shop all {total} belts
+                </Button>
+              </div>
+            )}
           </>
         )}
       </div>
