@@ -87,10 +87,11 @@ module.exports = {
     '/order-confirmation',
     '/reset-password',
     /*
-     * Policy pages are NOT excluded. They should be indexed once approved, and
-     * a sitemap exclusion here would be permanent. The draft state is handled
-     * where it belongs — the page itself sets noindex until
-     * site.policies.approved is true, so it corrects itself on approval.
+     * Policy pages are NOT excluded here. They should be indexed once approved,
+     * and an exclusion here would be permanent. The draft state is handled
+     * where it belongs: until site.policies.approved is true the page sets
+     * noindex AND is not pre-built (see app/policies/[slug]/page.tsx), which
+     * keeps it out of this sitemap. Both correct themselves on approval.
      *
      * NOTE: the SEO spec lists /track-order at priority 0.75. It is kept OUT
      * here on purpose: it is a thin form page with nothing unique to index, it

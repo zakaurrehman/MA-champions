@@ -8,7 +8,17 @@ interface Params {
   params: Promise<{ slug: string }>;
 }
 
+/**
+ * Policies are pre-built only once approved. That is also what keeps the
+ * drafts out of the sitemap, which next-sitemap builds from the pre-built
+ * routes — the same mechanism that keeps empty collections out. Listing a
+ * noindex page in the sitemap is a contradiction Search Console reports as
+ * "Submitted URL marked 'noindex'". The drafts still work if visited: they are
+ * rendered on demand, marked noindex, and enter the sitemap at the first deploy
+ * after `site.policies.approved` flips to true, with no other change needed.
+ */
 export function generateStaticParams() {
+  if (!site.policies.approved) return [];
   return POLICY_SLUGS.map((slug) => ({ slug }));
 }
 
