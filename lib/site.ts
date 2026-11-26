@@ -231,10 +231,9 @@ export const site: SiteConfig = {
     },
   ],
 
-  // Supplied by the client 2026-08-15. This is the PayPal account address that
-  // receives payment — it is NOT the site's public contact address, and must
-  // not be used as one.
-  paypalManual: { email: 'Arslanwaris72@gmail.com' },
+  // PayPal account address that receives payment — it is NOT the site's public
+  // contact address, and must not be used as one.
+  paypalManual: { email: 'yasirofficial01@gmail.com' },
 
   /**
    * Default warranty terms. A product can override with its own `warranty`.
